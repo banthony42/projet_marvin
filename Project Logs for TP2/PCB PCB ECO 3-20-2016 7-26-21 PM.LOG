@@ -1,0 +1,18 @@
+Removed Member From Class: ClassName=LED0 Member=R2
+Removed Member From Class: ClassName=LED1 Member=R2
+Removed Member From Class: ClassName=LED2 Member=R2
+Change Component Designator: OldDesignator=LED0 NewDesignator=LED3_LED0
+Change Component Designator: OldDesignator=LED1 NewDesignator=LED3_LED1
+Change Component Designator: OldDesignator=LED2 NewDesignator=LED3_LED2
+Change Component Designator: OldDesignator=LED3 NewDesignator=LED3_LED3
+Change Component Designator: OldDesignator=R2 NewDesignator=R2_LED0
+Change Component Designator: OldDesignator=R2 NewDesignator=R2_LED1
+Change Component Designator: OldDesignator=R2 NewDesignator=R2_LED2
+Change Component Designator: OldDesignator=R2 NewDesignator=R2_LED3
+Change Net Name : Old Net Name=NetD1_LED0_1 New Net Name=NetLED3_LED0_1
+Change Net Name : Old Net Name=NetD1_LED1_1 New Net Name=NetLED3_LED1_1
+Change Net Name : Old Net Name=NetD1_LED2_1 New Net Name=NetLED3_LED2_1
+Change Net Name : Old Net Name=NetD1_LED3_1 New Net Name=NetLED3_LED3_1
+Added Member To Class: ClassName=LED0 Member=Component R2_LED0 (R2) 330r
+Added Member To Class: ClassName=LED1 Member=Component R2_LED1 (R2) 330r
+Added Member To Class: ClassName=LED2 Member=Component R2_LED2 (R2) 330r
