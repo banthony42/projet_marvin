@@ -15,7 +15,10 @@ u16 timer1_default_period = 62500 / 10; // Frequence de 10 hertz pour le timer 1
 u16 timer2_default_period = 62500 / 50; // Frequence de 50 hertz pour le PWM
 u16 timer2_1ms_ref = 62500 / 1000; // Periode de 1ms
 u16 timer2_2ms_ref = 62500 / 500;
+u16 len;
 u8 pwm_way = 0;
+u8 debounce = 0;
+
 
 void __ISR(_TIMER_1_VECTOR, IPL5) timer1_handler(void)
 {
@@ -35,6 +38,39 @@ void __ISR(_TIMER_1_VECTOR, IPL5) timer1_handler(void)
     IFS0bits.T1IF = 0;
 }
 
+void __ISR(7, IPL5) btn_interrupt_handler()
+{
+ //   LATFbits.LATF1 = !LATFbits.LATF1;
+ //   IFS0bits.INT1IF = 0; // clear interrupt
+
+    LATEbits.LATE0 = 1;
+    asm volatile ("nop");
+    asm volatile ("nop");
+    asm volatile ("nop");
+    asm volatile ("nop");
+    asm volatile ("nop");
+    asm volatile ("nop");
+    /*
+    TMR1 = 0;
+    while (TMR1 < 1)
+        (void)TMR1;
+     * */
+   // stop++;
+   // stop++;
+    LATEbits.LATE0 = 0;
+    IFS0bits.INT1IF = 0;
+}
+
+void    __ISR(11, IPL6) echo_interrupt()
+{
+    len = 0;
+    TMR1 = 0;
+    LATFbits.LATF1 = !LATFbits.LATF1;
+    while (PORTDbits.RD9)
+        len = TMR1;
+    len /= 58;
+    IFS0bits.INT2IF = 0;
+}
 /*
 void __ISR(_OUTPUT_COMPARE_1_VECTOR, IPL17) testoutputcompare(void)
 {
@@ -43,14 +79,34 @@ void __ISR(_OUTPUT_COMPARE_1_VECTOR, IPL17) testoutputcompare(void)
 */
 int main()
 {
+    OSCCONbits.FRCDIV = 0;
+    trigger_setup();
     timer_setup();
-    testPin_setup();
-    interrupt_setup();
-    outputCompare_setup();
+    button_setup();
+   testPin_setup();
+    echo_setup();
+   interrupt_setup_button(); //interruption sur le btn RD8, ne pas utiliser les
+                             // fonctions d'interrupts em meme temps
+//   interrupt_setup();
+ //   outputCompare_setup();
     while (1)
     {
     }
     return (0);
+}
+
+void    echo_setup()
+{
+    IEC0bits.INT2IE = 0;  // enable interrupt INT2
+    TRISDbits.TRISD9 = 1; // INPUT echo sonar
+    IFS0bits.INT2IF = 0;  // clear flag
+    IPC2bits.INT2IP = 6;  // set priority level
+    INTCONbits.INT2EP = 1; // front montant
+    IEC0bits.INT2IE = 1;  // enable interrupt INT2
+}
+void button_setup()
+{
+    TRISDbits.TRISD8 = 1; // on configure le button comme input
 }
 
 void timer_setup(void)
@@ -61,6 +117,7 @@ void timer_setup(void)
     // Config du timer1
     T1CONbits.TCS = 0; // Le timer prend PBCLK comme source
     T1CONbits.TGATE = 0; // Ignore
+    T1CONbits.TCKPS = 0; // Prescaler a 1
     TMR1 = 0; // Reset du timer
     PR1 = timer1_default_period; // Pour obtenir une periode de 1 seconde
     T1CONbits.ON = 1; // On active le timer 1
@@ -73,6 +130,14 @@ void timer_setup(void)
     T2CONbits.ON = 1; // On active le timer 2
 }
 
+void interrupt_setup_button()
+{
+    INTCONbits.MVEC = 1;
+    IFS0bits.INT1IF = 0; // clear le flag d'interrupt;
+    IEC0bits.INT1IE = 1; // set inerrupt pour le button
+    IPC1bits.INT1IP = 5; // prorite de 5
+    __builtin_enable_interrupts(); // Ordonner au CPU de checker les interrupts
+}
 void interrupt_setup(void)
 {
     INTCONbits.MVEC = 1; // Interrupt controller en mode multi-vector
@@ -95,4 +160,10 @@ void outputCompare_setup(void)
     OC1CONbits.OCTSEL = 0; // On utilise le timer 2
     OC1RS = 62500 / 700;
     OC1CONbits.ON = 1; // OC1 actif
+}
+
+void trigger_setup(void)
+{
+    LATEbits.LATE0 = 0; // Pin trigger a 0
+    TRISEbits.TRISE0 = 0; // output
 }
