@@ -11,38 +11,39 @@
 
 // 1s = 62500 ticks
 
-u16 timer1_default_period = 62500 / 10; // Frequence de 10 hertz pour le timer 1
-u16 timer2_default_period = 62500 / 50; // Frequence de 50 hertz pour le PWM
-u16 timer2_1ms_ref = 62500 / 1000; // Periode de 1ms
-u16 timer2_2ms_ref = 62500 / 500;
+u16 servo_pulse_min = 500; // Duty Cycle de 0.5ms
+u16 servo_pulse_max = 2500; // Duty Cycle de 2.5ms
 u16 len;
 u8 pwm_way = 0;
 u8 debounce = 0;
 
-
-void __ISR(_TIMER_1_VECTOR, IPL5) timer1_handler(void)
+/*
+ * Contexte : test du servo
+ * Cet interrupt incremente ou decremente l'angle du servo a chaque periode
+ * du timer 1. Une fois en butee, on change le sens de rotation via la
+ * variable pwm_way
+ *
+ */
+void __ISR(_TIMER_4_VECTOR, IPL5) timer4_handler(void)
 {
 //    LATFbits.LATF1 = !LATFbits.LATF1;
     if (pwm_way)
         OC1RS++;
     else if (!pwm_way)
         OC1RS--;
-    if (OC1RS == timer2_1ms_ref || OC1RS == timer2_2ms_ref)
+    if (OC1RS == servo_pulse_min || OC1RS == servo_pulse_max)
     {
-        if (pwm_way == 0)
-        {
-            OC1RS = 62500 / 1000 ;
-        }
         pwm_way = !pwm_way;
     }
-    IFS0bits.T1IF = 0;
+    IFS0bits.T4IF = 0;
 }
 
+/*
+ *
+ * Cet interrupt envoie une impulsion de 10us sur le pin E0
+ */
 void __ISR(7, IPL5) btn_interrupt_handler()
 {
- //   LATFbits.LATF1 = !LATFbits.LATF1;
- //   IFS0bits.INT1IF = 0; // clear interrupt
-
     LATEbits.LATE0 = 1;
     asm volatile ("nop");
     asm volatile ("nop");
@@ -50,13 +51,7 @@ void __ISR(7, IPL5) btn_interrupt_handler()
     asm volatile ("nop");
     asm volatile ("nop");
     asm volatile ("nop");
-    /*
-    TMR1 = 0;
-    while (TMR1 < 1)
-        (void)TMR1;
-     * */
-   // stop++;
-   // stop++;
+
     LATEbits.LATE0 = 0;
     IFS0bits.INT1IF = 0;
 }
@@ -79,20 +74,40 @@ void __ISR(_OUTPUT_COMPARE_1_VECTOR, IPL17) testoutputcompare(void)
 */
 int main()
 {
-    OSCCONbits.FRCDIV = 0;
-    trigger_setup();
-    timer_setup();
-    button_setup();
-   testPin_setup();
-    echo_setup();
-   interrupt_setup_button(); //interruption sur le btn RD8, ne pas utiliser les
-                             // fonctions d'interrupts em meme temps
-//   interrupt_setup();
- //   outputCompare_setup();
+    allinone_servo_test();
+
     while (1)
     {
     }
     return (0);
+}
+
+
+/*
+ * Routine d'initialisation pour test du servo.
+ * Utilise l'interrupt du timer 1 pour faire varier la position du servo
+ * au cours du temps
+ */
+void    allinone_servo_test(void)
+{
+    timer_4_setup();
+    timer_2_setup();
+    servo_0_setup();
+    interrupt_master_setup();
+    interrupt_timer4_setup();
+}
+
+
+void    allinone_sonar_test(void)
+{
+    trigger_setup();
+    button_setup();
+    testPin_setup();
+    echo_setup();
+    interrupt_master_setup();
+    //  interrupt_setup_button(); //interruption sur le btn RD8, ne pas utiliser les
+                             // fonctions d'interrupts en meme temps
+    //   interrupt_setup();
 }
 
 void    echo_setup()
@@ -104,46 +119,74 @@ void    echo_setup()
     INTCONbits.INT2EP = 1; // front montant
     IEC0bits.INT2IE = 1;  // enable interrupt INT2
 }
+
 void button_setup()
 {
     TRISDbits.TRISD8 = 1; // on configure le button comme input
 }
 
-void timer_setup(void)
+/*
+ * Config du timer 1 (1 MHz), 16 bits
+ */
+void timer_1_setup(void)
 {
-    // Note : les configbits sont configures de maniere a obtenir 62500 tick
-    // de l'oscillateur interne par seconde
-
-    // Config du timer1
     T1CONbits.TCS = 0; // Le timer prend PBCLK comme source
     T1CONbits.TGATE = 0; // Ignore
     T1CONbits.TCKPS = 0; // Prescaler a 1
     TMR1 = 0; // Reset du timer
-    PR1 = timer1_default_period; // Pour obtenir une periode de 1 seconde
+//    PR1 = timer1_default_period; // Pour obtenir une periode de 1 seconde
     T1CONbits.ON = 1; // On active le timer 1
+}
 
-    // Config du timer2 (utilise pour le PWM)
-//    T2CONbits. = 0; // Le timer prend PBCLK comme source
+/*
+ * Config du timer 4 (62,5 kHz), 16 bits
+ * 62 500 ticks pour 1 seconde
+ */
+void timer_4_setup(void)
+{
+    T4CONbits.TGATE = 0; // Ignore
+    T4CONbits.TCKPS = 4; // Prescaler a 16
+    TMR4 = 0; // Reset du timer
+    PR4 = 200; // Pour obtenir une periode de 1 seconde
+    T4CONbits.ON = 1; // On active le timer 4
+}
+
+/*
+ * Config du timer 2 (utilise pour le PWM, 1MHz), 16 bits
+ * La periode du signal PWM ne doit pas depasser 20ms
+ */
+void timer_2_setup(void)
+{
     T2CONbits.TGATE = 0; // Ignore
+    T2CONbits.TCKPS = 0; // Prescaler a 1
     TMR2 = 0; // Reset du timer
-    PR2 = timer2_default_period; // Pour obtenir une periode de 1 seconde
+    PR2 = 19000; // Periode de 19 ms (+1) pour le signal PWM
     T2CONbits.ON = 1; // On active le timer 2
 }
 
-void interrupt_setup_button()
+void interrupt_button_setup(void)
 {
-    INTCONbits.MVEC = 1;
-    IFS0bits.INT1IF = 0; // clear le flag d'interrupt;
-    IEC0bits.INT1IE = 1; // set inerrupt pour le button
+    IFS0bits.INT1IF = 0; // clear le flag d'interrupt
     IPC1bits.INT1IP = 5; // prorite de 5
-    __builtin_enable_interrupts(); // Ordonner au CPU de checker les interrupts
+    IEC0bits.INT1IE = 1; // Activer  l'interrupt pour le button
 }
-void interrupt_setup(void)
+
+/*
+ * Utilise pour faire varier l'angle du servo au cours du temps
+ */
+void interrupt_timer4_setup(void)
+{
+    IPC4bits.T4IP = 5; // Prio pour le timer4
+    IFS0bits.T4IF = 0; // clear le flag d'interrupt
+    IEC0bits.T4IE = 1; // Activer l'interrupt pour le timer 4
+}
+
+/*
+ * Appeler cette fonction pour activer les interrupts au niveau du CPU
+ */
+void interrupt_master_setup(void)
 {
     INTCONbits.MVEC = 1; // Interrupt controller en mode multi-vector
-    IEC0bits.T1IE = 1; // Activer l'interrupt pour le timer 1
-    IPC1bits.T1IP = 5; // Prio pour le timer1
-    IFS0bits.T1IF = 0; // Interrupt flag du timer 1 a 0 (au cas ou)
     __builtin_enable_interrupts(); // Ordonner au CPU de checker les interrupts
 }
 
@@ -153,12 +196,15 @@ void testPin_setup(void)
     TRISFbits.TRISF1 = 0; // On configure le pin de la led de test comme output
 }
 
-void outputCompare_setup(void)
+/*
+ * Cette fonction initialise le pin OC1/RD0 pour l'utilisation d'un servomoteur
+ */
+void servo_0_setup(void)
 {
     OC1CONbits.ON = 0; // OC1 off, on peut modifier les registres
     OC1CONbits.OCM = 6; // OC1 en mode PWM
-    OC1CONbits.OCTSEL = 0; // On utilise le timer 2
-    OC1RS = 62500 / 700;
+    OC1CONbits.OCTSEL = 0; // On utilise le timer 2 (a 1MHz)
+    OC1RS = 1500; // Duty Cycle initialise a 1.5 ms
     OC1CONbits.ON = 1; // OC1 actif
 }
 
