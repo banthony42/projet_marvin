@@ -9,7 +9,11 @@
 #include <sys/attribs.h>
 #include "types.h"
 
-// 1s = 62500 ticks
+/*
+ * Configuration :
+ * - Frequence CPU = 8MHz
+ * - Frequence peripheriques = 1MHZ
+ */
 
 u16 servo_pulse_min = 500; // Duty Cycle de 0.5ms
 u16 servo_pulse_max = 2500; // Duty Cycle de 2.5ms
@@ -74,18 +78,32 @@ void __ISR(_OUTPUT_COMPARE_1_VECTOR, IPL17) testoutputcompare(void)
 */
 int main()
 {
-    allinone_servo_test();
-
+    u16 input_value;
+//    allinone_servo_test();
+//    allinone_sonar_test();
+    allinone_IR_test();
     while (1)
     {
+
+        input_value = PORTBbits.RB5;
     }
     return (0);
+}
+
+/*
+ * Routine d'imitialisation pout lecture de la valeur analogique du
+ * pin Vout du capteur IR sur le pin RB4
+ * Test realise pour module Sharp GP2Y0A02YK0F
+ */
+void    allinone_IR_test(void)
+{
+    sharp_pin_setup();
 }
 
 
 /*
  * Routine d'initialisation pour test du servo.
- * Utilise l'interrupt du timer 1 pour faire varier la position du servo
+ * Utilise l'interrupt du timer 4 pour faire varier la position du servo
  * au cours du temps
  */
 void    allinone_servo_test(void)
@@ -118,6 +136,18 @@ void    echo_setup()
     IPC2bits.INT2IP = 6;  // set priority level
     INTCONbits.INT2EP = 1; // front montant
     IEC0bits.INT2IE = 1;  // enable interrupt INT2
+}
+
+/*
+ * Configuration du pin de lecture de la valeur renvoyee par le capteur IR Sharp
+ * Note : il faut configurer le mode des pins ANx via le registre AD1PCFG (ADC)
+ * pour pouvoir les utiliser en analogique ou en numerique
+ */
+void sharp_pin_setup()
+{
+    LATBbits.LATB5 = 0;
+    AD1PCFGbits.PCFG5 = 0; // RB5 en mode analogique
+    TRISBbits.TRISB5 = 1; // RB5 en input
 }
 
 void button_setup()
