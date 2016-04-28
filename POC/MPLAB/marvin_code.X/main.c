@@ -20,6 +20,24 @@ u16 servo_pulse_max = 2500; // Duty Cycle de 2.5ms
 u16 len;
 u8 pwm_way = 0;
 u8 debounce = 0;
+u16 input_value;
+u16 uart_rx = 0;
+
+
+/*
+ * Lecture de la tension du Sharp IR via l'utilisation de l'ADC en mode manuel
+ */
+u16 analogReadIR(void)
+{
+    AD1CON1bits.SAMP = 1; // On lance le sampling
+    TMR4 = 0;
+    while (TMR4 < 6250) // On attend 100 ms
+        ;
+    AD1CON1bits.SAMP = 0; // On lance la conversion
+    while (!(AD1CON1 && 0x0001)); // On attend la fin de la conversion
+    return (ADC1BUF0);
+}
+
 
 /*
  * Contexte : test du servo
@@ -78,15 +96,55 @@ void __ISR(_OUTPUT_COMPARE_1_VECTOR, IPL17) testoutputcompare(void)
 */
 int main()
 {
-    u16 input_value;
 //    allinone_servo_test();
 //    allinone_sonar_test();
-    allinone_IR_test();
+//    allinone_IR_test();
+    allinone_UART_test();
+    return (0);
+}
+
+/*
+ * Test du module UART en loopback
+ */
+void    allinone_UART_test(void)
+{
+    button_setup();
+    testPin_setup();
+    uart_setup();
+
+//    U1TXREG = 42; // On inscrit le char 'A' dans le buffer de transmission
+//    uart_rx = U1RXREG;
+
     while (1)
     {
-        input_value = analogReadIR();
+        if (PORTDbits.RD8 == 0)
+        {
+            LATFbits.LATF1 = 1;
+        }
+        else
+        {
+           LATFbits.LATF1 = 0;
+           U1TXREG = 42; // On ecrit dans le buffer de transmission
+           uart_rx = U1RXREG;
+           while (PORTDbits.RD8 == 1);
+        }
     }
-    return (0);
+}
+
+void    uart_setup(void)
+{
+    /*
+     * On regle le baud rate
+     */
+    U1MODEbits.BRGH = 1; // High-speed mode
+    U1BRG = (1000000 / (4 * 9600)) - 1; // Calcul pour obtenir un baud rate de
+                                         // 9600 avec un PBCLK a 1MHz
+
+    U1MODEbits.PDSEL = 0; // 8 bits de data, pas de parite
+    U1MODEbits.STSEL = 0; // 1 bit de stop
+    U1STAbits.UTXEN = 1; // On active le transmetteur (Tx)
+    U1STAbits.URXEN = 1; // On active le recepteur (Rx)
+    U1MODEbits.ON = 1; // Module UART actif
 }
 
 /*
@@ -99,6 +157,10 @@ void    allinone_IR_test(void)
     sharp_pin_setup();
     timer_4_setup();
     PR4 = 10000;
+    while (1)
+    {
+        input_value = analogReadIR();
+    }
 }
 
 
@@ -273,17 +335,3 @@ void trigger_setup(void)
     TRISEbits.TRISE0 = 0; // output
 }
 
-
-/*
- * Lecture de la tension du Sharp IR via l'utilisation de l'ADC en mode manuel
- */
-u16 analogReadIR(void)
-{
-    AD1CON1bits.SAMP = 1; // On lance le sampling
-    TMR4 = 0;
-    while (TMR4 < 6250) // On attend 100 ms
-        ;
-    AD1CON1bits.SAMP = 0; // On lance la conversion
-    while (!(AD1CON1 && 0x0001)); // On attend la fin de la conversion
-    return (ADC1BUF0);
-}
