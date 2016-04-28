@@ -9,6 +9,7 @@
 #include <sys/attribs.h>
 #include "types.h"
 
+
 /*
  * Configuration :
  * - Frequence CPU = 8MHz
@@ -21,7 +22,7 @@ u16 len;
 u8 pwm_way = 0;
 u8 debounce = 0;
 u16 input_value;
-u16 uart_rx = 0;
+u32 uart_rx = 0;
 
 
 /*
@@ -108,26 +109,61 @@ int main()
  */
 void    allinone_UART_test(void)
 {
+    s8 i = -1;
+    u8 j = 42;
     button_setup();
     testPin_setup();
     uart_setup();
-
+    timer_4_setup();
+    PR4 = 62500;
+    u8 test[20];
+    u8 nbr = 0;
 //    U1TXREG = 42; // On inscrit le char 'A' dans le buffer de transmission
 //    uart_rx = U1RXREG;
 
     while (1)
     {
-        if (PORTDbits.RD8 == 0)
+        if (nbr == 20)
+            nbr = 0;
+       while (U1STAbits.URXDA && nbr < 20)
+       {
+            //uart_rx = U1RXREG;
+           test[nbr++] = U1RXREG;
+          //  asm volatile ("");
+          //(void)uart_rx;
+       }
+
+
+        if (PORTDbits.RD8 == 1)
         {
             LATFbits.LATF1 = 1;
         }
         else
         {
+            char surprise[50] = "surprise";
            LATFbits.LATF1 = 0;
-           U1TXREG = 42; // On ecrit dans le buffer de transmission
-           uart_rx = U1RXREG;
-           while (PORTDbits.RD8 == 1);
+           /*
+           while (++i < 10)
+           {
+            U1TXREG = j; // On ecrit dans le buffer de transmission
+            j++;
+            TMR4 = 0;
+            while(TMR4 < 50);
+           }
+            */
+           int kkk = 0;
+           while (surprise[kkk] && kkk < 40)
+           {
+                U1TXREG = surprise[kkk];
+                TMR4 = 0;
+                while (TMR4 < 50);
+               ++kkk;
+           }
+           i = -1;
+           j = 42;
+           while(!PORTDbits.RD8);
         }
+        U1STAbits.OERR = 0;
     }
 }
 
