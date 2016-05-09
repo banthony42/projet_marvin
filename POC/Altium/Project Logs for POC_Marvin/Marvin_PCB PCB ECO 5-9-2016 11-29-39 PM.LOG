@@ -1,0 +1,30 @@
+Added Component: Designator=PIC1(PIC32MX340F512H)
+Added Pin To Net: NetName=NetICSP1_1 Pin=PIC1-7
+Added Pin To Net: NetName=NetC5_1 Pin=PIC1-9
+Added Pin To Net: NetName=NetC3_2 Pin=PIC1-10
+Added Pin To Net: NetName=NetPIC1_12 Pin=PIC1-12
+Added Pin To Net: NetName=NetPIC1_13 Pin=PIC1-13
+Added Pin To Net: NetName=NetIR1_3 Pin=PIC1-14
+Added Pin To Net: NetName=NetICSP1_5 Pin=PIC1-17
+Added Pin To Net: NetName=NetICSP1_4 Pin=PIC1-18
+Added Pin To Net: NetName=3V3MAIN Pin=PIC1-19
+Added Pin To Net: NetName=GND Pin=PIC1-20
+Added Pin To Net: NetName=NetC4_1 Pin=PIC1-25
+Added Pin To Net: NetName=NetC4_2 Pin=PIC1-26
+Added Pin To Net: NetName=NetPIC1_33 Pin=PIC1-33
+Added Pin To Net: NetName=NetPIC1_34 Pin=PIC1-34
+Added Pin To Net: NetName=NetC5_2 Pin=PIC1-38
+Added Pin To Net: NetName=NetC3_1 Pin=PIC1-41
+Added Pin To Net: NetName=NetPIC1_42 Pin=PIC1-42
+Added Pin To Net: NetName=NetPIC1_43 Pin=PIC1-43
+Added Pin To Net: NetName=NetPIC1_46 Pin=PIC1-46
+Added Pin To Net: NetName=NetPIC1_49 Pin=PIC1-49
+Added Pin To Net: NetName=NetPIC1_50 Pin=PIC1-50
+Added Pin To Net: NetName=LED DIM 0 Pin=PIC1-51
+Added Pin To Net: NetName=LED DIM 1 Pin=PIC1-52
+Added Pin To Net: NetName=NetPIC1_54 Pin=PIC1-54
+Added Pin To Net: NetName=NetPIC1_55 Pin=PIC1-55
+Added Pin To Net: NetName=NetC2_2 Pin=PIC1-56
+Added Pin To Net: NetName=NetPIC1_60 Pin=PIC1-60
+Added Pin To Net: NetName=NetPIC1_61 Pin=PIC1-61
+Added Member To Class: ClassName=U_PIC Member=Component PIC1 PIC32MX340F512H

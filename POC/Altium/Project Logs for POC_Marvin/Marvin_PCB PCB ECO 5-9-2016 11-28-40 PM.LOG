@@ -1,0 +1,15 @@
+Change Component Designator: OldDesignator=IR? NewDesignator=IR1
+Change Component Designator: OldDesignator=LED?_U_LED_V31 NewDesignator=LED1_U_LED_V31
+Change Component Designator: OldDesignator=LED?_U_LED_V32 NewDesignator=LED1_U_LED_V32
+Change Component Designator: OldDesignator=Pot?_U_Potard1 NewDesignator=Pot1_U_Potard1
+Change Component Designator: OldDesignator=Pot?_U_Potard2 NewDesignator=Pot1_U_Potard2
+Change Component Designator: OldDesignator=RPi? NewDesignator=RPi1
+Change Component Designator: OldDesignator=Servo?_U_Servo1 NewDesignator=Servo1_U_Servo1
+Change Component Designator: OldDesignator=Servo?_U_Servo2 NewDesignator=Servo1_U_Servo2
+Change Component Designator: OldDesignator=Servo?_U_Servo3 NewDesignator=Servo1_U_Servo3
+Change Component Designator: OldDesignator=Sonar?_U_Sonar1 NewDesignator=Sonar1_U_Sonar1
+Change Component Designator: OldDesignator=Sonar?_U_Sonar2 NewDesignator=Sonar1_U_Sonar2
+Change Net Name : Old Net Name=NetPot?_U_Potard1_2 New Net Name=NetPot1_U_Potard1_2
+Change Net Name : Old Net Name=NetPot?_U_Potard2_2 New Net Name=NetPot1_U_Potard2_2
+Added Pin To Net: NetName=NetIR1_3 Pin=IR1-3
+Added Net: Name=NetIR1_3
