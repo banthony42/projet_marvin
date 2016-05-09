@@ -1,0 +1,188 @@
+Added Component: Designator=*1(IR SENSOR CONNECTOR)
+Added Component: Designator=*2(POTARD CONNECTOR)
+Added Component: Designator=*3(RPI CONNECTOR)
+Added Component: Designator=*4(SERVO CONNECTOR)
+Added Component: Designator=*5(SONAR CONNECTOR)
+Added Component: Designator=*6(LEDS CONNECTOR)
+Added Component: Designator=1(3216 / 1206)
+Added Component: Designator=C1(1608 / 0603)
+Added Component: Designator=C2(1608 / 0603)
+Added Component: Designator=C3(1608 / 0603)
+Added Component: Designator=C4(1608 / 0603)
+Added Component: Designator=C5(1608 / 0603)
+Added Component: Designator=C6(1608 / 0603)
+Added Component: Designator=C7(1608 / 0603)
+Added Component: Designator=C8(1608 / 0603)
+Added Component: Designator=C9(1608 / 0603)
+Added Component: Designator=D1(SMA/DO-214AC_21)
+Added Component: Designator=D2(DIODE ZENER)
+Added Component: Designator=F1(3216 / 1206)
+Added Component: Designator=ICSP1(HDR1X6)
+Added Component: Designator=J1(RAPC712BK)
+Added Component: Designator=K1(PE014005)
+Added Component: Designator=PIC1(PIC32MX340F512H)
+Added Component: Designator=Q1(SOT23)
+Added Component: Designator=Q2(SOT23)
+Added Component: Designator=R1(1608 / 0603)
+Added Component: Designator=R2(1608 / 0603)
+Added Component: Designator=R3(1608 / 0603)
+Added Component: Designator=R4(1608 / 0603)
+Added Component: Designator=R5(1608 / 0603)
+Added Component: Designator=R6(1608 / 0603)
+Added Component: Designator=R7(1608 / 0603)
+Added Component: Designator=R8(1608 / 0603)
+Added Component: Designator=R9(1608 / 0603)
+Added Component: Designator=R10(1608 / 0603)
+Added Component: Designator=RESET1(GULLWING)
+Added Component: Designator=VR1(SOT-223)
+Added Pin To Net: NetName=GND Pin=*1-1
+Added Pin To Net: NetName=SENSOR VCC Pin=*1-2
+Added Pin To Net: NetName=Net*1_3 Pin=*1-3
+Added Pin To Net: NetName=GND Pin=*2-1
+Added Pin To Net: NetName=Net*2_2 Pin=*2-2
+Added Pin To Net: NetName=Net*2_3 Pin=*2-3
+Added Pin To Net: NetName=Net*3_1 Pin=*3-1
+Added Pin To Net: NetName=Net*3_2 Pin=*3-2
+Added Pin To Net: NetName=GND Pin=*3-3
+Added Pin To Net: NetName=GND Pin=*4-1
+Added Pin To Net: NetName=SERVO VCC Pin=*4-2
+Added Pin To Net: NetName=Net*4_3 Pin=*4-3
+Added Pin To Net: NetName=SENSOR VCC Pin=*5-1
+Added Pin To Net: NetName=Net*5_2 Pin=*5-2
+Added Pin To Net: NetName=Net*5_3 Pin=*5-3
+Added Pin To Net: NetName=GND Pin=*5-4
+Added Pin To Net: NetName=GND Pin=*6-1
+Added Pin To Net: NetName=5VMAIN Pin=*6-2
+Added Pin To Net: NetName=Net*6_3 Pin=*6-3
+Added Pin To Net: NetName=Net1_1 Pin=1-1
+Added Pin To Net: NetName=GND Pin=1-2
+Added Pin To Net: NetName=NetC1_1 Pin=C1-1
+Added Pin To Net: NetName=NetC1_2 Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C2-1
+Added Pin To Net: NetName=NetC2_2 Pin=C2-2
+Added Pin To Net: NetName=NetC3_1 Pin=C3-1
+Added Pin To Net: NetName=NetC3_2 Pin=C3-2
+Added Pin To Net: NetName=NetC4_1 Pin=C4-1
+Added Pin To Net: NetName=NetC4_2 Pin=C4-2
+Added Pin To Net: NetName=NetC5_1 Pin=C5-1
+Added Pin To Net: NetName=NetC5_2 Pin=C5-2
+Added Pin To Net: NetName=GND Pin=C6-1
+Added Pin To Net: NetName=3V3MAIN Pin=C6-2
+Added Pin To Net: NetName=GND Pin=C7-1
+Added Pin To Net: NetName=SERVO VCC Pin=C7-2
+Added Pin To Net: NetName=GND Pin=C8-1
+Added Pin To Net: NetName=3V3MAIN Pin=C8-2
+Added Pin To Net: NetName=GND Pin=C9-1
+Added Pin To Net: NetName=3V3MAIN Pin=C9-2
+Added Pin To Net: NetName=NetD1_1 Pin=D1-1
+Added Pin To Net: NetName=5VMAIN Pin=D1-2
+Added Pin To Net: NetName=GND Pin=D2-1
+Added Pin To Net: NetName=5VMAIN Pin=D2-2
+Added Pin To Net: NetName=5VIN Pin=F1-1
+Added Pin To Net: NetName=5VMAIN Pin=F1-2
+Added Pin To Net: NetName=NetICSP1_1 Pin=ICSP1-1
+Added Pin To Net: NetName=3V3MAIN Pin=ICSP1-2
+Added Pin To Net: NetName=GND Pin=ICSP1-3
+Added Pin To Net: NetName=NetICSP1_4 Pin=ICSP1-4
+Added Pin To Net: NetName=NetICSP1_5 Pin=ICSP1-5
+Added Pin To Net: NetName=5VIN Pin=J1-1
+Added Pin To Net: NetName=GND Pin=J1-2
+Added Pin To Net: NetName=5VMAIN Pin=K1-11
+Added Pin To Net: NetName=SERVO VCC Pin=K1-14
+Added Pin To Net: NetName=5VMAIN Pin=K1-A1
+Added Pin To Net: NetName=NetD1_1 Pin=K1-A2
+Added Pin To Net: NetName=NetICSP1_1 Pin=PIC1-7
+Added Pin To Net: NetName=NetC5_1 Pin=PIC1-9
+Added Pin To Net: NetName=NetC3_2 Pin=PIC1-10
+Added Pin To Net: NetName=NetPIC1_12 Pin=PIC1-12
+Added Pin To Net: NetName=NetPIC1_13 Pin=PIC1-13
+Added Pin To Net: NetName=NetPIC1_14 Pin=PIC1-14
+Added Pin To Net: NetName=NetICSP1_5 Pin=PIC1-17
+Added Pin To Net: NetName=NetICSP1_4 Pin=PIC1-18
+Added Pin To Net: NetName=3V3MAIN Pin=PIC1-19
+Added Pin To Net: NetName=GND Pin=PIC1-20
+Added Pin To Net: NetName=NetC4_1 Pin=PIC1-25
+Added Pin To Net: NetName=NetC4_2 Pin=PIC1-26
+Added Pin To Net: NetName=NetPIC1_33 Pin=PIC1-33
+Added Pin To Net: NetName=NetPIC1_34 Pin=PIC1-34
+Added Pin To Net: NetName=NetC5_2 Pin=PIC1-38
+Added Pin To Net: NetName=NetC3_1 Pin=PIC1-41
+Added Pin To Net: NetName=NetPIC1_42 Pin=PIC1-42
+Added Pin To Net: NetName=NetPIC1_43 Pin=PIC1-43
+Added Pin To Net: NetName=NetPIC1_46 Pin=PIC1-46
+Added Pin To Net: NetName=NetPIC1_49 Pin=PIC1-49
+Added Pin To Net: NetName=NetPIC1_50 Pin=PIC1-50
+Added Pin To Net: NetName=NetPIC1_51 Pin=PIC1-51
+Added Pin To Net: NetName=NetPIC1_52 Pin=PIC1-52
+Added Pin To Net: NetName=NetPIC1_54 Pin=PIC1-54
+Added Pin To Net: NetName=NetPIC1_55 Pin=PIC1-55
+Added Pin To Net: NetName=NetC2_2 Pin=PIC1-56
+Added Pin To Net: NetName=SENSOR VCC Pin=Q1-1
+Added Pin To Net: NetName=NetQ1_2 Pin=Q1-2
+Added Pin To Net: NetName=5VMAIN Pin=Q1-3
+Added Pin To Net: NetName=NetQ2_1 Pin=Q2-1
+Added Pin To Net: NetName=GND Pin=Q2-2
+Added Pin To Net: NetName=NetD1_1 Pin=Q2-3
+Added Pin To Net: NetName=NetC1_2 Pin=R1-1
+Added Pin To Net: NetName=3V3MAIN Pin=R1-2
+Added Pin To Net: NetName=NetC1_2 Pin=R2-1
+Added Pin To Net: NetName=NetICSP1_1 Pin=R2-2
+Added Pin To Net: NetName=GND Pin=R3-1
+Added Pin To Net: NetName=NetC1_1 Pin=R3-2
+Added Pin To Net: NetName=NetR4_1 Pin=R4-1
+Added Pin To Net: NetName=5VMAIN Pin=R4-2
+Added Pin To Net: NetName=Net*2_2 Pin=R5-1
+Added Pin To Net: NetName=NetR4_1 Pin=R5-2
+Added Pin To Net: NetName=5VMAIN Pin=R6-2
+Added Pin To Net: NetName=GND Pin=R7-1
+Added Pin To Net: NetName=NetQ2_1 Pin=R7-2
+Added Pin To Net: NetName=Net1_1 Pin=R8-1
+Added Pin To Net: NetName=3V3MAIN Pin=R8-2
+Added Pin To Net: NetName=GND Pin=R9-1
+Added Pin To Net: NetName=Net*5_3 Pin=R9-2
+Added Pin To Net: NetName=GND Pin=R10-1
+Added Pin To Net: NetName=Net*5_2 Pin=R10-2
+Added Pin To Net: NetName=GND Pin=RESET1-1
+Added Pin To Net: NetName=GND Pin=RESET1-1
+Added Pin To Net: NetName=NetC1_2 Pin=RESET1-2
+Added Pin To Net: NetName=NetC1_2 Pin=RESET1-2
+Added Pin To Net: NetName=5VMAIN Pin=VR1-1
+Added Pin To Net: NetName=GND Pin=VR1-2
+Added Pin To Net: NetName=3V3MAIN Pin=VR1-3
+Added Member To Class: ClassName=IrSensor Member=Component *1 IR_Connector
+Added Member To Class: ClassName=Potard Member=Component *2 Potard_Connector
+Added Member To Class: ClassName=RPI Member=Component *3 RPi_Connector
+Added Member To Class: ClassName=Servo Member=Component *4 Servo_Connector
+Added Member To Class: ClassName=Sonar Member=Component *5 Sonar_Connector
+Added Member To Class: ClassName=LED_V3 Member=Component *6 Leds_Connector
+Added Member To Class: ClassName=Regul Member=Component 1 
+Added Member To Class: ClassName=PIC Member=Component C1 Cap
+Added Member To Class: ClassName=PIC Member=Component C2 Cap
+Added Member To Class: ClassName=PIC Member=Component C3 Cap
+Added Member To Class: ClassName=PIC Member=Component C4 Cap
+Added Member To Class: ClassName=PIC Member=Component C5 Cap
+Added Member To Class: ClassName=PIC Member=Component C6 Cap
+Added Member To Class: ClassName=Power_v2 Member=Component C7 Cap
+Added Member To Class: ClassName=Regul Member=Component C8 Cap
+Added Member To Class: ClassName=Regul Member=Component C9 Cap
+Added Member To Class: ClassName=Power_v2 Member=Component D1 Diode GF1A
+Added Member To Class: ClassName=Regul Member=Component D2 D Zener 1N5338BRLG
+Added Member To Class: ClassName=Regul Member=Component F1 MCPFP 5A 125V
+Added Member To Class: ClassName=PIC Member=Component ICSP1 
+Added Member To Class: ClassName=Regul Member=Component J1 PWR2.5
+Added Member To Class: ClassName=Power_v2 Member=Component K1 Relay-SPDT G5V-1
+Added Member To Class: ClassName=PIC Member=Component PIC1 PIC32MX340F512H
+Added Member To Class: ClassName=Power_v2 Member=Component Q1 MOSFET-P ZVP2106A
+Added Member To Class: ClassName=Power_v2 Member=Component Q2 MOSFET-N 2N7002K
+Added Member To Class: ClassName=PIC Member=Component R1 Res1
+Added Member To Class: ClassName=PIC Member=Component R2 Res1
+Added Member To Class: ClassName=PIC Member=Component R3 0r
+Added Member To Class: ClassName=Potard Member=Component R4 Res1
+Added Member To Class: ClassName=Potard Member=Component R5 Res1
+Added Member To Class: ClassName=Power_v2 Member=Component R6 Res1
+Added Member To Class: ClassName=Power_v2 Member=Component R7 Res1
+Added Member To Class: ClassName=Regul Member=Component R8 Res1
+Added Member To Class: ClassName=Sonar Member=Component R9 Res1
+Added Member To Class: ClassName=Sonar Member=Component R10 Res1
+Added Member To Class: ClassName=PIC Member=Component RESET1 SW-PB
+Added Member To Class: ClassName=Regul Member=Component VR1 Regul LD1117S33TR

@@ -1,0 +1,61 @@
+Removed Pin From Net: NetName=5VMAIN Pin=K1-11
+Removed Pin From Net: NetName=SERVO VCC Pin=K1-14
+Removed Pin From Net: NetName=5VMAIN Pin=K1-A1
+Removed Pin From Net: NetName=NetD1_1 Pin=K1-A2
+Removed Pin From Net: NetName=GND Pin=Q2-2
+Removed Pin From Net: NetName=NetD1_1 Pin=Q2-3
+Change Component Footprint: Designator=R1 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R2 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R3 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R4 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R5 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R6 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R7 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R8 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R9 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=R10 Old Footprint=1608 / 0603 New Footprint=AXIAL-0.3
+Change Component Footprint: Designator=C1 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=C2 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=C3 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=C4 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=C5 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=C6 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=C7 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=C8 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=C9 Old Footprint=1608 / 0603 New Footprint=RAD-0.3
+Change Component Footprint: Designator=1 Old Footprint=3216 / 1206 New Footprint=LED-0
+Change Component Footprint: Designator=F1 Old Footprint=3216 / 1206 New Footprint=PIN-W2/E2.8
+Change Component Footprint: Designator=D2 Old Footprint=DIODE ZENER New Footprint=DIODE-0.7
+Change Component Footprint: Designator=K1 Old Footprint=PE014005 New Footprint=MODULE5B
+Change Component Footprint: Designator=J1 Old Footprint=RAPC712BK New Footprint=KLD-0202
+Change Component Footprint: Designator=D1 Old Footprint=SMA/DO-214AC_21 New Footprint=SMC
+Change Component Footprint: Designator=Q1 Old Footprint=SOT23 New Footprint=E3
+Change Component Footprint: Designator=Q2 Old Footprint=SOT23 New Footprint=E3
+Change Component Footprint: Designator=VR1 Old Footprint=SOT-223 New Footprint=D2PAK_N
+Change Component Comment : Designator=ICSP1 Old Comment= New Comment=Header 6
+Change Component Comment : Designator=1 Old Comment= New Comment=LED0
+Change Component Comment : Designator=R3 Old Comment=0r New Comment=Res1
+Change Component Comment : Designator=D1 Old Comment=Diode GF1A New Comment=Diode
+Change Component Comment : Designator=D2 Old Comment=D Zener 1N5338BRLG New Comment=D Zener
+Change Component Comment : Designator=F1 Old Comment=MCPFP 5A 125V New Comment=Fuse 1
+Change Component Comment : Designator=Q2 Old Comment=MOSFET-N 2N7002K New Comment=MOSFET-N
+Change Component Comment : Designator=Q1 Old Comment=MOSFET-P ZVP2106A New Comment=MOSFET-P
+Change Component Comment : Designator=VR1 Old Comment=Regul LD1117S33TR New Comment=Volt Reg
+Change Component Comment : Designator=K1 Old Comment=Relay-SPDT G5V-1 New Comment=Relay-SPDT
+Added Pin To Net: NetName=5VIN Pin=J1-1A
+Added Pin To Net: NetName=5VIN Pin=J1-1B
+Added Pin To Net: NetName=GND Pin=J1-2A
+Added Pin To Net: NetName=GND Pin=J1-2B
+Added Pin To Net: NetName=5VMAIN Pin=K1-1
+Added Pin To Net: NetName=SERVO VCC Pin=K1-3
+Added Pin To Net: NetName=5VMAIN Pin=K1-4
+Added Pin To Net: NetName=NetD1_1 Pin=K1-5
+Added Pin To Net: NetName=NetD1_1 Pin=Q2-1
+Added Pin To Net: NetName=GND Pin=Q2-3
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3A
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3B
+Added Net: Name=NetJ1_3
+Added Pin To Net: NetName=NetQ2_2 Pin=Q2-2
+Added Pin To Net: NetName=NetQ2_2 Pin=R7-2
+Added Net: Name=NetQ2_2

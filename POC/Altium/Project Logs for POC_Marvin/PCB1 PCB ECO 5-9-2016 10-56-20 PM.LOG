@@ -1,0 +1,108 @@
+Removed Pin From Net: NetName=GND Pin=LED1-1
+Removed Pin From Net: NetName=5VMAIN Pin=LED1-2
+Removed Pin From Net: NetName=GND Pin=Pot1-1
+Removed Pin From Net: NetName=5VMAIN Pin=R4-2
+Removed Pin From Net: NetName=GND Pin=R9-1
+Removed Pin From Net: NetName=GND Pin=R10-1
+Removed Pin From Net: NetName=GND Pin=Servo1-1
+Removed Pin From Net: NetName=SERVO VCC Pin=Servo1-2
+Removed Pin From Net: NetName=SENSOR VCC Pin=Sonar1-1
+Removed Pin From Net: NetName=GND Pin=Sonar1-4
+Added Component: Designator=LED1_U_LED_V31(LEDS CONNECTOR)
+Added Component: Designator=LED1_U_LED_V32(LEDS CONNECTOR)
+Added Component: Designator=Pot1_U_Potard1(POTARD CONNECTOR)
+Added Component: Designator=Pot1_U_Potard2(POTARD CONNECTOR)
+Added Component: Designator=R4_U_Potard1(1608 / 0603)
+Added Component: Designator=R4_U_Potard2(1608 / 0603)
+Added Component: Designator=R5_U_Potard1(1608 / 0603)
+Added Component: Designator=R5_U_Potard2(1608 / 0603)
+Added Component: Designator=R9_U_Sonar1(1608 / 0603)
+Added Component: Designator=R9_U_Sonar2(1608 / 0603)
+Added Component: Designator=R10_U_Sonar1(1608 / 0603)
+Added Component: Designator=R10_U_Sonar2(1608 / 0603)
+Added Component: Designator=Servo1_U_Servo1(SERVO CONNECTOR)
+Added Component: Designator=Servo1_U_Servo2(SERVO CONNECTOR)
+Added Component: Designator=Servo1_U_Servo3(SERVO CONNECTOR)
+Added Component: Designator=Sonar1_U_Sonar1(SONAR CONNECTOR)
+Added Component: Designator=Sonar1_U_Sonar2(SONAR CONNECTOR)
+Added Pin To Net: NetName=GND Pin=LED1_U_LED_V31-1
+Added Pin To Net: NetName=5VMAIN Pin=LED1_U_LED_V31-2
+Added Pin To Net: NetName=GND Pin=LED1_U_LED_V32-1
+Added Pin To Net: NetName=5VMAIN Pin=LED1_U_LED_V32-2
+Added Pin To Net: NetName=NetIR1_3 Pin=PIC1-14
+Added Pin To Net: NetName=GND Pin=Pot1_U_Potard1-1
+Added Pin To Net: NetName=NetPIC1_12 Pin=Pot1_U_Potard1-3
+Added Pin To Net: NetName=GND Pin=Pot1_U_Potard2-1
+Added Pin To Net: NetName=NetPIC1_13 Pin=Pot1_U_Potard2-3
+Added Pin To Net: NetName=5VMAIN Pin=R4_U_Potard1-2
+Added Pin To Net: NetName=5VMAIN Pin=R4_U_Potard2-2
+Added Pin To Net: NetName=GND Pin=R9_U_Sonar1-1
+Added Pin To Net: NetName=NetPIC1_43 Pin=R9_U_Sonar1-2
+Added Pin To Net: NetName=GND Pin=R9_U_Sonar2-1
+Added Pin To Net: NetName=NetPIC1_42 Pin=R9_U_Sonar2-2
+Added Pin To Net: NetName=GND Pin=R10_U_Sonar1-1
+Added Pin To Net: NetName=NetPIC1_55 Pin=R10_U_Sonar1-2
+Added Pin To Net: NetName=GND Pin=R10_U_Sonar2-1
+Added Pin To Net: NetName=NetPIC1_54 Pin=R10_U_Sonar2-2
+Added Pin To Net: NetName=NetPIC1_34 Pin=RPi1-1
+Added Pin To Net: NetName=NetPIC1_33 Pin=RPi1-2
+Added Pin To Net: NetName=GND Pin=Servo1_U_Servo1-1
+Added Pin To Net: NetName=SERVO VCC Pin=Servo1_U_Servo1-2
+Added Pin To Net: NetName=NetPIC1_50 Pin=Servo1_U_Servo1-3
+Added Pin To Net: NetName=GND Pin=Servo1_U_Servo2-1
+Added Pin To Net: NetName=SERVO VCC Pin=Servo1_U_Servo2-2
+Added Pin To Net: NetName=NetPIC1_49 Pin=Servo1_U_Servo2-3
+Added Pin To Net: NetName=GND Pin=Servo1_U_Servo3-1
+Added Pin To Net: NetName=SERVO VCC Pin=Servo1_U_Servo3-2
+Added Pin To Net: NetName=NetPIC1_46 Pin=Servo1_U_Servo3-3
+Added Pin To Net: NetName=SENSOR VCC Pin=Sonar1_U_Sonar1-1
+Added Pin To Net: NetName=NetPIC1_55 Pin=Sonar1_U_Sonar1-2
+Added Pin To Net: NetName=NetPIC1_43 Pin=Sonar1_U_Sonar1-3
+Added Pin To Net: NetName=GND Pin=Sonar1_U_Sonar1-4
+Added Pin To Net: NetName=SENSOR VCC Pin=Sonar1_U_Sonar2-1
+Added Pin To Net: NetName=NetPIC1_54 Pin=Sonar1_U_Sonar2-2
+Added Pin To Net: NetName=NetPIC1_42 Pin=Sonar1_U_Sonar2-3
+Added Pin To Net: NetName=GND Pin=Sonar1_U_Sonar2-4
+Added Pin To Net: NetName=NetLED1_U_LED_V31_3 Pin=LED1_U_LED_V31-3
+Added Pin To Net: NetName=NetLED1_U_LED_V31_3 Pin=PIC1-52
+Added Net: Name=NetLED1_U_LED_V31_3
+Added Pin To Net: NetName=NetLED1_U_LED_V32_3 Pin=LED1_U_LED_V32-3
+Added Pin To Net: NetName=NetLED1_U_LED_V32_3 Pin=PIC1-51
+Added Net: Name=NetLED1_U_LED_V32_3
+Added Pin To Net: NetName=NetPIC1_60 Pin=PIC1-60
+Added Pin To Net: NetName=NetPIC1_60 Pin=Q2-1
+Added Pin To Net: NetName=NetPIC1_60 Pin=R7-2
+Added Net: Name=NetPIC1_60
+Added Pin To Net: NetName=NetPIC1_61 Pin=PIC1-61
+Added Pin To Net: NetName=NetPIC1_61 Pin=Q1-2
+Added Net: Name=NetPIC1_61
+Added Pin To Net: NetName=NetPot1_U_Potard1_2 Pin=Pot1_U_Potard1-2
+Added Pin To Net: NetName=NetPot1_U_Potard1_2 Pin=R5_U_Potard1-1
+Added Net: Name=NetPot1_U_Potard1_2
+Added Pin To Net: NetName=NetPot1_U_Potard2_2 Pin=Pot1_U_Potard2-2
+Added Pin To Net: NetName=NetPot1_U_Potard2_2 Pin=R5_U_Potard2-1
+Added Net: Name=NetPot1_U_Potard2_2
+Added Pin To Net: NetName=NetR4_U_Potard1_1 Pin=R4_U_Potard1-1
+Added Pin To Net: NetName=NetR4_U_Potard1_1 Pin=R5_U_Potard1-2
+Added Net: Name=NetR4_U_Potard1_1
+Added Pin To Net: NetName=NetR4_U_Potard2_1 Pin=R4_U_Potard2-1
+Added Pin To Net: NetName=NetR4_U_Potard2_1 Pin=R5_U_Potard2-2
+Added Net: Name=NetR4_U_Potard2_1
+Change Class Name : Old Net Name=IrSensor New Net Name=U_IrSensor
+Change Class Name : Old Net Name=PIC New Net Name=U_PIC
+Change Class Name : Old Net Name=Power_v2 New Net Name=U_Power_v2
+Change Class Name : Old Net Name=Regul New Net Name=U_Regul
+Change Class Name : Old Net Name=RPI New Net Name=U_RPI
+Added Class: Name=U_LED_V31
+Added Class: Name=U_LED_V32
+Added Class: Name=U_Potard1
+Added Class: Name=U_Potard2
+Added Class: Name=U_Servo1
+Added Class: Name=U_Servo2
+Added Class: Name=U_Servo3
+Added Class: Name=U_Sonar1
+Added Class: Name=U_Sonar2
+Added Class: Name=LED_V3
+Added Class: Name=Potard
+Added Class: Name=Servo
+Added Class: Name=Sonar

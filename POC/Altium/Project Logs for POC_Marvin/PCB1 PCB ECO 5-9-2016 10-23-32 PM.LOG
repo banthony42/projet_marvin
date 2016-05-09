@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=5VMAIN Pin=K1-11
+Removed Pin From Net: NetName=SERVO VCC Pin=K1-14
+Removed Pin From Net: NetName=5VMAIN Pin=K1-A1
+Removed Pin From Net: NetName=NetD1_1 Pin=K1-A2
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3
+Added Net: Name=NetJ1_3
