@@ -54,6 +54,23 @@ GenerateClassCluster=0
 DocumentUniqueId=VTIEQJXV
 
 [Document2]
+DocumentPath=Marvin_global.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=FEFCSHEF
+
+[Document3]
 DocumentPath=Servo.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -70,7 +87,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=GRLRUMIF
 
-[Document3]
+[Document4]
 DocumentPath=Sonar.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -87,7 +104,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=AXBWHORM
 
-[Document4]
+[Document5]
 DocumentPath=IrSensor.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -104,7 +121,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=GAYKVXHB
 
-[Document5]
+[Document6]
 DocumentPath=RPI.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -121,7 +138,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=VMWFWIVB
 
-[Document6]
+[Document7]
 DocumentPath=PIC.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -137,23 +154,6 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=IRNECMMK
-
-[Document7]
-DocumentPath=..\..\..\Electro_TP2\Marvin.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=NVNAEMBF
 
 [Document8]
 DocumentPath=Power_v2.SchDoc
