@@ -1,0 +1,4 @@
+Added Pin To Net: NetName=SERVO VCC Pin=K1-11
+Added Pin To Net: NetName=5VMAIN Pin=K1-12
+Added Pin To Net: NetName=NetD1_1 Pin=K1-A1
+Added Pin To Net: NetName=5VMAIN Pin=K1-A2
