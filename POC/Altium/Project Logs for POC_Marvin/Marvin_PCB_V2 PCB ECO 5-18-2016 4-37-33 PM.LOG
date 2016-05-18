@@ -1,0 +1,22 @@
+Removed Member From Class: ClassName=U_Sonar1 Member=R6
+Removed Member From Class: ClassName=U_Sonar1 Member=R7
+Change Component Designator: OldDesignator=J1_IR NewDesignator=J1
+Change Component Designator: OldDesignator=J2_Pot_Pitch NewDesignator=J2_U_Potard2
+Change Component Designator: OldDesignator=J2_Pot_Yaw NewDesignator=J2_U_Potard1
+Change Component Designator: OldDesignator=J4_RPi NewDesignator=J4
+Change Component Designator: OldDesignator=J6_Sonar0 NewDesignator=J6_U_Sonar1
+Change Component Designator: OldDesignator=J6_Sonar1 NewDesignator=J6_U_Sonar2
+Change Component Designator: OldDesignator=J7_LED_Left NewDesignator=J7_U_LED_V31
+Change Component Designator: OldDesignator=J7_LED_Right NewDesignator=J7_U_LED_V32
+Change Component Designator: OldDesignator=R6 NewDesignator=R6_U_Sonar1
+Change Component Designator: OldDesignator=R6 NewDesignator=R6_U_Sonar2
+Change Component Designator: OldDesignator=R7 NewDesignator=R7_U_Sonar1
+Change Component Designator: OldDesignator=R7 NewDesignator=R7_U_Sonar2
+Added Component: Designator=R8(1608 / 0603)
+Added Pin To Net: NetName=GND Pin=R8-1
+Added Pin To Net: NetName=VBUS Pin=R8-2
+Added Pin To Net: NetName=VBUS Pin=U1-15
+Added Net: Name=VBUS
+Added Member To Class: ClassName=U_Sonar1 Member=Component R6_U_Sonar1 (R6) 1K
+Added Member To Class: ClassName=U_Sonar1 Member=Component R7_U_Sonar1 (R7) 1K
+Added Member To Class: ClassName=U_PIC Member=Component R8 10K
