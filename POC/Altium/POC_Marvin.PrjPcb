@@ -308,6 +308,10 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=KBKSVITI
 
+[GeneratedDocument1]
+DocumentPath=Project Outputs for POC_Marvin\Design Rule Check - Marvin_PCB_v3.html
+DItemRevisionGUID=
+
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0
