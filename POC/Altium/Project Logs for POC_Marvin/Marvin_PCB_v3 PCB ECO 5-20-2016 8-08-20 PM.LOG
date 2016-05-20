@@ -1,0 +1,11 @@
+Added Member To Class: ClassName=U_IrSensor Member=Component J1 IR_Connector
+Added Member To Class: ClassName=U_Potard1 Member=Component J2_U_Potard1 (J2) Potard_Connector
+Added Member To Class: ClassName=U_Potard2 Member=Component J2_U_Potard2 (J2) Potard_Connector
+Added Member To Class: ClassName=U_RPI Member=Component J4 RPi_Connector
+Added Member To Class: ClassName=U_Servo1 Member=Component J5_U_Servo1 (J5) Servo_Connector
+Added Member To Class: ClassName=U_Servo2 Member=Component J5_U_Servo2 (J5) Servo_Connector
+Added Member To Class: ClassName=U_Servo3 Member=Component J5_U_Servo3 (J5) Servo_Connector
+Added Member To Class: ClassName=U_Sonar1 Member=Component J6_U_Sonar1 (J6) Sonar_Connector
+Added Member To Class: ClassName=U_Sonar2 Member=Component J6_U_Sonar2 (J6) Sonar_Connector
+Added Member To Class: ClassName=U_LED_V31 Member=Component J7_U_LED_V31 (J7) Leds_Connector
+Added Member To Class: ClassName=U_LED_V32 Member=Component J7_U_LED_V32 (J7) Leds_Connector

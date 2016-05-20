@@ -1,0 +1,25 @@
+Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~POC_Marvin.PrjPcb|ReportField=ProjectFullPath~C:\Users\bocal\Documents\projet_marvin\POC\Altium\POC_Marvin.PrjPcb|ReportField=Title~Bill of Materials For PCB Document [Marvin_PCB_v3.PcbDoc]|ReportField=TotalQuantity~41|ReportField=ReportTime~8:16:39 PM|ReportField=ReportDate~5/20/2016|ReportField=ReportDateTime~5/20/2016 8:16:39 PM|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=DataSourceFileName~Marvin_PCB_v3.PcbDoc|ReportField=DataSourceFullPath~C:\Users\bocal\Documents\projet_marvin\POC\Altium\Marvin_PCB_v3.PcbDoc
+100nF|Capacitor|C1, C3, C4|1608 / 0603|Cap|3
+10uF|Capacitor|C2|1608 / 0603|Cap|1
+470uF|Capacitor|C5, C6|CONDO_D_10mm|Cap|2
+10uF|Capacitor|C7, C8|CONDO_D_5MM|Cap|2
+Cap|Capacitor|C9|1608 / 0603|Cap|1
+GF1A|Default Diode|D1|SMA/DO-214AC_21|Diode|1
+D Zener 1N5338BRLG|Zener Diode|D2|DIODE ZENER|D Zener|1
+|Green LED|D3|3216 / 1206|LED0|1
+MCPFP 5A 125V|Fuse|F1|3216 / 1206|Fuse 1|1
+IR_Connector|Female Embase 3 contacts|J1|IR SENSOR CONNECTOR|IR_Connector|1
+Potard_Connector|Female Embase 3 contacts|J2_U_Potard1, J2_U_Potard2|POTARD CONNECTOR|Potard_Connector|2
+PWR2.5|Jack Connector|J3|RAPC712BK|PWR2.5|1
+RPi_Connector|Female Embase 3 contacts|J4|RPI CONNECTOR|RPi_Connector|1
+Servo_Connector|Female Embase 3 contacts|J5_U_Servo1, J5_U_Servo2, J5_U_Servo3|SERVO CONNECTOR|Servo_Connector|3
+Sonar_Connector|Female Embase 4 contacts|J6_U_Sonar1, J6_U_Sonar2|SONAR CONNECTOR|Sonar_Connector|2
+Leds_Connector|Female Embase 3 contacts|J7_U_LED_V31, J7_U_LED_V32|LEDS CONNECTOR|Leds_Connector|2
+Relay-SPDT G5V-1|Relay|K1|PE014005|Relay-SPDT|1
+|Header, 6-Pin|P1|RJ11|Header 6|1
+MOSFET-P ZVP2106A|P-Channel MOSFET|Q1|SOT23|MOSFET-P|1
+MOSFET-N 2N7002K|N-Channel MOSFET|Q2|SOT23|MOSFET-N|1
+10K|Resistor|R1, R8|1608 / 0603|Res1|2
+1K|Resistor|R2, R3, R4, R5, R6_U_Sonar1, R6_U_Sonar2, R7_U_Sonar1, R7_U_Sonar2|1608 / 0603|Res1|8
+PIC32MX270F256B|PIC32MX270F256B|U1|SOIC28|PIC32MX270F256B|1
+Regul LD1117S33TR|Voltage Regulator|U2|SOT-223|Volt Reg|1

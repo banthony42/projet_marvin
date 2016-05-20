@@ -1,0 +1,31 @@
+Change Component Comment : Designator=D1 Old Comment=Diode GF1A New Comment=GF1A
+Change Component Designator: OldDesignator=J1_IR NewDesignator=J1
+Change Component Designator: OldDesignator=J2_P1 NewDesignator=J2_U_Potard1
+Change Component Designator: OldDesignator=J2_P2 NewDesignator=J2_U_Potard2
+Change Component Designator: OldDesignator=J4_RPI NewDesignator=J4
+Change Component Designator: OldDesignator=J5_SERV1 NewDesignator=J5_U_Servo1
+Change Component Designator: OldDesignator=J5_SERV2 NewDesignator=J5_U_Servo2
+Change Component Designator: OldDesignator=J5_SERV3 NewDesignator=J5_U_Servo3
+Change Component Designator: OldDesignator=J6_S1 NewDesignator=J6_U_Sonar1
+Change Component Designator: OldDesignator=J6_S2 NewDesignator=J6_U_Sonar2
+Change Component Designator: OldDesignator=J7_LED1 NewDesignator=J7_U_LED_V31
+Change Component Designator: OldDesignator=J7_LED2 NewDesignator=J7_U_LED_V32
+Change Component Designator: OldDesignator=R6_S1 NewDesignator=R6_U_Sonar1
+Change Component Designator: OldDesignator=R6_S2 NewDesignator=R6_U_Sonar2
+Change Component Designator: OldDesignator=R7_S1 NewDesignator=R7_U_Sonar1
+Change Component Designator: OldDesignator=R7_S2 NewDesignator=R7_U_Sonar2
+Change Component Description : Designator=J1 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J2_U_Potard1 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J2_U_Potard2 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J4 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J5_U_Servo1 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J5_U_Servo2 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J5_U_Servo3 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J7_U_LED_V31 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J7_U_LED_V32 Old Description= New Description=Female Embase 3 contacts
+Change Component Description : Designator=J6_U_Sonar1 Old Description= New Description=Female Embase 4 contacts
+Change Component Description : Designator=J6_U_Sonar2 Old Description= New Description=Female Embase 4 contacts
+Change Component Description : Designator=U1 Old Description= New Description=PIC32MX270F256B
+Change Component Description : Designator=J3 Old Description=Low Voltage Power Supply Connector New Description=Jack Connector
+Change Component Description : Designator=K1 Old Description=Single-Pole Dual-Throw Relay New Description=Relay
+Change Component Description : Designator=D3 Old Description=Typical INFRARED GaAs LED New Description=Green LED
