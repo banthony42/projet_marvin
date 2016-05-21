@@ -308,10 +308,6 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=KBKSVITI
 
-[GeneratedDocument1]
-DocumentPath=Project Outputs for POC_Marvin\BOM\Bill of Materials-POC_Marvin.xlsx
-DItemRevisionGUID=
-
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0

@@ -1,0 +1,23 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: Marvin_PCB_v3.PcbDoc   5/21/2016  3:12:44 PM
+---------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : NC Drill Files-RoundHoles.TXT
+ASCII SlotHoles File : NC Drill Files-SlotHoles.TXT
+
+Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        0.7112mm (28mil)         Round          12               133.55 mm (5.26 Inch)
+T2        0.8mm (31.496mil)        Slot           2                7209.14 mm (283.82 Inch)
+T3        1mm (39.37mil)           Round          8                82.20 mm (3.24 Inch)
+T4        1mm (39.37mil)           Slot           1                7208.89 mm (283.81 Inch)
+T5        1.1mm (43.307mil)        Round          40               222.95 mm (8.78 Inch)
+T6        1.3mm (51.181mil)        Round          5                31.60 mm (1.24 Inch)
+T7        1.1mm (43.307mil)        Round          1         NPTH   0.00 mm (0.00 Inch)
+T8        3.25mm (127.953mil)      Round          2         NPTH   10.16 mm (0.40 Inch)
+T9        4mm (157.48mil)          Round          4         NPTH   219.02 mm (8.62 Inch)
+---------------------------------------------------------------------------
+Totals                                            75               15117.50 mm (595.18 Inch)
+
+Total Processing Time (hh:mm:ss) : 00:00:00

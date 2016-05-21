@@ -1,9 +1,14 @@
+Project Outputs Generation Report
+---------------------------------
+Start Output Generation At 3:18:20 PM On 5/21/2016
+
 Output: Bill of Materials
 Type  : BOM
-From  : Variant [[No Variations]] of Project [POC_Marvin.PrjPcb]
+From  : Project [POC_Marvin.PrjPcb]
+   Generated File[Bill of Materials.xlsx]
 
 
-Files Generated   : 0
+Files Generated   : 1
 Documents Printed : 0
 
-Finished Output Generation At 8:22:12 PM On 5/20/2016
+Finished Output Generation At 3:18:34 PM On 5/21/2016
