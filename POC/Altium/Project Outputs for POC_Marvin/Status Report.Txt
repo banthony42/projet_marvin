@@ -1,14 +1,22 @@
-Project Outputs Generation Report
----------------------------------
-Start Output Generation At 3:18:20 PM On 5/21/2016
+Output: Gerber Files
+Type  : Gerber
+From  : PCB Document [Marvin_PCB_v3.PcbDoc]
+   Generated File[Marvin_PCB_v3.GTL]
+   Generated File[Marvin_PCB_v3.GBL]
+   Generated File[Marvin_PCB_v3.GTO]
+   Generated File[Marvin_PCB_v3.GTP]
+   Generated File[Marvin_PCB_v3.GTS]
+   Generated File[Marvin_PCB_v3.GBS]
+   Generated File[Marvin_PCB_v3.GBP]
+   Generated File[Marvin_PCB_v3.GBO]
+   Generated File[Marvin_PCB_v3.GKO]
+   Generated File[Marvin_PCB_v3.GM32]
+   Generated File[Marvin_PCB_v3.RUL]
+   Generated File[Marvin_PCB_v3.EXTREP]
+   Generated File[Marvin_PCB_v3.REP]
 
-Output: Bill of Materials
-Type  : BOM
-From  : Project [POC_Marvin.PrjPcb]
-   Generated File[Bill of Materials.xlsx]
 
-
-Files Generated   : 1
+Files Generated   : 13
 Documents Printed : 0
 
-Finished Output Generation At 3:18:34 PM On 5/21/2016
+Finished Output Generation At 11:20:43 AM On 5/24/2016

@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=
+OutputPath=Project Outputs for POC_Marvin
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -308,6 +308,86 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=KBKSVITI
 
+[GeneratedDocument1]
+DocumentPath=Project Outputs for POC_Marvin\Bill of Materials\Bill of Materials.xlsx
+DItemRevisionGUID=
+
+[GeneratedDocument2]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3-BoardEdgeRout.TXT
+DItemRevisionGUID=
+
+[GeneratedDocument3]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3-RoundHoles.TXT
+DItemRevisionGUID=
+
+[GeneratedDocument4]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3-SlotHoles.TXT
+DItemRevisionGUID=
+
+[GeneratedDocument5]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.DRR
+DItemRevisionGUID=
+
+[GeneratedDocument6]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.EXTREP
+DItemRevisionGUID=
+
+[GeneratedDocument7]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GBL
+DItemRevisionGUID=
+
+[GeneratedDocument8]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GBO
+DItemRevisionGUID=
+
+[GeneratedDocument9]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GBP
+DItemRevisionGUID=
+
+[GeneratedDocument10]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GBS
+DItemRevisionGUID=
+
+[GeneratedDocument11]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GKO
+DItemRevisionGUID=
+
+[GeneratedDocument12]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GM32
+DItemRevisionGUID=
+
+[GeneratedDocument13]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GTL
+DItemRevisionGUID=
+
+[GeneratedDocument14]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GTO
+DItemRevisionGUID=
+
+[GeneratedDocument15]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GTP
+DItemRevisionGUID=
+
+[GeneratedDocument16]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.GTS
+DItemRevisionGUID=
+
+[GeneratedDocument17]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.LDP
+DItemRevisionGUID=
+
+[GeneratedDocument18]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.REP
+DItemRevisionGUID=
+
+[GeneratedDocument19]
+DocumentPath=Project Outputs for POC_Marvin\PCB\Marvin_PCB_v3.RUL
+DItemRevisionGUID=
+
+[GeneratedDocument20]
+DocumentPath=Project Outputs for POC_Marvin\Pick and Place\Pick and Place.csv
+DItemRevisionGUID=
+
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0
@@ -319,7 +399,7 @@ GenerateBOM=1
 OutputJobsCount=0
 
 [Generic_EDE]
-OutputDir=
+OutputDir=Project Outputs for POC_Marvin
 
 [OutputGroup1]
 Name=Netlist Outputs

@@ -1,10 +1,10 @@
 ---------------------------------------------------------------------------
-NCDrill File Report For: Marvin_PCB_v3.PcbDoc   5/21/2016  3:12:44 PM
+NCDrill File Report For: Marvin_PCB_v3.PcbDoc   5/24/2016  11:20:42 AM
 ---------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
-ASCII RoundHoles File : NC Drill Files-RoundHoles.TXT
-ASCII SlotHoles File : NC Drill Files-SlotHoles.TXT
+ASCII RoundHoles File : Marvin_PCB_v3-RoundHoles.TXT
+ASCII SlotHoles File : Marvin_PCB_v3-SlotHoles.TXT
 
 Tool         Hole Size           Hole Type     Hole Count Plated       Tool Travel
 ---------------------------------------------------------------------------
