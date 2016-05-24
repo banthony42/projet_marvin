@@ -1,0 +1,26 @@
+Removed Member From Class: ClassName=U_LED_V31 Member=L Eye LED
+Removed Member From Class: ClassName=U_Potard1 Member=L Pot
+Removed Member From Class: ClassName=U_Sonar1 Member=R6
+Removed Member From Class: ClassName=U_Sonar1 Member=R7
+Change Component Comment : Designator=D3 Old Comment=* New Comment=SSL-LX5093GD
+Change Component Comment : Designator=P1 Old Comment= New Comment=RJ11 Debug
+Change Component Comment : Designator=C9 Old Comment=Cap New Comment=100nF
+Change Component Designator: OldDesignator=IR Sensor NewDesignator=J1
+Change Component Designator: OldDesignator=L Eye LED NewDesignator=J7_U_LED_V32
+Change Component Designator: OldDesignator=L Pot NewDesignator=J2_U_Potard2
+Change Component Designator: OldDesignator=L Sonar NewDesignator=J6_U_Sonar2
+Change Component Designator: OldDesignator=Pitch Servo NewDesignator=J5_U_Servo2
+Change Component Designator: OldDesignator=R6 NewDesignator=R6_U_Sonar1
+Change Component Designator: OldDesignator=R6 NewDesignator=R6_U_Sonar2
+Change Component Designator: OldDesignator=R7 NewDesignator=R7_U_Sonar1
+Change Component Designator: OldDesignator=R7 NewDesignator=R7_U_Sonar2
+Change Component Designator: OldDesignator=R Eye LED NewDesignator=J7_U_LED_V31
+Change Component Designator: OldDesignator=RPi NewDesignator=J4
+Change Component Designator: OldDesignator=R Pot NewDesignator=J2_U_Potard1
+Change Component Designator: OldDesignator=R Sonar NewDesignator=J6_U_Sonar1
+Change Component Designator: OldDesignator=Scan Servo NewDesignator=J5_U_Servo3
+Change Component Designator: OldDesignator=Yaw Servo NewDesignator=J5_U_Servo1
+Added Member To Class: ClassName=U_Potard1 Member=Component J2_U_Potard1 (J2) Potard_Connector
+Added Member To Class: ClassName=U_LED_V31 Member=Component J7_U_LED_V31 (J7) Leds_Connector
+Added Member To Class: ClassName=U_Sonar1 Member=Component R6_U_Sonar1 (R6) 1K
+Added Member To Class: ClassName=U_Sonar1 Member=Component R7_U_Sonar1 (R7) 1K

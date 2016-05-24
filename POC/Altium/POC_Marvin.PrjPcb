@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=Project Outputs for POC_Marvin
+OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -190,23 +190,6 @@ GenerateClassCluster=0
 DocumentUniqueId=PTUTONJY
 
 [Document10]
-DocumentPath=Project Outputs for POC_Marvin\Job1.OutJob
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document11]
 DocumentPath=MarvinPcbLib2.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -223,7 +206,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=CVEXJEMH
 
-[Document12]
+[Document11]
 DocumentPath=Potard.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -240,7 +223,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=HDYFOHSO
 
-[Document13]
+[Document12]
 DocumentPath=LED_V3.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -257,7 +240,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SMNVLGCF
 
-[Document14]
+[Document13]
 DocumentPath=Marvin_PCB.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -274,7 +257,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=WJTXWFMP
 
-[Document15]
+[Document14]
 DocumentPath=Marvin_PCB_V2.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -291,7 +274,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=QRRFFHGP
 
-[Document16]
+[Document15]
 DocumentPath=Marvin_PCB_v3.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -399,7 +382,7 @@ GenerateBOM=1
 OutputJobsCount=0
 
 [Generic_EDE]
-OutputDir=Project Outputs for POC_Marvin
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs
