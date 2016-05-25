@@ -1,0 +1,21 @@
+Output: Gerber Files
+Type  : Gerber
+From  : PCB Document [Marvin_PCB_v3.PcbDoc]
+   Generated File[Marvin_PCB_v3.GTL]
+   Generated File[Marvin_PCB_v3.GBL]
+   Generated File[Marvin_PCB_v3.GTO]
+   Generated File[Marvin_PCB_v3.GTP]
+   Generated File[Marvin_PCB_v3.GTS]
+   Generated File[Marvin_PCB_v3.GBS]
+   Generated File[Marvin_PCB_v3.GBP]
+   Generated File[Marvin_PCB_v3.GBO]
+   Generated File[Marvin_PCB_v3.GKO]
+   Generated File[Marvin_PCB_v3.RUL]
+   Generated File[Marvin_PCB_v3.EXTREP]
+   Generated File[Marvin_PCB_v3.REP]
+
+
+Files Generated   : 12
+Documents Printed : 0
+
+Finished Output Generation At 16:39:37 On 25/05/2016
