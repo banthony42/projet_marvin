@@ -1,3 +1,5 @@
+#include <Servo.h>
+
 
 /*
  * Prototype projet marvin
@@ -9,8 +11,9 @@
 #define E_S2 6
 #define T_S1 9
 #define T_S2 7
+#define SERVO 11
 
-
+Servo servo1; // objet servo
 void setup() {
   //Init du Button
    pinMode(BUTTON, INPUT);
@@ -26,6 +29,9 @@ void setup() {
    digitalWrite(T_S2, LOW);
    pinMode(E_S1, INPUT);
    pinMode(E_S2, INPUT);   
+   //I11nit su servo
+  // pinMode(SERVO, OUTPUT);
+  servo1.attach(11);
 }
 
 /*
@@ -133,9 +139,20 @@ void loop() {
 // test du button
   if (digitalRead(BUTTON) == HIGH)
   {
-    int test = capture_sonar(E_S1, T_S1);
-    Serial.print("Valeur median des captures prises");
-    Serial.println(test);
+    int s1, s2 = 0;
+    s1 = capture_sonar(E_S1, T_S1);
+    s2 = capture_sonar(E_S2, T_S2);
+    if (s1 > s2)
+    {
+       Serial.println("a gauche");
+      servo1.write(0);
+      // tourner le servo a gauche
+    }else
+    {
+      Serial.println("a droite");
+      servo1.write(180);
+      //tourner le servo a droite
+    }
     //test du sonar2
      delay(500);
   }
