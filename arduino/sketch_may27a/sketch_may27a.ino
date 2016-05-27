@@ -5,8 +5,11 @@
 
 #define BUTTON 5
 #define LED 13
-#define E_S1
-#define E_S2
+#define E_S1 8
+#define E_S2 6
+#define T_S1 9
+#define T_S2 7
+
 
 void setup() {
   //Init du Button
@@ -15,7 +18,14 @@ void setup() {
    pinMode(LED, OUTPUT);
    digitalWrite(LED, HIGH);
    //Init du baud rate du monitor
-   Serial.begin(9600); 
+   Serial.begin(9600);
+   //Init des Sonars
+   pinMode(T_S1, OUTPUT); 
+   pinMode(T_S2, OUTPUT);
+   digitalWrite(T_S1, LOW);
+   digitalWrite(T_S2, LOW);
+   pinMode(E_S1, INPUT);
+   pinMode(E_S2, INPUT);   
 }
 
 /*
@@ -24,6 +34,7 @@ void setup() {
  * Param2: taille du tableau
  * Param3 valeur a inserer
  */
+ 
 void  tri_insertion(int *tab, int size, int valeur)
 {
   int *pos;
@@ -59,12 +70,42 @@ void  tri_insertion(int *tab, int size, int valeur)
 int   calcul_median(int *tab, int size)
 {
   int index;
+  int nbrzero = 0;
 
-  index = (size + 1) / 2;
-  if ((size + 1) % 2 == 0)
-    return (*(tab + index -1 )); // -1 car on commenc a comtper a partir de zero;
+  // Pour pallier au bug du Sonar on va ignorer les zeros;
+
+  while (*(tab + nbrzero) == 0 && nbrzero < size)
+      ++nbrzero;
+  index = (size - nbrzero +  1) / 2 ;
+  if (index  > size)
+      return (0);
+  if ((size + 1 ) % 2 == 0)
+  {
+    
+    return (*(tab + index -1 + nbrzero)); // -1 car on commenc a comtper a partir de zero;
+  }
    else
-   return ( (*(tab + index - 1) + *(tab + index )) / 2) ;
+   return ( (*(tab + index - 1 +nbrzero) + *(tab + index +nbrzero)) / 2) ;
+}
+
+#define SIZE_SONAR 11
+int   capture_sonar(int echo, int trigger)
+{
+  int tab[SIZE_SONAR] = {0};
+  int size = 0;
+
+  
+  while (size < SIZE_SONAR)
+  {
+    digitalWrite(trigger, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigger, LOW);
+    tri_insertion(tab, size, pulseIn(echo, HIGH) / 58);
+    ++size;
+  }
+  print_tab(tab, SIZE_SONAR); // pour les tests
+  return (calcul_median(tab, SIZE_SONAR));
+  
 }
 
 /*
@@ -72,6 +113,7 @@ int   calcul_median(int *tab, int size)
  * Param1 : tableau a afficher
  * Param2 : taille du tableau
  */
+ 
 void  print_tab(int *tab, int size)
 {
   while (size)
@@ -91,6 +133,10 @@ void loop() {
 // test du button
   if (digitalRead(BUTTON) == HIGH)
   {
+    int test = capture_sonar(E_S1, T_S1);
+    Serial.print("Valeur median des captures prises");
+    Serial.println(test);
+    //test du sonar2
      delay(500);
   }
 }
