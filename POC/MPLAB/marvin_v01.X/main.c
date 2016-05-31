@@ -7,7 +7,7 @@
 #include <p32xxxx.h>
 #include <sys/attribs.h>
 #include "types.h"
-
+#include "timer.h"
 
 /*
  * Trouver comment faire pour manipuler dirrectement l'adresse memoire des registres
@@ -25,17 +25,19 @@
  */
 //OC1/ RDO -> pin 46
 //
-
+/*
 void    marvin_servo_write(s8 teta)
 {
     teta = 0;
 }
-
+*/
 /*
  * Premier Param -> timer a utiliser
  * Deuzeieme Param -> Periode
  * */
-void	marvin_setup_pwm(u32 timer, u32 period)
+
+/*
+void	marvin_setup_pwm(u32 timer, u32 period, u32 pin)
 {
 	OC1CON = 0x000;
 	OC1R = 0x0064; // Initialize primary Compare register
@@ -54,7 +56,7 @@ void	marvin_setup_pwm(u32 timer, u32 period)
 	T2CONSET = 0x8000; // Enable Timer2
 	OC1CONSET = 0x8000; // Enable OC1
 }
-
+*/
 /*
 void	marvin_set_timner("PR1.. PR2...", "La periode demande")
 {
@@ -69,8 +71,12 @@ modification de PR1, PR2.....
 /*
  * MAAAAAAAAAAAAAAIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNNNNNNNN
  */
+
+//marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER1);
+
 int main()
 {
+    marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11 , TIMER_GATE_OFF, MARVIN_TIMER1);
     while (1)
     {
 
