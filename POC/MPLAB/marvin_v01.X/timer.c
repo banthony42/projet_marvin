@@ -11,10 +11,10 @@
 */
 
 
-void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 timer)
+void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer)
 {
     *stimer = 0 | TIMER_ON | prescale | gate;
-    timer = 0;
+    *timer = 0;
 }
 
 /*
@@ -22,10 +22,20 @@ void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 timer)
  * Param1 : Le registre du reset du timer voulue
  * Param2 : La periode voulue en secondes(max 255)
  * Param3 : Type du timer : 1 -> type A; 0 -> type B;
+ * Param4 : Registre du Timer TxCON
  */
 
-void    marvin_set_reset_timer_s(u32 timer, u8 periode, u8 types)
+void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr)
 {
+    /*
+     * Stockage valeur des prescale oscillator et timer
+     */
+    u8 frcdiv = 0;
+    u8 pbdiv = 0;
+    u32 prescale = 0;
+    u8 div = 1;
 
+    frcdiv = OSCCONbits.FRCDIV;
+    pbdiv = OSCCONbits.PBDIV;
+    prescale = ((0b11 << 4) & *conf_tmr) >> 4;
 }
-

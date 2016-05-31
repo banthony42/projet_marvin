@@ -77,6 +77,7 @@ modification de PR1, PR2.....
 int main()
 {
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11 , TIMER_GATE_OFF, MARVIN_TIMER1);
+    marvin_set_periode_s(MARVIN_PR1, 2, 'A', MARVIN_CONF_TIMER1);
     while (1)
     {
 

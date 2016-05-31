@@ -15,26 +15,26 @@
  */
 
 #define MARVIN_CONF_TIMER1 &T1CON
-#define MARVIN_CONF_TIMER2 T2CON
-#define MARVIN_CONF_TIMER3 T3CON
-#define MARVIN_CONF_TIMER4 T4CON
+#define MARVIN_CONF_TIMER2 &T2CON
+#define MARVIN_CONF_TIMER3 &T3CON
+#define MARVIN_CONF_TIMER4 &T4CON
 
 /*
  * Registre des TIMERS
  */
-#define MARVIN_TIMER1 TMR1
-#define MARVIN_TIMER2 TMR2
-#define MARVIN_TIMER3 TMR3
-#define MARVIN_TIMER4 TMR4
+#define MARVIN_TIMER1 &TMR1
+#define MARVIN_TIMER2 &TMR2
+#define MARVIN_TIMER3 &TMR3
+#define MARVIN_TIMER4 &TMR4
 
 /*
  * Registre pour definir la periode des timers
  */
 
-#define MARVIN_PR1 PR1
-#define MARVIN_PR2 PR2
-#define MARVIN_PR3 PR3
-#define MARVIN_PR4 PR4
+#define MARVIN_PR1 &PR1
+#define MARVIN_PR2 &PR2
+#define MARVIN_PR3 &PR3
+#define MARVIN_PR4 &PR4
 
 // set le timer
 #define TIMER_ON 0b1000000000000000
@@ -50,8 +50,8 @@
 #define TCKPS10 0b100000
 #define TCKPS11 0b110000
 
-void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 timer);
-//void    marvin_set_reset_timer_s(u32 timer, u8 periode, u8 types);
+void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer);
+void   marvin_set_periode_s(u32 *timer, u8 periode, u8 types, u32 *conf_tmr);
 
 
 
