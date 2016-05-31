@@ -4,22 +4,25 @@
  * 
  */
 
-
 #include <p32xxxx.h>
 #include <sys/attribs.h>
 #include "types.h"
-
-
-
-
-
-
 
 /*
  * MAAAAAAAAAAAAAAIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNNNNNNNN
  */
 
+/*
+ * Fonction qui attend une donne en degree (de 0 a 180) pour faire pivoter le
+ * servo
+ */
 
+
+//OC1/ RDO -> pin 46
+void    marvin_servo_write(s8 teta)
+{
+    teta = 0;
+}
 
 int main()
 {
