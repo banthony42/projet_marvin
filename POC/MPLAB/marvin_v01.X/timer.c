@@ -25,7 +25,7 @@ void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer)
  */
 // faire une verif de OSCTUN pour voir si la clock est bien a 8 MHZ ???
 
-void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr, u8 unit)
+void    marvin_set_periode(u32 *pr_timer, u16 periode, u8 types, u32 *conf_tmr, u16 unit)
 {
     // il va falloir recuperer frcdiv -> puissance de 2
     u16 frcdiv[8] = {1, 2, 4, 8, 16 , 32, 64, 256}; // sert pour le type B aussi
@@ -53,9 +53,8 @@ void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr,
         result /= frcdiv[*conf_tmr >> 4 & 0b111];
 
     // calcul du reset Timer
-    *pr_timer = result * (periode / unit);
-    *conf_tmr = 0;
-    asm volatile ("nop");
+    *pr_timer = (result / unit) * periode;
+//    asm volatile ("nop");
 }
     /*
      * Stockage valeur des prescale oscillator et timer

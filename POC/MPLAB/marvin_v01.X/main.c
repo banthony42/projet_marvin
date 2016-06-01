@@ -84,25 +84,26 @@ modification de PR1, PR2.....
 int    main()
 {
     m_servo servo1;
+    u16 pwm = 0;
 
-    LATFbits.LATF1 = 0;
+    LATFbits.LATF1 = 1;
     TRISFbits.TRISF1 = 0;
+    TRISDbits.TRISD3 = 0;
 
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11 , TIMER_GATE_OFF, MARVIN_TIMER1);
-    marvin_set_periode_s(MARVIN_PR1, 5, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
+    marvin_set_periode(MARVIN_PR1, 200, TYPE_A, MARVIN_CONF_TIMER1, TIME_MSEC);
+    
+    marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   // setup TIMER2 pour PWM
+    marvin_set_periode(MARVIN_PR2, 19, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);   // setup periode TIMER2 a 19ms pour PWM servo
 
-    marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS01, TIMER_GATE_OFF, MARVIN_TIMER2);   // setup TIMER2 pour PWM
-    marvin_set_periode_ms(MARVIN_PR2, 19, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);   // setup periode TIMER2 a 19ms pour PWM servo
-
-    marvin_attach_servo(&servo1, MARVIN_OC1, MARVIN_OC1RS,500, 2500, OC_TIMER2);
+    marvin_attach_servo(&servo1, MARVIN_OC4, MARVIN_OC4RS,500, 2400, OC_TIMER2);
     while (1)
     {
-        if (!TMR1)
+        if (TMR1 == PR1)
         {
             LATFbits.LATF1 = !LATFbits.LATF1;
-            marvin_moove_servo(&servo1, 180);
+            TMR1 = 0;
         }
-        marvin_moove_servo(&servo1, 0);
     }
     return (0);
 }

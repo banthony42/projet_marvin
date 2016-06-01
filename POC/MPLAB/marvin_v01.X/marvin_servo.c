@@ -1,8 +1,7 @@
-
+#include <p32xxxx.h>
 #include "timer.h"
 #include "types.h"
 #include "Servo.h"
-#include <p32xxxx.h>
 
 /*
  * Fonction qui configure un servo
@@ -19,12 +18,12 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u8 min, u8 max,
     servo->ocrs = ocrs; //stockage adresse registre OCxRS
     servo->min = min;   //stockage min duty_cycle
     servo->max = max;   //stockage max duty_cycle
-    servo->pos = 90;    //pos initial
+    servo->pos = 180;    //pos initial
     *pin = 0 | OC_OFF | OCM | oc_timer;   // configuration du registre: OC1 disabled, OC1 mode: PWM, OC1 use TIMER2
     *ocrs = 1500;                         // Init du duty_cycle a 1.5 ms = pos initial
     *pin = *pin | OC_ON;            // OC1 enabled
+  //  asm volatile ("nop");
 }
-
 
 /*
  * Fonction qui place un servo sur l'angle passez en param
@@ -40,6 +39,13 @@ void    marvin_moove_servo(m_servo *servo, u8 angle)
     ocrs = servo->pin;
     if (angle == servo->pos || angle > 180 || angle < 0)    // Gestion erreur
         return;
-    mult = (servo->max - servo->min) / 180;                 // Calcul du multiplicateur
-    *ocrs = angle * mult;                             // Ecriture du nouveau duty_cycle dans le registre OCxRS
+    if (angle == 0)
+        *ocrs = servo->min;                                 // Gestion des minimum et maximum directement
+    else if (angle == 180)
+        *ocrs = servo->max;
+    else
+    {
+        mult = (servo->max - servo->min) / 180;             // Calcul du multiplicateur
+        *ocrs = servo->min + (angle * mult);                // Ecriture du nouveau duty_cycle dans le registre OCxRS
+    }
 }

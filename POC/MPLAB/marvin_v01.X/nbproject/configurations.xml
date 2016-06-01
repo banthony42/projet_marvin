@@ -7,7 +7,6 @@
       <itemPath>types.h</itemPath>
       <itemPath>timer.h</itemPath>
       <itemPath>Servo.h</itemPath>
-      <itemPath>tools.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
