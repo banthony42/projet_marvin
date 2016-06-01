@@ -31,8 +31,21 @@ void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr)
 
     ///u8 test = OSC_INTERNE >> 24 & 0b111;
     u16 frcdiv[8] = {0, 2, 4, 8, 16 , 32, 64, 456};
-
-    u32 result = OCSINTERNE / frcdiv[OSC_INTERNE >> 24 & 0b111];
+    u8 frc = OSC_INTERNE >> 12 & 0b111;
+    u32 result;
+    // test  pour savoir par quelle prescaler on passe / 16 , frdvi ou frc
+    // Normalement on utilise pas les autres options
+    if (frc == 0b111) // diviser par frcdiv
+    {
+         result = OCSINTERNE / frcdiv[OSC_INTERNE >> 24 & 0b111];
+    }else if (frc == 0b110) // diviser par 16
+    {
+        result = OCSINTERNE / 16;
+    }else if (frc == 0b000) // pas de diviosn
+    {
+        result = OCSINTERNE;
+    }
+  
     //test si type A ou B -> pas le meme tableau
 
     asm volatile ("nop");
