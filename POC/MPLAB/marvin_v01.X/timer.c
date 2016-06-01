@@ -45,7 +45,10 @@ void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr)
     {
         result = OCSINTERNE;
     }
-  
+
+    // division par PBCLK (PBDIV)
+
+    result /= 1 << (OSC_INTERNE >> 19 & 0b11);
     //test si type A ou B -> pas le meme tableau
 
     asm volatile ("nop");
