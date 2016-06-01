@@ -54,10 +54,14 @@
 // valeur de losc interne en Hertz
 #define OCSINTERNE 8000000
 #define OSC_INTERNE OSCCON
+#define TIME_SEC 1
+#define TIME_MSEC 1000
+
 #define TYPE_A 1
 #define TYPE_B 0
+
 void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer);
-void   marvin_set_periode_s(u32 *timer, u8 periode, u8 types, u32 *conf_tmr);
+void    marvin_set_periode_s(u32 *timer, u8 periode, u8 types, u32 *conf_tmr, u8 unit);
 
 
 

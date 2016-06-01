@@ -10,7 +10,6 @@
  * Param4 : Le timer pour le foutre a zero MARVIN_TIMERx
 */
 
-
 void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer)
 {
     *stimer = 0 | TIMER_ON | prescale | gate;
@@ -25,50 +24,39 @@ void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer)
  * Param4 : Registre du Timer TxCON //useless???
  */
 // faire une verif de OSCTUN pour voir si la clock est bien a 8 MHZ ???
-void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr)
+
+void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr, u8 unit)
 {
     // il va falloir recuperer frcdiv -> puissance de 2
-
-    ///u8 test = OSC_INTERNE >> 24 & 0b111;
     u16 frcdiv[8] = {1, 2, 4, 8, 16 , 32, 64, 256}; // sert pour le type B aussi
-    
     u8 frc = OSC_INTERNE >> 12 & 0b111;
     u32 result;
+    u16 typeA[4] = {1, 8, 64, 256};
     // test  pour savoir par quelle prescaler on passe / 16 , frdvi ou frc
     // Normalement on utilise pas les autres options
+
     if (frc == 0b111) // diviser par frcdiv
-    {
-         result = OCSINTERNE / frcdiv[OSC_INTERNE >> 24 & 0b111];
-    }else if (frc == 0b110) // diviser par 16
-    {
+        result = OCSINTERNE / frcdiv[OSC_INTERNE >> 24 & 0b111];
+    else if (frc == 0b110) // diviser par 16
         result = OCSINTERNE / 16;
-    }else if (frc == 0b000) // pas de diviosn
-    {
+    else if (frc == 0b000) // pas de diviosn
         result = OCSINTERNE;
-    }
 
     // division par PBCLK (PBDIV)
-
     result /= 1 << (OSC_INTERNE >> 19 & 0b11);
 
     //divison par le registre du timer
-
     //test si type A ou B -> pas le meme tableau
     if (types == TYPE_A)
-    {
-        u16 typeA[4] = {1, 8, 64, 256};
         result /= typeA[*conf_tmr >> 4 & 0b11];
-    }else
+    else
         result /= frcdiv[*conf_tmr >> 4 & 0b111];
 
-
     // calcul du reset Timer
-    *pr_timer = result;
+    *pr_timer = result * (periode / unit);
+    *conf_tmr = 0;
     asm volatile ("nop");
-
-
-
-
+}
     /*
      * Stockage valeur des prescale oscillator et timer
      */
@@ -82,4 +70,3 @@ void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr)
     pbdiv = OSCCONbits.PBDIV;
     prescale = ((0b11 << 4) & *conf_tmr) >> 4;
      * */
-}
