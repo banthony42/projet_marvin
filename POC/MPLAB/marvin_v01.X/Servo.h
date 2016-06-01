@@ -8,5 +8,7 @@
 #ifndef SERVO_H
 #define	SERVO_H
 
+//Configure le PWM
+
 #endif	/* SERVO_H */
 

@@ -22,7 +22,7 @@ void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer)
  * Param1 : Le registre du reset du timer voulue
  * Param2 : La periode voulue en secondes(max 255)
  * Param3 : Type du timer : 1 -> type A; 0 -> type B;
- * Param4 : Registre du Timer TxCON
+ * Param4 : Registre du Timer TxCON //useless???
  */
 // faire une verif de OSCTUN pour voir si la clock est bien a 8 MHZ ???
 void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr)
@@ -30,7 +30,8 @@ void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr)
     // il va falloir recuperer frcdiv -> puissance de 2
 
     ///u8 test = OSC_INTERNE >> 24 & 0b111;
-    u16 frcdiv[8] = {0, 2, 4, 8, 16 , 32, 64, 456};
+    u16 frcdiv[8] = {1, 2, 4, 8, 16 , 32, 64, 256}; // sert pour le type B aussi
+    
     u8 frc = OSC_INTERNE >> 12 & 0b111;
     u32 result;
     // test  pour savoir par quelle prescaler on passe / 16 , frdvi ou frc
@@ -49,8 +50,20 @@ void    marvin_set_periode_s(u32 *pr_timer, u8 periode, u8 types, u32 *conf_tmr)
     // division par PBCLK (PBDIV)
 
     result /= 1 << (OSC_INTERNE >> 19 & 0b11);
-    //test si type A ou B -> pas le meme tableau
 
+    //divison par le registre du timer
+
+    //test si type A ou B -> pas le meme tableau
+    if (types == TYPE_A)
+    {
+        u16 typeA[4] = {1, 8, 64, 256};
+        result /= typeA[*conf_tmr >> 4 & 0b11];
+    }else
+        result /= frcdiv[*conf_tmr >> 4 & 0b111];
+
+
+    // calcul du reset Timer
+    *pr_timer = result;
     asm volatile ("nop");
 
 
