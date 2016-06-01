@@ -50,6 +50,10 @@
 #define TCKPS10 0b100000
 #define TCKPS11 0b110000
 
+
+// valeur de losc interne en Hertz
+#define OCSINTERNE 8000000
+#define OSC_INTERNE OSCCON
 void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer);
 void   marvin_set_periode_s(u32 *timer, u8 periode, u8 types, u32 *conf_tmr);
 
