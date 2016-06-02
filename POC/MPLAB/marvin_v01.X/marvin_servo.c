@@ -12,21 +12,18 @@
  * Param5 : Timer choisit pour le module de l'OutputCompare
 */
 
-void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u8 min, u8 max, u8 oc_timer, u16 periode)
+void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 max, u8 oc_timer, u16 periode)
 {
     servo->pin = pin;   //stockage adresse registre OCxCON
     servo->ocrs = ocrs; //stockage adresse registre OCxRS
     servo->min = min;   //stockage min duty_cycle
     servo->max = max;   //stockage max duty_cycle
-    servo->pos = 0;    //pos initial
+    servo->pos = -1;    //pos initial
     servo->periode = periode;
     servo->oc_timer = oc_timer;
     *pin = OC_OFF;
     *pin = 0 | OCM | oc_timer;          // configuration du registre: OC1 disabled, OC1 mode: PWM, OC1 use TIMER2
-    if (oc_timer == OC_TIMER2)
-        *ocrs = PR2 * (servo->min) / periode;
-    else
-        *ocrs = PR3 * (servo->min) / periode;
+    marvin_moove_servo(servo, 0);
     *pin |=  OC_ON;                     // OC1 enabled
   
 }
@@ -43,7 +40,11 @@ void    marvin_moove_servo(m_servo *servo, u8 angle)
         return ;
     servo->pos = angle;
     if (servo->oc_timer == OC_TIMER2)
-        *(servo->ocrs) = PR2 * (servo->min + (angle * ((servo->max  - servo->min ) / 180))) / servo->periode;     // Ecriture du nouveau duty_cycle dans le registre OCxRS
+    {
+        *(servo->ocrs) = (PR2 * (servo->min + (angle * ((servo->max  - servo->min ) / 180)))) / servo->periode;     // Ecriture du nouveau duty_cycle dans le registre OCxRS
+       //    *(servo->ocrs) =  servo->min + (angle * ((servo->max  - servo->min ) / 180));
+    }
     else
-        *(servo->ocrs) = PR3 * (servo->min + (angle * ((servo->max - servo->min) / 180))) / servo->periode;
+        *(servo->ocrs) = (PR3 * (servo->min + (angle * ((servo->max - servo->min) / 180)))) / servo->periode;
+                                                        
 }

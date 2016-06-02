@@ -56,7 +56,7 @@ typedef struct  s_servo
 }               m_servo;
 
 
-void    marvin_attach_servo(m_servo *servo, u32 *pin ,u32 *ocrs, u8 min, u8 max, u8 oc_timer, u16 periode);
+void    marvin_attach_servo(m_servo *servo, u32 *pin ,u32 *ocrs, u16 min, u16 max, u8 oc_timer, u16 periode);
 void    marvin_moove_servo(m_servo *servo, u8 angle);
 
 #endif	/* SERVO_H */
