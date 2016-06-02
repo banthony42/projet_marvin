@@ -36,6 +36,7 @@
 #define OC_TIMER3 1 << 3  // Sur OCTSEL TIMER3 is the clock source for this OutputCompare module
 #define OC_TIMER2 0 << 3 // Sur OCTSEL TIMER2 is the clock source for this OutputCompare module
 
+
 /*
  * Objet servo:
  * pin: pin a laquelle est attache le servo
@@ -57,7 +58,7 @@ typedef struct  s_servo
 
 
 void    marvin_attach_servo(m_servo *servo, u32 *pin ,u32 *ocrs, u16 min, u16 max, u8 oc_timer, u16 periode);
-void    marvin_moove_servo(m_servo *servo, u8 angle);
+void    marvin_move_servo(m_servo *servo, u8 angle);
 
 #endif	/* SERVO_H */
 

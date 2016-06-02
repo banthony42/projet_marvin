@@ -57,6 +57,7 @@
 #define OSC_INTERNE OSCCON
 #define TIME_SEC 1
 #define TIME_MSEC 1000
+#define TIME_MICS 1000000
 
 #define TYPE_A 1
 #define TYPE_B 0

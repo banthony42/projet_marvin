@@ -9,6 +9,7 @@
 #include "Servo.h"
 #include "types.h"
 #include "timer.h"
+#include "sonar.h"
 
 /*
  * Trouver comment faire pour manipuler dirrectement l'adresse memoire des registres
@@ -81,33 +82,43 @@ modification de PR1, PR2.....
  * Test des fonctions Servo => EN COURS
  */
 
+#define SERVO1 TRISDbits.TRISD3
+#define SONAR1_SET_TRIG TRISEbits.TRISE0
+#define SONAR1_STATE_TRIG LATEbits.LATE0
+#define SONAR1_SET_ECHO TRISDbits.TRISD9
+#define SONAR1_READ_ECHO PORTDbits.RD9
+
 int    main()
 {
     m_servo servo1;
-    u16 pwm = 0;
+    m_sonar sonar1;
 
     LATFbits.LATF1 = 1;
     TRISFbits.TRISF1 = 0;
-    TRISDbits.TRISD3 = 0;
 
+    SERVO1 = 0;   // Test si vraiment necessaire pour la sortie OC4
+ 
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11 , TIMER_GATE_OFF, MARVIN_TIMER1);
-    marvin_set_periode(MARVIN_PR1, 3, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
+    marvin_set_periode(MARVIN_PR1, 1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
     
     marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   // setup TIMER2 pour PWM
     marvin_set_periode(MARVIN_PR2,20, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);   // setup periode TIMER2 a 19ms pour PWM servo
 
-    marvin_attach_servo(&servo1, MARVIN_OC4, MARVIN_OC4RS,900, 2100, OC_TIMER2, 20000);
+   // marvin_attach_servo(&servo1, MARVIN_OC4, MARVIN_OC4RS,544, 2400, OC_TIMER2, 20000);
+    marvin_set_sonar(&sonar1);
+
     int test[10]= { 0, 180, 90, 20, 45, 76, 83 ,45, 180, 0, 90};
     int i = 0;
+    
     while (1)
     {
         if (TMR1 == PR1)
         {
-            LATFbits.LATF1 = !LATFbits.LATF1;
             TMR1 = 0;
-            marvin_moove_servo(&servo1, 180);
-            if (i == 10)
-                i = 0;
+            LATFbits.LATF1 = !LATFbits.LATF1;
+            //marvin_move_servo(&servo1, i += 5);
+            //if (i == 180)
+             //   i = 0;
         }
        
     }

@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=configbits.c main.c timer.c marvin_servo.c
+SOURCEFILES_QUOTED_IF_SPACED=configbits.c main.c timer.c marvin_servo.c sonar.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/configbits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/marvin_servo.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/marvin_servo.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/configbits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/marvin_servo.o ${OBJECTDIR}/sonar.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/marvin_servo.o.d ${OBJECTDIR}/sonar.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/configbits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/marvin_servo.o
+OBJECTFILES=${OBJECTDIR}/configbits.o ${OBJECTDIR}/main.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/marvin_servo.o ${OBJECTDIR}/sonar.o
 
 # Source Files
-SOURCEFILES=configbits.c main.c timer.c marvin_servo.c
+SOURCEFILES=configbits.c main.c timer.c marvin_servo.c sonar.c
 
 
 CFLAGS=
@@ -118,6 +118,12 @@ ${OBJECTDIR}/marvin_servo.o: marvin_servo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/marvin_servo.o 
 	@${FIXDEPS} "${OBJECTDIR}/marvin_servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/marvin_servo.o.d" -o ${OBJECTDIR}/marvin_servo.o marvin_servo.c   
 	
+${OBJECTDIR}/sonar.o: sonar.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/sonar.o.d 
+	@${RM} ${OBJECTDIR}/sonar.o 
+	@${FIXDEPS} "${OBJECTDIR}/sonar.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/sonar.o.d" -o ${OBJECTDIR}/sonar.o sonar.c   
+	
 else
 ${OBJECTDIR}/configbits.o: configbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -142,6 +148,12 @@ ${OBJECTDIR}/marvin_servo.o: marvin_servo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/marvin_servo.o.d 
 	@${RM} ${OBJECTDIR}/marvin_servo.o 
 	@${FIXDEPS} "${OBJECTDIR}/marvin_servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/marvin_servo.o.d" -o ${OBJECTDIR}/marvin_servo.o marvin_servo.c   
+	
+${OBJECTDIR}/sonar.o: sonar.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/sonar.o.d 
+	@${RM} ${OBJECTDIR}/sonar.o 
+	@${FIXDEPS} "${OBJECTDIR}/sonar.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/sonar.o.d" -o ${OBJECTDIR}/sonar.o sonar.c   
 	
 endif
 

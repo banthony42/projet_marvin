@@ -23,7 +23,7 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
     servo->oc_timer = oc_timer;
     *pin = OC_OFF;
     *pin = 0 | OCM | oc_timer;          // configuration du registre: OC1 disabled, OC1 mode: PWM, OC1 use TIMER2
-    marvin_moove_servo(servo, 0);
+    marvin_move_servo(servo, 0);
     *pin |=  OC_ON;                     // OC1 enabled
   
 }
@@ -34,9 +34,9 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
  * Param2 : Angle du servo voulu (0 a 180 deg)
 */
 
-void    marvin_moove_servo(m_servo *servo, u8 angle)
+void    marvin_move_servo(m_servo *servo, u8 angle)
 {
-    if (servo->pos == angle)
+    if (servo->pos == angle || angle > 180)
         return ;
     servo->pos = angle;
     if (servo->oc_timer == OC_TIMER2)

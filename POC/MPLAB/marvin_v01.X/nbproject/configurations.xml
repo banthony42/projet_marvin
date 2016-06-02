@@ -7,6 +7,8 @@
       <itemPath>types.h</itemPath>
       <itemPath>timer.h</itemPath>
       <itemPath>Servo.h</itemPath>
+      <itemPath>sonar.h</itemPath>
+      <itemPath>tools.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +21,7 @@
       <itemPath>main.c</itemPath>
       <itemPath>timer.c</itemPath>
       <itemPath>marvin_servo.c</itemPath>
+      <itemPath>sonar.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
