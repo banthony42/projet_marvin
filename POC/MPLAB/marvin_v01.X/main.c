@@ -91,19 +91,25 @@ int    main()
     TRISDbits.TRISD3 = 0;
 
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11 , TIMER_GATE_OFF, MARVIN_TIMER1);
-    marvin_set_periode(MARVIN_PR1, 200, TYPE_A, MARVIN_CONF_TIMER1, TIME_MSEC);
+    marvin_set_periode(MARVIN_PR1, 3, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
     
     marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   // setup TIMER2 pour PWM
-    marvin_set_periode(MARVIN_PR2, 19, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);   // setup periode TIMER2 a 19ms pour PWM servo
+    marvin_set_periode(MARVIN_PR2, 20, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);   // setup periode TIMER2 a 19ms pour PWM servo
 
-    marvin_attach_servo(&servo1, MARVIN_OC4, MARVIN_OC4RS,500, 2400, OC_TIMER2);
+    marvin_attach_servo(&servo1, MARVIN_OC4, MARVIN_OC4RS,1000, 2100, OC_TIMER2, 2100);
+    int test[10]= { 0, 180, 90, 20, 45, 76, 83 ,45, 180, 0, 90};
+    int i = 0;
     while (1)
     {
         if (TMR1 == PR1)
         {
             LATFbits.LATF1 = !LATFbits.LATF1;
             TMR1 = 0;
+            marvin_moove_servo(&servo1, 90);
+            if (i == 10)
+                i = 0;
         }
+       
     }
     return (0);
 }

@@ -7,22 +7,28 @@
  * Fonction qui configure un servo
  * Param1 : Objet m_servo, a setup
  * Param2 : Adresse du REGISTRE OCxCON (OutputCompare)
- * Param3 : Duty_cycle minimum du servo (0deg)
- * Param4 : Duty_cycle maximum du servo (180deg)
+ * Param3 : Duty_cycle minimum du servo (0deg) en microsecondes
+ * Param4 : Duty_cycle maximum du servo (180deg) en microsecondes
  * Param5 : Timer choisit pour le module de l'OutputCompare
 */
 
-void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u8 min, u8 max, u8 oc_timer)
+void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u8 min, u8 max, u8 oc_timer, u16 periode)
 {
     servo->pin = pin;   //stockage adresse registre OCxCON
     servo->ocrs = ocrs; //stockage adresse registre OCxRS
     servo->min = min;   //stockage min duty_cycle
     servo->max = max;   //stockage max duty_cycle
-    servo->pos = 180;    //pos initial
-    *pin = 0 | OC_OFF | OCM | oc_timer;   // configuration du registre: OC1 disabled, OC1 mode: PWM, OC1 use TIMER2
-    *ocrs = 1500;                         // Init du duty_cycle a 1.5 ms = pos initial
-    *pin = *pin | OC_ON;            // OC1 enabled
-  //  asm volatile ("nop");
+    servo->pos = 0;    //pos initial
+    servo->periode = periode;
+    servo->oc_timer = oc_timer;
+    *pin = OC_OFF;
+    *pin = 0 | OCM | oc_timer;          // configuration du registre: OC1 disabled, OC1 mode: PWM, OC1 use TIMER2
+    if (oc_timer == OC_TIMER2)
+        *ocrs = PR2 * (servo->min) / periode;
+    else
+        *ocrs = PR3 * (servo->min) / periode;
+    *pin |=  OC_ON;                     // OC1 enabled
+  
 }
 
 /*
@@ -33,19 +39,11 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u8 min, u8 max,
 
 void    marvin_moove_servo(m_servo *servo, u8 angle)
 {
-    u8 mult = 0;
-    u32 *ocrs;
-
-    ocrs = servo->pin;
-    if (angle == servo->pos || angle > 180 || angle < 0)    // Gestion erreur
-        return;
-    if (angle == 0)
-        *ocrs = servo->min;                                 // Gestion des minimum et maximum directement
-    else if (angle == 180)
-        *ocrs = servo->max;
+    if (servo->pos == angle)
+        return ;
+    servo->pos = angle;
+    if (servo->oc_timer == OC_TIMER2)
+        *(servo->ocrs) = PR2 * (servo->min + (angle * ((servo->max  - servo->min ) / 180))) / servo->periode;     // Ecriture du nouveau duty_cycle dans le registre OCxRS
     else
-    {
-        mult = (servo->max - servo->min) / 180;             // Calcul du multiplicateur
-        *ocrs = servo->min + (angle * mult);                // Ecriture du nouveau duty_cycle dans le registre OCxRS
-    }
+        *(servo->ocrs) = PR3 * (servo->min + (angle * ((servo->max - servo->min) / 180))) / servo->periode;
 }
