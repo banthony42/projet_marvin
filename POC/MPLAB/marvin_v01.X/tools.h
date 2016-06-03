@@ -7,9 +7,13 @@
 
 #ifndef TOOLS_H
 #define	TOOLS_H
-// fonction de tri
-// fonction mediane
 
+#include "types.h"
+// fonction de tri
+void    marvin_tri_insertion(u16 *tab, u8 size, u16 valeur);
+
+// fonction mediane
+u16     marvin_calcul_median(u16 *tab, u8 size);
 
 
 #endif	/* TOOLS_H */

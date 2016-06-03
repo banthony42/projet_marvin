@@ -45,6 +45,5 @@ void    marvin_move_servo(m_servo *servo, u8 angle)
        //    *(servo->ocrs) =  servo->min + (angle * ((servo->max  - servo->min ) / 180));
     }
     else
-        *(servo->ocrs) = (PR3 * (servo->min + (angle * ((servo->max - servo->min) / 180)))) / servo->periode;
-                                                        
+        *(servo->ocrs) = (PR3 * (servo->min + (angle * ((servo->max - servo->min) / 180)))) / servo->periode;                                        
 }
