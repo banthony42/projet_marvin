@@ -2,6 +2,7 @@
 #include "timer.h"
 #include "types.h"
 #include "Servo.h"
+#include <p32xxxx.h>
 
 /*
  * Fonction qui configure un servo

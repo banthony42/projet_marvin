@@ -8,7 +8,8 @@
 #ifndef IR_H
 #define	IR_H
 
-
+#define PIN_IR 5
+#define IR_CAPTURE 11
 // On as une fonction de Setup
 // On auras de l'input capture
 #endif	/* IR_H */

@@ -64,7 +64,7 @@
 
 void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer);
 void    marvin_set_periode(u32 *pr_timer, u16 periode, u8 types, u32 *conf_tmr, u16 unit);
-
+u32     marvin_calcul_oscillator_prescaler();
 
 
 

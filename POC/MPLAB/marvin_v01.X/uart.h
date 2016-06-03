@@ -8,16 +8,18 @@
 #ifndef UART_H
 #define	UART_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
+#include "types.h"
+
+#define REGISTER_BAUD_RATE U1BRG;
+
+// Focntion qui calcul le Baud Rate // check du speed mode ?????
+// Pas forcement utile pck c'est pas comme un timer que l'on vas devoir odifier
+// doit checker PBCLK
 
 
-
-
-#ifdef	__cplusplus
-}
-#endif
-
+void    marvin_setup_baud_rate();
+void    marvin_setup_uart();
+void    marvin_send_message();
+void    marvin_receive_message();
 #endif	/* UART_H */
 

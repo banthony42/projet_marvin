@@ -1,6 +1,8 @@
 #include "types.h"
 #include "tools.h"
-#include "timer4.h"
+#include "timer.h"
+#include "Ir.h"
+#include <p32xxxx.h>
 
 // Evoyer le TIMER ????
 /*
@@ -22,7 +24,7 @@ u16    capture_ir(u32 *conf_timer, u32 *pr, u32 *timer)
         while (*timer != *pr);
         AD1CON1bits.SAMP = 0; // On lance la conversion
         while (!(AD1CON1 && 0x0001)); // On attend la fin de la conversion
-        marvin_tri_insertion(tab, i, AD1BUF0);
+        marvin_tri_insertion(tab, i, ADC1BUF0);
         ++i;
     }
     return (marvin_calcul_median(tab , IR_CAPTURE));
@@ -68,4 +70,3 @@ void    marvin_setup_ir()
                           // car en principe nous sommes en sampling manuel
     AD1CON1bits.ON = 1;   // On active le module ADC
 }
-void    marvin_capture_ir(m_ir *ir);
