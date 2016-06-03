@@ -55,6 +55,7 @@ void    marvin_servo_write(s8 teta)
  * Test des fonctions Servo =>ok
  * Test des fonctions Sonars => Fonction faites, a tester
  * Test des fonctions IR => en Travaux
+ * test des fonctios de l'UART -> NONE
  */
 
 
@@ -75,6 +76,8 @@ int    main()
     marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   // setup TIMER2 pour PWM
     marvin_set_periode(MARVIN_PR2,20, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);   // setup periode TIMER2 a 19ms pour PWM servo
 
+    // Pour l'ir
+    marvin_set_timer(MARVIN_CONF_TIMER4, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER4);
    // marvin_attach_servo(&servo1, MARVIN_OC4, MARVIN_OC4RS,544, 2400, OC_TIMER2, 20000);
 //    marvin_set_sonar(&sonar1);
 
@@ -84,7 +87,7 @@ int    main()
     while (1)
     {
         if (TMR1 == PR1)
-        {
+        {// coder le watchdog timer si on reste bloquer dans une des fonctions
             TMR1 = 0;
             LATFbits.LATF1 = !LATFbits.LATF1;
             //marvin_move_servo(&servo1, i += 5);

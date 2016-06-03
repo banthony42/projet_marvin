@@ -75,6 +75,7 @@ u16      marvin_pulseIn(m_sonar *sonar)
 
 
 // retourne la medianne
+// voir pour envoyer le timer...
 u16      marvin_capture(m_sonar *sonar)
 {
     u8 i = 0;
