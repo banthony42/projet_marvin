@@ -9,8 +9,12 @@
 #define	UART_H
 
 #include "types.h"
+#include <p32xxxx.h>
 
 #define REGISTER_BAUD_RATE U1BRG;
+#define BAUD_RATE 96000
+#define PIN_RX
+#define PIN_TX
 
 // Focntion qui calcul le Baud Rate // check du speed mode ?????
 // Pas forcement utile pck c'est pas comme un timer que l'on vas devoir odifier

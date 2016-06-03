@@ -1,2 +1,4 @@
 build/default/production/uart.o:  \
-uart.c 
+uart.c  \
+timer.h  \
+types.h 
