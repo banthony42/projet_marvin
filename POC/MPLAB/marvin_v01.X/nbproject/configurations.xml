@@ -163,6 +163,18 @@
       <ICD3PlatformTool>
         <property key="firmware.download.all" value="false"/>
       </ICD3PlatformTool>
+      <item path="Ir.c" ex="true" overriding="false">
+      </item>
+      <item path="Ir.h" ex="true" overriding="false">
+      </item>
+      <item path="tools.c" ex="true" overriding="false">
+      </item>
+      <item path="tools.h" ex="true" overriding="false">
+      </item>
+      <item path="uart.c" ex="true" overriding="false">
+      </item>
+      <item path="uart.h" ex="true" overriding="false">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

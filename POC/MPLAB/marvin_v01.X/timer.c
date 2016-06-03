@@ -25,7 +25,6 @@ void    marvin_set_timer(u32 *stimer, u8 prescale, u8 gate, u32 *timer)
  */
 // faire une verif de OSCTUN pour voir si la clock est bien a 8 MHZ ???
 
-
 u32     marvin_calcul_oscillator_prescaler()
 {
     u32 result;
@@ -43,50 +42,19 @@ u32     marvin_calcul_oscillator_prescaler()
 
 }
 
-
-
 void    marvin_set_periode(u32 *pr_timer, u16 periode, u8 types, u32 *conf_tmr, u16 unit)
 {
     // il va falloir recuperer frcdiv -> puissance de 2
     u16 frcdiv[8] = {1, 2, 4, 8, 16 , 32, 64, 256}; // sert pour le type B aussi
-   // u8 frc = OSC_INTERNE >> 12 & 0b111;
     u32 result;
     u16 typeA[4] = {1, 8, 64, 256};
-    // test  pour savoir par quelle prescaler on passe / 16 , frdvi ou frc
-    // Normalement on utilise pas les autres options
-/*
-    if (frc == 0b111) // diviser par frcdiv
-        result = OCSINTERNE / frcdiv[OSC_INTERNE >> 24 & 0b111];
-    else if (frc == 0b110) // diviser par 16
-        result = OCSINTERNE / 16;
-    else if (frc == 0b000) // pas de diviosn
-        result = OCSINTERNE;
 
-    // division par PBCLK (PBDIV)
-    result /= 1 << (OSC_INTERNE >> 19 & 0b11);
-*/
     result = marvin_calcul_oscillator_prescaler();
-    //divison par le registre du timer
     //test si type A ou B -> pas le meme tableau
     if (types == TYPE_A)
         result /= typeA[*conf_tmr >> 4 & 0b11];
     else
         result /= frcdiv[*conf_tmr >> 4 & 0b111];
-
     // calcul du reset Timer
     *pr_timer = (result / unit) * periode;
-//    asm volatile ("nop");
 }
-    /*
-     * Stockage valeur des prescale oscillator et timer
-     */
-    /*
-    u8 frcdiv = 0;
-    u8 pbdiv = 0;
-    u32 prescale = 0;
-    u8 div = 1;
-
-    frcdiv = OSCCONbits.FRCDIV;
-    pbdiv = OSCCONbits.PBDIV;
-    prescale = ((0b11 << 4) & *conf_tmr) >> 4;
-     * */

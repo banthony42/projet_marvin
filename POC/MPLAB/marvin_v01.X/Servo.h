@@ -36,7 +36,7 @@
 #define OC_TIMER3 1 << 3  // Sur OCTSEL TIMER3 is the clock source for this OutputCompare module
 #define OC_TIMER2 0 << 3 // Sur OCTSEL TIMER2 is the clock source for this OutputCompare module
 
-
+#define SERVO1 TRISDbits.TRISD3
 /*
  * Objet servo:
  * pin: pin a laquelle est attache le servo

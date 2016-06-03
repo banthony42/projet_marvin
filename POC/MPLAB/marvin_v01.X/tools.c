@@ -36,10 +36,12 @@ u16   marvin_calcul_median(u16 *tab, u8 size)
  * Param3 valeur a inserer
  */
  
-void  marvin_tri_insertion(u16 *tab, u8 size, u16 valeur)
+u16  marvin_tri_insertion(u16 *tab, u8 size, u16 valeur)
 {
   u16 *pos;
-  
+
+  if (valeur == 6066)               // Test si erreur
+      return (6066);                // Return erreur
   while (size && *tab < valeur)
   {
     ++tab;
@@ -60,6 +62,7 @@ void  marvin_tri_insertion(u16 *tab, u8 size, u16 valeur)
     }
   }
   *pos = valeur;
+  return (1);
 }
 
 

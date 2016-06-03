@@ -10,7 +10,7 @@
 
 #include "types.h"
 // fonction de tri
-void    marvin_tri_insertion(u16 *tab, u8 size, u16 valeur);
+u16    marvin_tri_insertion(u16 *tab, u8 size, u16 valeur);
 
 // fonction mediane
 u16     marvin_calcul_median(u16 *tab, u8 size);
