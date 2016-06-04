@@ -50,10 +50,11 @@
 // Pas forcement utile pck c'est pas comme un timer que l'on vas devoir odifier
 // doit checker PBCLK
 
-
+/*
 void    marvin_setup_baud_rate();
 void    marvin_setup_uart();
 void    marvin_send_message();
 void    marvin_receive_message();
+ */
 #endif	/* UART_H */
 

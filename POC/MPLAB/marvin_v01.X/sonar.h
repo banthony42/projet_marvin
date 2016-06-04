@@ -11,19 +11,24 @@
 
 
 
-#define SONAR1_SET_TRIG &TRISE  // E0
-#define SONAR1_STATE_TRIG &LATE // E0
-#define SONAR1_SET_ECHO &TRISD  // D9
-#define SONAR1_READ_ECHO &PORTD // RD9
+#define SONAR1_SET_TRIG &TRISE  // Adresse du REGISTRE TRIG (TRISx)
+#define SONAR1_STATE_TRIG &LATE // Adresse du REGISTRE SET TRIG (LATx)
+#define SONAR1_SET_ECHO &TRISD  // Adresse du REGISTRE ECHO (TRISx)
+#define SONAR1_READ_ECHO &PORTD // Adresse du REGISTRE LECTURE ECHO (PORTx)
 
+#define S1_TRIG_NPIN 0  // Numeros de PIN du TRIGGER
+#define S1_ECHO_NPIN 9  // Numeros de PIN de l'ECHO
+
+#define S2_TRIG_NPIN 1  // Numeros de PIN du TRIGGER
+#define S2_ECHO_NPIN 8  // Numeros de PIN de l'ECHO
 
 #define NBR_CAPTURE 11
 typedef struct  s_sonar
 {
-    u32     *state_trig_pin;// etat
-    u32     *read_echo_pin;// read
-   // u8      i; // la ou en est dans les captures
-    //u16     tab[NBR_CAPTURE]; // Les valeurs de capture;
+    u8      echo_attachpin;
+    u8      trig_attachpin;
+    u32     *state_trig_pin;    // registre etat
+    u32     *read_echo_pin;     // registre read
 }               m_sonar;
 
 

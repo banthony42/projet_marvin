@@ -8,7 +8,7 @@
 void    marvin_setup_baud_rate()
 {
     // On seras tjrs en speed mode
-   REGISTER_BAUD_RATE  = marvin_calcul_oscillator_prescaler() / (4 * BAUD_RATE) - 1;
+//   REGISTER_BAUD_RATE  = marvin_calcul_oscillator_prescaler() / (4 * BAUD_RATE) - 1;
 }
 
 /*
@@ -17,7 +17,7 @@ void    marvin_setup_baud_rate()
  *  Param2: Adresse du Status / Control register (UxSTA)
  */
 
-void    marvin_setup_uart(u32 *uart_reg, u32 uart_status)
+void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status)
 {
     *uart_reg = 0 | BRGH | PDSEL_00 |  STSEL_0 | UART_ON;    // config de l'UART avec define choisit
     marvin_setup_baud_rate();                               // baud rate calculer en auto
