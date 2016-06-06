@@ -64,11 +64,11 @@ m_sonar sonar2;
 void    __ISR(7, IPL5) btn_interrupt()
 {
     u16 test1 = 0;
-    u16 test2 = 0;
 
     LATFbits.LATF1 = !LATFbits.LATF1;
     IFS0bits.INT1IF = 0;
-    test1 = marvin_capture(&sonar1);
+//    test1 = marvin_capture(&sonar1);
+    test1 = capture_ir(MARVIN_CONF_TIMER3, MARVIN_PR3, MARVIN_TIMER3);
     _nop();
 }
 
@@ -84,7 +84,7 @@ int    main()
             IEC0bits.INT1IE = 1;
     SERVO1 = 0;   // Test si vraiment necessaire pour la sortie OC4
  
-    marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER1);
+    marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS01, TIMER_GATE_OFF, MARVIN_TIMER1);
     marvin_set_periode(MARVIN_PR1, 1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
 
 //    marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   // setup TIMER2 pour PWM
@@ -92,6 +92,8 @@ int    main()
 
     // marvin_set_timer(MARVIN_CONF_TIMER4, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER4);
     // marvin_attach_servo(&servo1, MARVIN_OC4, MARVIN_OC4RS,544, 2400, OC_TIMER2, 20000);
+
+    marvin_set_timer(MARVIN_CONF_TIMER3, TCKPS011, TIMER_GATE_OFF, MARVIN_TIMER3 );
 
     sonar1.echo_attachpin = S1_ECHO_NPIN;   // Definition du num de la PIN echo
     sonar1.trig_attachpin = S1_TRIG_NPIN;   // Definition du num de la PIN trigger
