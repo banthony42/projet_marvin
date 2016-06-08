@@ -10,6 +10,7 @@
 #include "timer.h"
 #include "Servo.h"
 #include "sonar.h"
+#include "uart.h"
 
 /*
  * Trouver comment faire pour manipuler dirrectement l'adresse memoire des registres
@@ -65,14 +66,19 @@ u16 speed = 0;
 
 void    __ISR(7, IPL5) btn_interrupt()
 {
-    u16 test1 = 0;
+    //u16 test1 = 0;
 
-    LATFbits.LATF1 = !LATFbits.LATF1;
-    IFS0bits.INT1IF = 0;
-    test1 = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
+   // LATFbits.LATF1 = !LATFbits.LATF1;
+   
+    //test1 = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
 //  test1 = marvin_capture(&sonar1);
 //  test1 = capture_ir(MARVIN_CONF_TIMER3, MARVIN_PR3, MARVIN_TIMER3);
-    _nop();
+   // _nop();
+    // test send message
+    u8 tab[100] = "tbeauman a une petite bite, eurghiuergiqeurhgviweuhvbweurhviweurhgviuerhgrgneirughiweurhgirugh";
+
+     marvin_send_message(tab, 100, MARVIN_UART_SEND, MARVIN_UART_STATUS, MARVIN_CONF_TIMER1, MARVIN_PR1, MARVIN_TIMER1);
+      IFS0bits.INT1IF = 0;
 }
 
 int    main()
@@ -86,10 +92,14 @@ int    main()
     IFS0bits.INT1IF = 0;
     IPC1bits.INT1IP = 5;
     IEC0bits.INT1IE = 1;
-    SERVO1 = 0;   // Test si vraiment necessaire pour la sortie OC4
+    //SERVO1 = 0;   // Test si vraiment necessaire pour la sortie OC4
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER1);
-    marvin_set_periode(MARVIN_PR1, 3, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
-    _nop();
+    marvin_set_periode(MARVIN_PR1, 1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
+    //UART TEST
+       marvin_set_timer(MARVIN_CONF_TIMER4, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER4);   // setup TIMER2 pour PWM
+
+    marvin_setup_uart(MARVIN_UART, MARVIN_UART_STATUS);
+   // _nop();
 /*  Servo test
  *  marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   // setup TIMER2 pour PWM
     marvin_set_periode(MARVIN_PR2, 20, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);   // setup periode TIMER2 a 19ms pour PWM servo
@@ -103,24 +113,34 @@ int    main()
       marvin_set_sonar(&sonar1, SONAR1_SET_TRIG, SONAR1_STATE_TRIG, SONAR1_SET_ECHO, SONAR1_READ_ECHO);
       marvin_set_sonar(&sonar2, SONAR1_SET_TRIG, SONAR1_STATE_TRIG, SONAR1_SET_ECHO, SONAR1_READ_ECHO);*/
 /*    IR test*/
-    marvin_setup_ir();
+    //marvin_setup_ir();
     marvin_set_timer(MARVIN_CONF_TIMER4, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER4);
-    asm volatile ("nop");
+   // asm volatile ("nop");
 
-    int test[10]= { 0, 180, 90, 20, 45, 76, 83 ,45, 180, 90};
-    int i = 0;
+    //int test[10]= { 0, 180, 90, 20, 45, 76, 83 ,45, 180, 90};
+   // int i = 0;
     INTCONbits.MVEC = 1; // Interrupt controller en mode multi-vector
     __builtin_enable_interrupts(); // Ordonner au CPU de checker les interrupts
+
+
+    u8 test[20] = {0};
+    u8 nbr;
+
     while (1)
     {
 // coder le watchdog timer si on reste bloquer dans une des fonctions
         if (TMR1 == PR1)
-        {        
+       {
             TMR1 = 0;
-           // LATFbits.LATF1 = !LATFbits.LATF1;
+            LATFbits.LATF1 = !LATFbits.LATF1;
 /*            marvin_move_servo(&servo1, speed);
             if (i == 10)
                 i = 0;*/
+        }
+        if (U1STAbits.URXDA)
+        {
+            marvin_receive_message(test, 20, MARVIN_UART_RECEIVE, MARVIN_UART_STATUS, &nbr);
+            _nop();
         }
     }
     return (0);

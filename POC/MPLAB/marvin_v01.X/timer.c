@@ -61,5 +61,5 @@ void    marvin_set_periode(u32 *pr_timer, u16 periode, u8 types, u32 *conf_tmr, 
         result /= frcdiv[(*conf_tmr >> 4) & 0b111];
     // calcul du reset Timer
     *pr_timer = (result * periode) / unit;
-    _nop();
+
 }

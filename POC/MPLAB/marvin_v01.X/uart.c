@@ -1,14 +1,17 @@
 #include "timer.h"
 #include "uart.h"
+#include "types.h"
+#include <p32xxxx.h>
 
 /*
  *  Fonction qui set le BAUD RATE automatiquement en fonction des reglages OSCILLATOR
  */
-
+// U1Rx -> RF2
+// U1Tx -> RF3
 void    marvin_setup_baud_rate()
 {
-    // On seras tjrs en speed mode
-//   REGISTER_BAUD_RATE  = marvin_calcul_oscillator_prescaler() / (4 * BAUD_RATE) - 1;
+    // En Dur pour l'instant
+    REGISTER_BAUD_RATE = marvin_calcul_oscillator_prescaler() / (4 * BAUD_RATE) - 1;
 }
 
 /*
@@ -38,13 +41,16 @@ void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status)
 
 void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, u32 *conf_timer, u32 *pr, u32 *timer)
 {
-    u8 i = -1;
-    marvin_set_periode(pr, 1, TYPE_B, conf_timer, TIME_MSEC);
-    while (++i < size)
+    u8 i = 0;
+   // marvin_set_periode(pr, 1, TYPE_A, conf_timer, TIME_MSEC);
+ 
+    marvin_set_periode(MARVIN_PR4, 20, TYPE_B, MARVIN_CONF_TIMER4, TIME_MSEC);
+    while (i < size)
     {
-        *uart_send = tab[i];
-        *timer = 0;
-        while (*timer < *pr);
+        if (U1STAbits.UTXBF == 0) // check si le buffer est vide pour envoyer le byte
+        *uart_send = tab[i++];
+      //  TMR4 = 0;
+        //while (TMR4 < PR4);
     }
     //*uart_status &= OERR_0; 0b111000111 a voir
 }
@@ -60,9 +66,11 @@ void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, 
 
 void    marvin_receive_message(u8 *tab, u8 size, u32 *uart_receive, u32 *uart_status, u32 *is_receive)
 {
-    u8 i = -1;
+    u8 i = 0;
 
-   while (*is_receive && ++i < size)
-       tab[i] = *uart_receive;
-   *uart_status |= OERR_0;
+   while (U1STAbits.URXDA && i < size)
+       tab[i++] = *uart_receive;
+   //*uart_status |= OERR_0;
+ //   *uart_status &= 0xFFFFFFFD;
+    _nop();
 }

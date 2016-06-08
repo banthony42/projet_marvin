@@ -3,4 +3,5 @@ main.c  \
 types.h  \
 timer.h  \
 Servo.h  \
-sonar.h 
+sonar.h  \
+ uart.h 

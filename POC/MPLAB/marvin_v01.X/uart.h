@@ -11,8 +11,8 @@
 #include "types.h"
 #include <p32xxxx.h>
 
-#define REGISTER_BAUD_RATE U1BRG;
-#define BAUD_RATE 96000
+#define REGISTER_BAUD_RATE U1BRG
+#define BAUD_RATE 9600
 
 #define MARVIN_UART &U1MODE
 #define MARVIN_UART_STATUS &U1STA
