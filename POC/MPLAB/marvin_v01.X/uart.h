@@ -31,8 +31,8 @@
 #define STSEL_0 0
 #define STSEL_1 1
 
-#define UART_ON 0 << 15
-#define UART_OFF 1 << 15
+#define UART_ON 1 << 15
+#define UART_OFF 0 << 15
 
 #define UTXEN_0 0 << 10
 #define UTXEN_1 1 << 10
@@ -40,8 +40,8 @@
 #define URXEN_0 0 << 12
 #define URXEN_1 1 << 12
 
-#define OERR_1 1 << 1
-#define OERR_0 0 << 1
+#define OERR_1 0b10
+#define OERR_0 0
 
 #define PIN_RX
 #define PIN_TX
