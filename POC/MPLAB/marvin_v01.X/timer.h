@@ -46,9 +46,9 @@
 
 // set tckps bits 4-5  TYPEA
 #define TCKPS00 0b0
-#define TCKPS01 0b10000
-#define TCKPS10 0b100000
-#define TCKPS11 0b110000
+#define TCKPS01 0b1 << 4
+#define TCKPS10 0b10 << 4
+#define TCKPS11 0b11 << 4
 
 // set tckps bits 4-6  TYPEB
 #define TCKPS000 0b0 << 4

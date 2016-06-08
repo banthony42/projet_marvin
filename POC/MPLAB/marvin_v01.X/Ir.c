@@ -19,10 +19,10 @@ u16    capture_ir(u32 *conf_timer, u32 *pr, u32 *timer)
     marvin_set_periode(pr ,100, TYPE_B, conf_timer, TIME_MSEC);
     while (i < IR_CAPTURE)
     {
-        AD1CON1SET = 0x0002; // On lance le sampling
+        AD1CON1bits.SAMP = 1; // On lance le sampling
         *timer = 0;
         while (*timer != *pr);
-        AD1CON1CLR = 0x0002; // On lance la conversion
+        AD1CON1bits.SAMP = 0; // On lance la conversion
         while (!(AD1CON1 && 0x0001)); // On attend la fin de la conversion
         marvin_tri_insertion(tab, i, ADC1BUF0);
         ++i;

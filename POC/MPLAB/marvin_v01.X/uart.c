@@ -19,9 +19,10 @@ void    marvin_setup_baud_rate()
 
 void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status)
 {
-    *uart_reg = 0 | BRGH | PDSEL_00 |  STSEL_0 | UART_ON;    // config de l'UART avec define choisit
+    *uart_reg = 0 | BRGH | PDSEL_00 |  STSEL_0;    // config de l'UART avec define choisit
     marvin_setup_baud_rate();                               // baud rate calculer en auto
-    *uart_status = 0 | UTXEN_1 | URXEN_1;                   // Receive / Transmit enabled
+    *uart_status = 0 | UTXEN_1 | URXEN_1;                  // Receive / Transmit enabled
+    *uart_reg |= UART_ON;
 }
 
 /*
@@ -45,7 +46,7 @@ void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, 
         *timer = 0;
         while (*timer < *pr);
     }
-    *uart_status |= OERR_0;
+    //*uart_status &= OERR_0; 0b111000111 a voir
 }
 
 /*
