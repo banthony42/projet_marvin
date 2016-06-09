@@ -81,6 +81,22 @@ void    __ISR(7, IPL5) btn_interrupt()
       IFS0bits.INT1IF = 0;
 }
 
+  u8 test[500] = {0};
+    u8 nbr = 0;
+    u8 count = 0;
+void    __ISR(24, IPL5) uart_interrupt()
+{
+  
+        while (U1STAbits.URXDA && nbr < 500)
+        {
+            test[nbr++] = U1RXREG;
+        }
+        if (nbr == 500)
+            nbr = 0;
+ ++count;
+      IFS0bits.U1RXIF = 0;
+     
+}
 int    main()
 {
     m_servo servo1;
@@ -92,6 +108,13 @@ int    main()
     IFS0bits.INT1IF = 0;
     IPC1bits.INT1IP = 5;
     IEC0bits.INT1IE = 1;
+
+    // Interrupt sur l'Uart receive
+
+    IFS0bits.U1RXIF = 0;
+    IPC6bits.U1IP = 5;
+    IEC0bits.U1RXIE = 1;
+
     //SERVO1 = 0;   // Test si vraiment necessaire pour la sortie OC4
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER1);
     marvin_set_periode(MARVIN_PR1, 1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
@@ -123,11 +146,13 @@ int    main()
     __builtin_enable_interrupts(); // Ordonner au CPU de checker les interrupts
 
 
-    u8 test[20] = {0};
-    u8 nbr;
-
+   // u8 test[250] = {0};
+    //u8 nbr = 0;
+//U1STAbits.OERR = 0;
     while (1)
     {
+   //     if (nbr == 500)
+     //       nbr = 0;
 // coder le watchdog timer si on reste bloquer dans une des fonctions
         if (TMR1 == PR1)
        {
@@ -137,11 +162,14 @@ int    main()
             if (i == 10)
                 i = 0;*/
         }
-        if (U1STAbits.URXDA)
+        /*
+        while (U1STAbits.URXDA && nbr < 500)
         {
-            marvin_receive_message(test, 20, MARVIN_UART_RECEIVE, MARVIN_UART_STATUS, &nbr);
-            _nop();
+            test[nbr++] = U1RXREG;
+
         }
+         * */
+        //U1STAbits.OERR = 0;
     }
     return (0);
 }
