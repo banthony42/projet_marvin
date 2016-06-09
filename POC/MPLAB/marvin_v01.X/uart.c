@@ -8,6 +8,8 @@
  */
 // U1Rx -> RF2
 // U1Tx -> RF3
+//extern u8 uart_test[500];
+//extern u16 uart_nbr;
 void    marvin_setup_baud_rate()
 {
     // En Dur pour l'instant
@@ -43,17 +45,14 @@ void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status)
 void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, u32 *conf_timer, u32 *pr, u32 *timer)
 {
     u8 i = 0;
-   // marvin_set_periode(pr, 1, TYPE_A, conf_timer, TIME_MSEC);
  
     marvin_set_periode(MARVIN_PR4, 20, TYPE_B, MARVIN_CONF_TIMER4, TIME_MSEC);
     while (i < size)
     {
         if (U1STAbits.UTXBF == 0) // check si le buffer est vide pour envoyer le byte
         *uart_send = tab[i++];
-      //  TMR4 = 0;
-        //while (TMR4 < PR4);
+
     }
-    //*uart_status &= OERR_0; 0b111000111 a voir
 }
 
 /*
@@ -64,25 +63,20 @@ void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, 
  *  Param4: Adresse du Status/Control register (UxSTA)
  *  Param5: Adresse Receive buffer(read only) (UxSTA.bits.URXDA, 0 = buffer empty / 1 = buffer has data)
  */
-
-void    marvin_receive_message(u8 *tab, u8 size, u32 *uart_receive, u32 *uart_status, u32 *is_receive)
+/*
+ * Voir pendant codage de l'algo si utile ou si on utilise que l'interrupt
+char    *marvin_receive_message(u8 *receive, u16 *uart_nbr, u32 *uart_receive, u32 *is_receive)
 {
-    u8 i = 0;
-    u8 clear = -1;
 
-
-
-    while (U1STAbits.URXDA && i < 20)
+    while (U1STAbits.URXDA && *uart_nbr < 500)
     {
-        *tab++ == U1RXREG;
-        ++i;
-        _nop();
-        
+        receive[*uart_nbr] == U1RXREG;
+        ++*uart_nbr;
     }
-    if (U1STAbits.OERR == 1)
-        {
-            U1STAbits.OERR = 0;
-
-        }
-
+    if (500 == *uart_nbr)
+        *uart_nbr = 0;
+    _nop();
+    return (receive);
 }
+
+*/

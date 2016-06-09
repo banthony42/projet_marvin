@@ -4,7 +4,7 @@
  *
  * Created on May 31, 2016, 10:55 AM
  */
-
+ 
 #ifndef TYPES_H
 #define	TYPES_H
 
@@ -15,5 +15,6 @@
 #define s8 signed char
 #define s16 signed short
 #define s32 signed long
+
 #endif	/* TYPES_H */
 

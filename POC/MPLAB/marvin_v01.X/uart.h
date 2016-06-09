@@ -18,7 +18,6 @@
 #define MARVIN_UART_STATUS &U1STA
 #define MARVIN_UART_SEND &U1TXREG
 #define MARVIN_UART_RECEIVE &U1RXREG
-#define MARVIN_IS_RECEIVE &U1STAbits.URXDA
 
 
 #define BRGH 1 << 3
@@ -49,11 +48,10 @@
 // Pas forcement utile pck c'est pas comme un timer que l'on vas devoir odifier
 // doit checker PBCLK
 
-/*
 void    marvin_setup_baud_rate();
-void    marvin_setup_uart();
-void    marvin_send_message();
-void    marvin_receive_message();
- */
+void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status);
+void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, u32 *conf_timer, u32 *pr, u32 *timer);
+//char    *marvin_receive_message(u8 *receive, u16 *uart_nbr, u32 *uart_receive, u32 *is_receive);
+
 #endif	/* UART_H */
 
