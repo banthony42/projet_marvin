@@ -26,6 +26,7 @@
       <itemPath>tools.c</itemPath>
       <itemPath>Ir.c</itemPath>
       <itemPath>uart.c</itemPath>
+      <itemPath>servo.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

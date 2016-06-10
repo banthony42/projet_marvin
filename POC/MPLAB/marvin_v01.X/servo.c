@@ -37,7 +37,7 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
 
 void    marvin_move_servo(m_servo *servo, u8 angle)
 {
-    if (servo->pos == angle || angle > 180)
+    if (servo->pos == angle || angle > 180 || angle < 0)
         return ;
     servo->pos = angle;
     if (servo->oc_timer == OC_TIMER2)

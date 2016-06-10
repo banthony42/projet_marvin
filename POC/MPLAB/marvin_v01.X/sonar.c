@@ -42,7 +42,7 @@ void    marvin_set_sonar(m_sonar *sonar, u32 *trig_pin, u32 *trig_etat, u32 *ech
 
 void    marvin_trigger(m_sonar *sonar)
 {
-    *(sonar->state_trig_pin) = 1; // OUTPUT a 1
+    *(sonar->state_trig_pin) = 1 << sonar->trig_attachpin; // OUTPUT a 1
     asm volatile("nop");
     asm volatile("nop");
     asm volatile("nop");
@@ -50,7 +50,7 @@ void    marvin_trigger(m_sonar *sonar)
     asm volatile("nop");
     asm volatile("nop");
     asm volatile("nop");
-    *(sonar->state_trig_pin) = 0; // OUTPUT a 0
+    *(sonar->state_trig_pin) ^= 1 << sonar->trig_attachpin; // OUTPUT a 0
 }
 
 /*
@@ -66,7 +66,7 @@ u16      marvin_pulseIn(m_sonar *sonar)
 
     while (!(*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin)))   //On attend un front montant
         TMR1 = 0;
-    while ((*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin)))    // Duree lageur impulsion
+    while (((*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin))) && TMR1 != PR1)    // Duree lageur impulsion
         ret = TMR1;
     return (((ret * 1000000) / PR1 )/ 58);
 }

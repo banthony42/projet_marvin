@@ -20,7 +20,7 @@
 #define S1_ECHO_NPIN 9  // Numeros de PIN de l'ECHO
 
 #define S2_TRIG_NPIN 1  // Numeros de PIN du TRIGGER
-#define S2_ECHO_NPIN 8  // Numeros de PIN de l'ECHO
+#define S2_ECHO_NPIN 7  // Numeros de PIN de l'ECHO
 
 #define NBR_CAPTURE 11
 typedef struct  s_sonar
