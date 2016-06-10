@@ -8,8 +8,7 @@
  */
 // U1Rx -> RF2
 // U1Tx -> RF3
-//extern u8 uart_test[500];
-//extern u16 uart_nbr;
+
 void    marvin_setup_baud_rate()
 {
     // En Dur pour l'instant
@@ -25,9 +24,9 @@ void    marvin_setup_baud_rate()
 void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status)
 {
     *uart_reg = 0 | BRGH | PDSEL_00 |  STSEL_0 ;    // config de l'UART avec define choisit
-    U1STAbits.URXISEL =2;
+//    U1STAbits.URXISEL = 2;
     marvin_setup_baud_rate();                               // baud rate calculer en auto
-    *uart_status = 0 | UTXEN_1 | URXEN_1;                  // Receive / Transmit enabled
+    *uart_status = 0 | UTXEN_1 | URXEN_1 | URXISEL_10;      // Receive / Transmit enabled and config interrupt
     *uart_reg |= UART_ON;
 }
 
@@ -51,7 +50,6 @@ void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, 
     {
         if (U1STAbits.UTXBF == 0) // check si le buffer est vide pour envoyer le byte
         *uart_send = tab[i++];
-
     }
 }
 
@@ -78,5 +76,4 @@ char    *marvin_receive_message(u8 *receive, u16 *uart_nbr, u32 *uart_receive, u
     _nop();
     return (receive);
 }
-
 */

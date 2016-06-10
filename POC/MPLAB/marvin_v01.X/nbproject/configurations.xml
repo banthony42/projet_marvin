@@ -22,7 +22,6 @@
       <itemPath>configbits.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>timer.c</itemPath>
-      <itemPath>marvin_servo.c</itemPath>
       <itemPath>sonar.c</itemPath>
       <itemPath>tools.c</itemPath>
       <itemPath>Ir.c</itemPath>

@@ -24,6 +24,7 @@ void    __ISR(7, IPL5) btn_interrupt()
 {
     u8 tab[100] = "tbeauman a une petite bite, eurghiuergiqeurhgviweuhvbweurhviweurhgviuerhgrgneirughiweurhgirugh";
 
+    LATFbits.LATF1 = !LATFbits.LATF1;
      marvin_send_message(tab, 100, MARVIN_UART_SEND, MARVIN_UART_STATUS, MARVIN_CONF_TIMER1, MARVIN_PR1, MARVIN_TIMER1);
      IFS0bits.INT1IF = 0;
 }
@@ -44,6 +45,7 @@ void    __ISR(24, IPL5) uart_interrupt()
 int    main()
 {
     m_servo servo1;
+    m_servo servo2;
 
     LATFbits.LATF1 = 1;
     TRISFbits.TRISF1 = 0;
@@ -60,19 +62,25 @@ int    main()
     IPC6bits.U1IP = 5;
     IEC0bits.U1RXIE = 1;
 
-    //SERVO1 = 0;   // Test si vraiment necessaire pour la sortie OC4
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER1);
-    marvin_set_periode(MARVIN_PR1, 1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
+    marvin_set_periode(MARVIN_PR1, 2, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);
     //UART TEST
-    marvin_set_timer(MARVIN_CONF_TIMER4, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER4);   // setup TIMER2 pour PWM
-
-    marvin_setup_uart(MARVIN_UART, MARVIN_UART_STATUS);
-
-    marvin_set_timer(MARVIN_CONF_TIMER4, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER4);
+    //marvin_set_timer(MARVIN_CONF_TIMER4, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER4);   // setup TIMER2 pour PWM
+    //marvin_setup_uart(MARVIN_UART, MARVIN_UART_STATUS);
+   // marvin_set_timer(MARVIN_CONF_TIMER4, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER4);
    // asm volatile ("nop");
 
-    //int test[10]= { 0, 180, 90, 20, 45, 76, 83 ,45, 180, 90};
-   // int i = 0;
+    marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   // setup TIMER2 pour PWM
+    marvin_set_periode(MARVIN_PR2, 20, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);     // setup periode TIMER2 a 19ms pour PWM servo
+     marvin_set_timer(MARVIN_CONF_TIMER3, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER3);   // setup TIMER2 pour PWM
+    marvin_set_periode(MARVIN_PR3, 15, TYPE_B, MARVIN_CONF_TIMER3, TIME_MSEC);
+    marvin_attach_servo(&servo1, MARVIN_OC4, MARVIN_OC4RS, 550, 2400, OC_TIMER2, 20000);
+    marvin_attach_servo(&servo2, MARVIN_OC3, MARVIN_OC3RS, 550, 2350, OC_TIMER2, 20000);
+
+    int test[10] = { 0, 180, 90, 20, 45, 76, 83 ,45, 180, 90};
+    int test2[3] = {0, 90, 179};
+    int i = 0;
+    int i2 = 0;
     INTCONbits.MVEC = 1; // Interrupt controller en mode multi-vector
     __builtin_enable_interrupts(); // Ordonner au CPU de checker les interrupts
     while (1)
@@ -82,6 +90,16 @@ int    main()
        {
             TMR1 = 0;
             LATFbits.LATF1 = !LATFbits.LATF1;
+            marvin_move_servo(&servo1, test[i++]);
+            TMR3 = 0;
+            while (TMR3 != PR3);
+            marvin_move_servo(&servo2, test2[i2++]);
+            if (i == 10)
+                i = 0;
+            if (i2 == 3)
+                i2 = 0;
+           /// i2 += 1;
+            //i++;
         }
     }
     return (0);
