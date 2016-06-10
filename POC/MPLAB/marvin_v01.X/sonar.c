@@ -56,17 +56,19 @@ void    marvin_trigger(m_sonar *sonar)
 /*
  * Fonction qui lit le retour sur echo, et return la mesure en cm
  * Param 1: L'objet Sonar
+ *  Set la periode du timer a utiliser a 1 seconde, avec TCKPS = 0b11;
  */
 
 u16      marvin_pulseIn(m_sonar *sonar)
 {
-    u16 ret;
+    u16 ret = 0;
+
 
     while (!(*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin)))   //On attend un front montant
         TMR1 = 0;
     while ((*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin)))    // Duree lageur impulsion
         ret = TMR1;
-    return (ret / 58);
+    return (((ret * 1000000) / PR1 )/ 58);
 }
 
 /*
@@ -77,13 +79,15 @@ u16      marvin_pulseIn(m_sonar *sonar)
 u16      marvin_capture(m_sonar *sonar)
 {
     u8 i = 0;
+
     u16 tab[NBR_CAPTURE] ={0};
    
     while (i < NBR_CAPTURE)
     {
         marvin_trigger(sonar); //on envoie le trig
     // Fonction de tri (c.f arduino)
-       marvin_tri_insertion(tab, i, marvin_pulseIn(sonar));
+
+       marvin_tri_insertion(tab, i,marvin_pulseIn(sonar));
         ++i;
     }
     return (marvin_calcul_median(tab, NBR_CAPTURE));
