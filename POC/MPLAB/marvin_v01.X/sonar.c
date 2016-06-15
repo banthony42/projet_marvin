@@ -4,6 +4,7 @@
 #include "sonar.h"
 #include "types.h"
 #include "tools.h"
+#include "timer.h"
 
 
 // va falloir envoyer les PINS a definir en entree et en sortie, le trigger LATF pour modifier letat de la sortie
@@ -63,11 +64,11 @@ u16      marvin_pulseIn(m_sonar *sonar)
 {
     u16 ret = 0;
 
-
+    marvin_set_periode(MARVIN_PR4, 1000, TYPE_B, MARVIN_CONF_TIMER4, TIME_MSEC);
     while (!(*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin)))   //On attend un front montant
-        TMR1 = 0;
+        TMR4 = 0;
     while (((*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin))) && TMR1 != PR1)    // Duree lageur impulsion
-        ret = TMR1;
+        ret = TMR4;
     return (((ret * 1000000) / PR1 )/ 58);
 }
 

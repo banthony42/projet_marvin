@@ -8,7 +8,13 @@
  * Param2 : Taille du taleau
  * Return : La medianne
  */
-u16   marvin_calcul_median(u16 *tab, u8 size)
+
+u16 map(u16 x, u16 in_min, u16 in_max, u16 out_min, u16 out_max)
+{
+    return (((x - in_min) * (out_max - out_min)) / ((in_max - in_min) + out_min)); // Code de la fonction Map Arduino
+}
+
+u16 marvin_calcul_median(u16 *tab, u8 size)
 {
   u8 index;
   u8 nbrzero = 0;
@@ -36,7 +42,7 @@ u16   marvin_calcul_median(u16 *tab, u8 size)
  * Param3 valeur a inserer
  */
  
-u16  marvin_tri_insertion(u16 *tab, u8 size, u16 valeur)
+u16 marvin_tri_insertion(u16 *tab, u8 size, u16 valeur)
 {
   u16 *pos;
 

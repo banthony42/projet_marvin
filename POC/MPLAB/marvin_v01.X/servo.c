@@ -32,7 +32,7 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
 /*
  * Fonction qui place un servo sur l'angle passez en param
  * Param1 : Objet m_servo a moove
- * Param2 : Angle du servo voulu (0 a 180 deg)
+ * Param2 : Angle du servo voulu (0 a 180 deg)  passeer en milideg (0 a 1800)? pour plus de precision lors de cmd de vitesse?
 */
 
 void    marvin_move_servo(m_servo *servo, u8 angle)
@@ -41,10 +41,29 @@ void    marvin_move_servo(m_servo *servo, u8 angle)
         return ;
     servo->pos = angle;
     if (servo->oc_timer == OC_TIMER2)
-    {
         *(servo->ocrs) = (PR2 * (servo->min + (angle * ((servo->max  - servo->min ) / 180)))) / servo->periode;     // Ecriture du nouveau duty_cycle dans le registre OCxRS
-       //    *(servo->ocrs) =  servo->min + (angle * ((servo->max  - servo->min ) / 180));
-    }
     else
         *(servo->ocrs) = (PR3 * (servo->min + (angle * ((servo->max - servo->min) / 180)))) / servo->periode;                                        
+}
+
+void    marvin_move_servo_speed(m_servo *servo, u8 angle, u16 deg_per_periode, u16 periode_msec)
+{
+    s8 sign;
+
+    sign = 0;
+    marvin_set_periode(MARVIN_PR4, periode_msec, TYPE_B, MARVIN_CONF_TIMER4, TIME_MSEC);
+    if (servo->pos == angle || angle > 180 || angle < 0)
+        return ;
+     if (angle > servo->pos)
+         sign = 1 * deg_per_periode;
+     else
+         sign = -1 * deg_per_periode;
+    TMR4 = 0;
+    while (servo->pos != angle)
+    {
+        if (TMR4 == PR4)
+        {
+                marvin_move_servo(servo, (servo->pos + sign));
+        }
+    }
 }
