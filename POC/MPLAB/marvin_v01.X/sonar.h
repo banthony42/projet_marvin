@@ -9,8 +9,6 @@
 #define	SONAR_H
 #include "types.h"
 
-
-
 #define SONAR1_SET_TRIG &TRISE  // Adresse du REGISTRE TRIG (TRISx)
 #define SONAR1_STATE_TRIG &LATE // Adresse du REGISTRE SET TRIG (LATx)
 #define SONAR1_SET_ECHO &TRISD  // Adresse du REGISTRE ECHO (TRISx)
@@ -23,10 +21,11 @@
 #define S2_ECHO_NPIN 7  // Numeros de PIN de l'ECHO
 
 #define NBR_CAPTURE 11
+
 typedef struct  s_sonar
 {
-    u8      echo_attachpin;
-    u8      trig_attachpin;
+    u8      echo_attachpin;     //Numeros de la PIN
+    u8      trig_attachpin;     // Numeros de la PIN
     u32     *state_trig_pin;    // registre etat
     u32     *read_echo_pin;     // registre read
 }               m_sonar;
@@ -34,8 +33,8 @@ typedef struct  s_sonar
 
 void    marvin_set_sonar(m_sonar *sonar, u32 *trig_pin, u32 *trig_etat, u32 *echo_pin, u32 *echo_read);
 void    marvin_trigger(m_sonar *sonar);
-u16     marvin_pulseIn(m_sonar *sonar); //Retourne Une seule capture
-u16     marvin_capture(m_sonar *sonar);// retourne une distance en cm dedans on appelera le fonction de tri et la fonction de calcul de medianne
+u16     marvin_pulseIn(m_sonar *sonar);
+u16     marvin_capture(m_sonar *sonar);
 
 #endif	/* SONAR_H */
 

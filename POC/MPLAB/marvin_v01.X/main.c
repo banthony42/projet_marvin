@@ -49,7 +49,7 @@ void    __ISR(24, IPL5) uart_interrupt()
         if (nbr == 500)
             nbr = 0;
       IFS0bits.U1RXIF = 0;
-     
+
 }*/
 
 int    main()
@@ -113,7 +113,7 @@ int    main()
             }
             m_sonar1 = 0;
             m_sonar2 = 0;
-            
+
         }
         while ((m_sonar1 > 0 && m_sonar2 > 0) && (m_sonar1 < 180 || m_sonar2 < 180))
         {
@@ -125,7 +125,7 @@ int    main()
             }
             m_sonar1 = 0;
             m_sonar2 = 0;
-       
+
         }*/
         if (TMR1 == PR1)
         {

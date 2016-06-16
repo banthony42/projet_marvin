@@ -37,11 +37,11 @@
 #define MARVIN_PR4 &PR4
 
 // set le timer
-#define TIMER_ON 0b1000000000000000
+#define TIMER_ON 0b1 << 15
 #define TIMER_OFF 0b0
 
 // set GATE bits 7
-#define TIMER_GATE_ON 0b10000000
+#define TIMER_GATE_ON 0b1 << 7
 #define TIMER_GATE_OFF 0b0
 
 // set tckps bits 4-5  TYPEA

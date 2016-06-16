@@ -8,9 +8,12 @@
 #ifndef IR_H
 #define	IR_H
 
-#define PIN_IR 5
-#define IR_CAPTURE 11
-// On as une fonction de Setup
-// On auras de l'input capture
+#define PIN_IR 5        // Num de PIN du capteur, utile ?
+#define IR_CAPTURE 11   // Nbr de capture a effectue pour le tri de valeur
+#define IR_SCOPE 100    // Portee du capteur, (Valeur max pour laquel le booleen vaudra 1)
+
+void    marvin_setup_ir();
+u16    capture_ir(u32 *conf_timer, u32 *pr, u32 *timer);
+
 #endif	/* IR_H */
 

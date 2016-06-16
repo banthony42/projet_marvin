@@ -11,6 +11,8 @@
       <itemPath>tools.h</itemPath>
       <itemPath>Ir.h</itemPath>
       <itemPath>uart.h</itemPath>
+      <itemPath>setup.h</itemPath>
+      <itemPath>marvin.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -27,6 +29,9 @@
       <itemPath>Ir.c</itemPath>
       <itemPath>uart.c</itemPath>
       <itemPath>servo.c</itemPath>
+      <itemPath>setup.c</itemPath>
+      <itemPath>main_final.c</itemPath>
+      <itemPath>marvin.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -190,6 +195,8 @@
         </C32CPP>
         <C32Global>
         </C32Global>
+      </item>
+      <item path="main_final.c" ex="true" overriding="false">
       </item>
       <item path="tools.c" ex="false" overriding="false">
         <C32>

@@ -49,6 +49,8 @@
 #define PIN_RX
 #define PIN_TX
 
+#define SIZE_MESS 100           // Taille maximum d'un message UART
+
 void    marvin_setup_baud_rate();
 void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status);
 void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, u32 *conf_timer, u32 *pr, u32 *timer);
