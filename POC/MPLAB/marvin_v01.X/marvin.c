@@ -20,8 +20,8 @@ void    marvin_init(m_marvin *marvin)
     marvin->val_sonar2 = 0;
     marvin->counter1 = 0;
     marvin->counter2 = 0;
-    marvin_move_servo(&marvin->servo1, 90);
-    marvin_move_servo(&marvin->servo2, 90);
+    //marvin_move_servo(&marvin->servo1, 90);
+    //marvin_move_servo(&marvin->servo2, 90);
 }
 
 /*
@@ -38,20 +38,25 @@ void    marvin_refresh(m_marvin *marvin)
 
 /*
  * Fonction de test de presence sur le sonar de gauche, return 1 ou 0
+ * Il faut definir des minimums et des maximums
  */
-void    marvin_is_someone_left(m_marvin marvin)
+
+
+
+u8    marvin_is_someone_left(m_marvin marvin)
 {
-    if (marvin->val_sonar2 < marvin->val_sonar1)
+    if (marvin.val_sonar2 < marvin.val_sonar1)
         return (1);
     return (0);
 }
 
 /*
  * Fonction de test de presence sur le sonar de droite, return 1 ou 0
+ * Il faut definir des minimuns et des maximums
  */
-void    marvin_is_someone_right(m_marvin marvin)
+u8    marvin_is_someone_right(m_marvin marvin)
 {
-    if (marvin->val_sonar1 < marvin->val_sonar2)
+    if (marvin.val_sonar1 < marvin.val_sonar2)
         return (1);
     return(0);
 }
@@ -59,9 +64,9 @@ void    marvin_is_someone_right(m_marvin marvin)
 /*
  * Fonction de test de presence en face de MARVIN, return 1 ou 0
  */
-void    marvin_is_someone_found(m_marvin marvin)
+u8   marvin_is_someone_found(m_marvin marvin)
 {
-    if (IR < IR_SCOPE)
+    if (marvin.val_ir < IR_SCOPE)
         return (1);
     return (0);
 }
@@ -91,7 +96,8 @@ void    marvin_stop_move(m_marvin *marvin)
 /*
  * Fonction de changement d'etat des LEDS,
  * Param1: Etat des leds ON ou OFF (resp. 1 ou 0)
- */
+ * Decommenter une fois sur NOTRE PIC
+ *//*
 void    marvin_eye(u8 state)
 {
     if (state == ON)
@@ -102,4 +108,39 @@ void    marvin_eye(u8 state)
     else
         LATBbits.LATFB9 = 0;
         LATBbits.LATB13 = 0;
+}*/
+
+
+void    __ISR(4, IPL1) timer1_interrupt()
+{
+    marvin.time->nbr_periode += 1;
+    IFS0bits.T1IF = 0;
+}
+
+u32     get_time_sec(u32 timestamp, u32 nbr_periode)
+{
+    u32 actual_time;
+    u32 actual_nbr_periode;
+    u32 result;
+
+    result = 0;
+    actual_time = TMR1;
+    actual_nbr_periode = marvin.time->nbr_periode;
+    if (actual_nbr_periode != nbr_periode)
+        result = map((actual_time - timestamp), 0, PR1, 0, 10) + ((actual_nbr_periode - nbr_periode) * 10);
+    return(map((actual_time - timestamp), 0, PR1, 0, 10));
+}
+
+u32     get_time_msec(u32 timestamp, u32 nbr_periode)
+{
+    u32 actual_time;
+    u32 actual_nbr_periode;
+    u32 result;
+
+    result = 0;
+    actual_time = TMR1;
+    actual_nbr_periode = marvin.time->nbr_periode;
+    if (actual_nbr_periode != nbr_periode)
+        result = map((actual_time - timestamp), 0, PR1, 0, 1000) + ((actual_nbr_periode - nbr_periode) * 10);
+    return(map((actual_time - timestamp), 0, PR1, 0, 1000));
 }

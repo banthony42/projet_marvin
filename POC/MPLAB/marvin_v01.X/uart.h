@@ -20,8 +20,8 @@
 #define MARVIN_UART_RECEIVE &U1RXREG
 
 
-#define BRGH 1 << 3             // High Baud rate speed mode (x4)
-#define BRGH 0                  // Standard Baud rate speed mode (x16)
+#define BRGH_x4 1 << 3             // High Baud rate speed mode (x4)
+#define BRGH_x16 0                  // Standard Baud rate speed mode (x16)
 
 #define PDSEL_00 0b00 << 1      // 8 bit data no parity
 #define PDSEL_01 0b01 << 1      // 8 bit data even parity
@@ -49,7 +49,6 @@
 #define PIN_RX
 #define PIN_TX
 
-#define SIZE_MESS 100           // Taille maximum d'un message UART
 
 void    marvin_setup_baud_rate();
 void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status);

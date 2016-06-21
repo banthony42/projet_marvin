@@ -196,7 +196,21 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="main_final.c" ex="true" overriding="false">
+      <item path="main.c" ex="true" overriding="false">
+      </item>
+      <item path="main_final.c" ex="false" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <item path="tools.c" ex="false" overriding="false">
         <C32>

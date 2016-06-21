@@ -2,6 +2,7 @@
 #include "timer.h"
 #include "types.h"
 #include <p32xxxx.h>
+#include <sys/attribs.h>
 
 /*
  * Fonction qui set le TIMER

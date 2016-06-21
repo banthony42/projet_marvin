@@ -2,6 +2,7 @@
 #include "uart.h"
 #include "types.h"
 #include <p32xxxx.h>
+#include <sys/attribs.h>
 
 /*
  * Note pour test sur protoboard U1Rx -> RF2 ; U1Tx -> RF3
@@ -19,7 +20,7 @@ void    marvin_setup_baud_rate()
  */
 void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status)
 {
-    *uart_reg = 0 | BRGH | PDSEL_00 |  STSEL_0;         // config de l'UART avec define choisit
+    *uart_reg = 0 | BRGH_x4 | PDSEL_00 |  STSEL_0;         // config de l'UART avec define choisit
 //  U1STAbits.URXISEL = 2;
     marvin_setup_baud_rate();                           // baud rate calculer en auto
     *uart_status = 0 | UTXEN_1 | URXEN_1 | URXISEL_10;  // Receive / Transmit enabled and config interrupt
@@ -63,7 +64,7 @@ void    marvin_setup_uart_interrupt(u8 priority_lvl)
  * Interrupt de reception de l'UART
  *
  * Verifier qu'on a l'acces sur le tableau et sa taille
- */
+ *
 void    __ISR(24, IPL5) uart_interrupt()
 {
         while (U1STAbits.URXDA && nbr < 500)
@@ -71,8 +72,7 @@ void    __ISR(24, IPL5) uart_interrupt()
         if (nbr == 500)
             nbr = 0;
       IFS0bits.U1RXIF = 0;
-
-}
+}*/
 
 
 

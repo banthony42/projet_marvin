@@ -9,7 +9,7 @@
 #define	TOOLS_H
 #include "types.h"
 
-u16 map(u16 x, u16 in_min, u16 in_max, u16 out_min, u16 out_max);
+u32 map(u32 x, u32 in_min, u32 in_max, u32 out_min, u32 out_max);
 u16 marvin_tri_insertion(u16 *tab, u8 size, u16 valeur);
 u16 marvin_calcul_median(u16 *tab, u8 size);
 

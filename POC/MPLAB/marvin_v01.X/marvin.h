@@ -16,6 +16,7 @@
 #include "sonar.h"
 #include "uart.h"
 #include "setup.h"
+#include "Ir.h"
 
 #define ON 1
 #define OFF 0
@@ -33,13 +34,15 @@
 
 void    marvin_init(m_marvin *marvin);
 void    marvin_refresh(m_marvin *marvin);
-void    marvin_is_someone_left(m_marvin marvin);
-void    marvin_is_someone_right(m_marvin marvin);
-void    marvin_is_someone_found(m_marvin marvin);
+u8      marvin_is_someone_left(m_marvin marvin);
+u8      marvin_is_someone_right(m_marvin marvin);
+u8      marvin_is_someone_found(m_marvin marvin);
 void    marvin_stop_move(m_marvin *marvin);
 void    marvin_turn_right(m_marvin *marvin);
 void    marvin_turn_left(m_marvin *marvin);
 void    marvin_eye(u8 state);
+u32     get_time_sec(u32 timestamp, u32 nbr_periode);
+u32     get_time_msec(u32 timestamp, u32 nbr_periode);
 
 #endif	/* MARVIN_H */
 

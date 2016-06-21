@@ -22,13 +22,6 @@
 
 #define NBR_CAPTURE 11
 
-typedef struct  s_sonar
-{
-    u8      echo_attachpin;     //Numeros de la PIN
-    u8      trig_attachpin;     // Numeros de la PIN
-    u32     *state_trig_pin;    // registre etat
-    u32     *read_echo_pin;     // registre read
-}               m_sonar;
 
 
 void    marvin_set_sonar(m_sonar *sonar, u32 *trig_pin, u32 *trig_etat, u32 *echo_pin, u32 *echo_read);

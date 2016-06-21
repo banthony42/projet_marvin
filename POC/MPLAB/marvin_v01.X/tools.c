@@ -9,7 +9,7 @@
  * Param4: Valeur minimal de y (y etant la valeur du return)
  * Param5: Valeur maximal de y (y etant la valeur du return)
  */
-u16 map(u16 x, u16 in_min, u16 in_max, u16 out_min, u16 out_max)
+u32 map(u32 x, u32 in_min, u32 in_max, u32 out_min, u32 out_max)
 {
     return (((x - in_min) * (out_max - out_min)) / ((in_max - in_min) + out_min)); // Code de la fonction Map Arduino
 }
