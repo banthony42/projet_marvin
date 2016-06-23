@@ -1,4 +1,5 @@
 build/default/production/main.o:  \
 main.c  \
 types.h  \
-timer.h 
+timer.h  \
+Servo.h 

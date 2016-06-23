@@ -20,7 +20,7 @@
 #pragma config FPLLODIV = DIV_256       // System PLL Output Clock Divider (PLL Divide by 256)
 
 // DEVCFG1
-#pragma config FNOSC = FRCDIV16         // Oscillator Selection Bits (Fast RC Osc w/Div-by-16 (FRC/16))
+#pragma config FNOSC = FRC              // Oscillator Selection Bits (Fast RC Osc (FRC))
 #pragma config FSOSCEN = ON             // Secondary Oscillator Enable (Enabled)
 #pragma config IESO = ON                // Internal/External Switch Over (Enabled)
 #pragma config POSCMOD = OFF            // Primary Oscillator Configuration (Primary osc disabled)
@@ -37,4 +37,4 @@
 #pragma config ICESEL = ICS_PGx1        // ICE/ICD Comm Channel Select (Communicate on PGEC1/PGED1)
 #pragma config PWP = OFF                // Program Flash Write Protect (Disable)
 #pragma config BWP = OFF                // Boot Flash Write Protect bit (Protection Disabled)
-#pragma config CP = OFF                 // Code Protect (Protection Disabled)Protection Disabled)
+#pragma config CP = OFF                // Code Protect (Protection Disabled)
