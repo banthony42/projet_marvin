@@ -23,12 +23,16 @@ int    main()
     while (1)
     {
         // Code de test;
-        if (TMR1 == PR1)
+        if (TMR1 == PR1 / 2)
         {
             LATFbits.LATF1 = !LATFbits.LATF1;
             timestamp = TMR1;
             nbr_periode = marvin.time->nbr_periode;
+        }
+        if (TMR1 == PR1)
+        {
             time = get_time_sec(timestamp, nbr_periode);
+            _nop();
         }
         // Fin code de test;
 

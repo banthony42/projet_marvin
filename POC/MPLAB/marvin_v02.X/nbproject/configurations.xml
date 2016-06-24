@@ -7,6 +7,12 @@
       <itemPath>types.h</itemPath>
       <itemPath>timer.h</itemPath>
       <itemPath>Servo.h</itemPath>
+      <itemPath>setup.h</itemPath>
+      <itemPath>Ir.h</itemPath>
+      <itemPath>sonar.h</itemPath>
+      <itemPath>tools.h</itemPath>
+      <itemPath>marvin.h</itemPath>
+      <itemPath>uart.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +25,12 @@
       <itemPath>configbits.c</itemPath>
       <itemPath>timer.c</itemPath>
       <itemPath>servo.c</itemPath>
+      <itemPath>setup.c</itemPath>
+      <itemPath>Ir.c</itemPath>
+      <itemPath>sonar.c</itemPath>
+      <itemPath>tools.c</itemPath>
+      <itemPath>marvin.c</itemPath>
+      <itemPath>uart.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -36,7 +48,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>1.34</languageToolchainVersion>
+        <languageToolchainVersion>1.40</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -223,6 +235,14 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </ICD3PlatformTool>
+      <item path="marvin.c" ex="true" overriding="false">
+      </item>
+      <item path="marvin.h" ex="true" overriding="false">
+      </item>
+      <item path="uart.c" ex="true" overriding="false">
+      </item>
+      <item path="uart.h" ex="true" overriding="false">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

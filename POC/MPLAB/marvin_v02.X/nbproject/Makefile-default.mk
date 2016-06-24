@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c configbits.c timer.c servo.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c configbits.c timer.c servo.c setup.c Ir.c sonar.c tools.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/servo.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/servo.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/Ir.o ${OBJECTDIR}/sonar.o ${OBJECTDIR}/tools.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/Ir.o.d ${OBJECTDIR}/sonar.o.d ${OBJECTDIR}/tools.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/servo.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/Ir.o ${OBJECTDIR}/sonar.o ${OBJECTDIR}/tools.o
 
 # Source Files
-SOURCEFILES=main.c configbits.c timer.c servo.c
+SOURCEFILES=main.c configbits.c timer.c servo.c setup.c Ir.c sonar.c tools.c
 
 
 CFLAGS=
@@ -118,6 +118,30 @@ ${OBJECTDIR}/servo.o: servo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/servo.o 
 	@${FIXDEPS} "${OBJECTDIR}/servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/servo.o.d" -o ${OBJECTDIR}/servo.o servo.c   
 	
+${OBJECTDIR}/setup.o: setup.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/setup.o.d 
+	@${RM} ${OBJECTDIR}/setup.o 
+	@${FIXDEPS} "${OBJECTDIR}/setup.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/setup.o.d" -o ${OBJECTDIR}/setup.o setup.c   
+	
+${OBJECTDIR}/Ir.o: Ir.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Ir.o.d 
+	@${RM} ${OBJECTDIR}/Ir.o 
+	@${FIXDEPS} "${OBJECTDIR}/Ir.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Ir.o.d" -o ${OBJECTDIR}/Ir.o Ir.c   
+	
+${OBJECTDIR}/sonar.o: sonar.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/sonar.o.d 
+	@${RM} ${OBJECTDIR}/sonar.o 
+	@${FIXDEPS} "${OBJECTDIR}/sonar.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/sonar.o.d" -o ${OBJECTDIR}/sonar.o sonar.c   
+	
+${OBJECTDIR}/tools.o: tools.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/tools.o.d 
+	@${RM} ${OBJECTDIR}/tools.o 
+	@${FIXDEPS} "${OBJECTDIR}/tools.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/tools.o.d" -o ${OBJECTDIR}/tools.o tools.c   
+	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -142,6 +166,30 @@ ${OBJECTDIR}/servo.o: servo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/servo.o.d 
 	@${RM} ${OBJECTDIR}/servo.o 
 	@${FIXDEPS} "${OBJECTDIR}/servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/servo.o.d" -o ${OBJECTDIR}/servo.o servo.c   
+	
+${OBJECTDIR}/setup.o: setup.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/setup.o.d 
+	@${RM} ${OBJECTDIR}/setup.o 
+	@${FIXDEPS} "${OBJECTDIR}/setup.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/setup.o.d" -o ${OBJECTDIR}/setup.o setup.c   
+	
+${OBJECTDIR}/Ir.o: Ir.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Ir.o.d 
+	@${RM} ${OBJECTDIR}/Ir.o 
+	@${FIXDEPS} "${OBJECTDIR}/Ir.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Ir.o.d" -o ${OBJECTDIR}/Ir.o Ir.c   
+	
+${OBJECTDIR}/sonar.o: sonar.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/sonar.o.d 
+	@${RM} ${OBJECTDIR}/sonar.o 
+	@${FIXDEPS} "${OBJECTDIR}/sonar.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/sonar.o.d" -o ${OBJECTDIR}/sonar.o sonar.c   
+	
+${OBJECTDIR}/tools.o: tools.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/tools.o.d 
+	@${RM} ${OBJECTDIR}/tools.o 
+	@${FIXDEPS} "${OBJECTDIR}/tools.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/tools.o.d" -o ${OBJECTDIR}/tools.o tools.c   
 	
 endif
 
