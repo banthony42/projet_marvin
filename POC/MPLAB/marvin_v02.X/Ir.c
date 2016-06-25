@@ -26,7 +26,7 @@ u16    capture_ir(u32 *conf_timer, u32 *pr, u32 *timer)
         marvin_tri_insertion(tab, i, ADC1BUF0);                 // Lecture du signal recu encoye dans la Fonction de tri (c.f arduino)
         ++i;
     }
-    return (marvin_calcul_median(tab , IR_CAPTURE));            // Fonction de mediane (c.f arduino)
+    return (marvin_calcul_median(tab , IR_CAPTURE) * 3300 / 1024);            // Fonction de mediane (c.f arduino)
 }
 
 /*

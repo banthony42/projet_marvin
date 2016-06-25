@@ -38,8 +38,8 @@ int main()
         {
             marvin_move_servo_speed(&led, 0, 5, 20);
 /*          marvin.val_sonar1 = marvin_capture(&marvin.sonar1);
-            marvin.val_sonar2 = marvin_capture(&marvin.sonar2);
-            marvin.val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);*/
+            marvin.val_sonar2 = marvin_capture(&marvin.sonar2);*/
+            marvin.val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
             _nop();
             TMR1 = 0;
         }
