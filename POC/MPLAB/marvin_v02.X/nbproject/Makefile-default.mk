@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c configbits.c timer.c servo.c setup.c Ir.c sonar.c tools.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c configbits.c timer.c servo.c setup.c Ir.c sonar.c tools.c marvin.c leds.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/Ir.o ${OBJECTDIR}/sonar.o ${OBJECTDIR}/tools.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/Ir.o.d ${OBJECTDIR}/sonar.o.d ${OBJECTDIR}/tools.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/Ir.o ${OBJECTDIR}/sonar.o ${OBJECTDIR}/tools.o ${OBJECTDIR}/marvin.o ${OBJECTDIR}/leds.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/setup.o.d ${OBJECTDIR}/Ir.o.d ${OBJECTDIR}/sonar.o.d ${OBJECTDIR}/tools.o.d ${OBJECTDIR}/marvin.o.d ${OBJECTDIR}/leds.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/Ir.o ${OBJECTDIR}/sonar.o ${OBJECTDIR}/tools.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/setup.o ${OBJECTDIR}/Ir.o ${OBJECTDIR}/sonar.o ${OBJECTDIR}/tools.o ${OBJECTDIR}/marvin.o ${OBJECTDIR}/leds.o
 
 # Source Files
-SOURCEFILES=main.c configbits.c timer.c servo.c setup.c Ir.c sonar.c tools.c
+SOURCEFILES=main.c configbits.c timer.c servo.c setup.c Ir.c sonar.c tools.c marvin.c leds.c
 
 
 CFLAGS=
@@ -142,6 +142,18 @@ ${OBJECTDIR}/tools.o: tools.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/tools.o 
 	@${FIXDEPS} "${OBJECTDIR}/tools.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/tools.o.d" -o ${OBJECTDIR}/tools.o tools.c   
 	
+${OBJECTDIR}/marvin.o: marvin.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/marvin.o.d 
+	@${RM} ${OBJECTDIR}/marvin.o 
+	@${FIXDEPS} "${OBJECTDIR}/marvin.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/marvin.o.d" -o ${OBJECTDIR}/marvin.o marvin.c   
+	
+${OBJECTDIR}/leds.o: leds.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/leds.o.d 
+	@${RM} ${OBJECTDIR}/leds.o 
+	@${FIXDEPS} "${OBJECTDIR}/leds.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/leds.o.d" -o ${OBJECTDIR}/leds.o leds.c   
+	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -190,6 +202,18 @@ ${OBJECTDIR}/tools.o: tools.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/tools.o.d 
 	@${RM} ${OBJECTDIR}/tools.o 
 	@${FIXDEPS} "${OBJECTDIR}/tools.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/tools.o.d" -o ${OBJECTDIR}/tools.o tools.c   
+	
+${OBJECTDIR}/marvin.o: marvin.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/marvin.o.d 
+	@${RM} ${OBJECTDIR}/marvin.o 
+	@${FIXDEPS} "${OBJECTDIR}/marvin.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/marvin.o.d" -o ${OBJECTDIR}/marvin.o marvin.c   
+	
+${OBJECTDIR}/leds.o: leds.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/leds.o.d 
+	@${RM} ${OBJECTDIR}/leds.o 
+	@${FIXDEPS} "${OBJECTDIR}/leds.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/leds.o.d" -o ${OBJECTDIR}/leds.o leds.c   
 	
 endif
 

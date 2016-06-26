@@ -22,5 +22,6 @@ void    marvin_setup_leds();
 void    marvin_setup_timer();
 void    marvin_setup_sonar();
 void    marvin_setup_servo();
+void    marvin_setup_interrupt();
 #endif	/* SETUP_H */
 

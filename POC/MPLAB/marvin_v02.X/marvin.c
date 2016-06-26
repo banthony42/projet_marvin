@@ -16,12 +16,12 @@ void    marvin_init(m_marvin *marvin)
     //bzero sur marvin->send
     //bzero sur marvin->receive
     marvin->val_ir = 0;
-    marvin->val_sonar1 = 0;
-    marvin->val_sonar2 = 0;
+    marvin->val_sonar_l = 0;
+    marvin->val_sonar_r = 0;
     marvin->counter1 = 0;
     marvin->counter2 = 0;
-    //marvin_move_servo(&marvin->servo1, 90);
-    //marvin_move_servo(&marvin->servo2, 90);
+//    marvin_move_servo(&marvin->servo_pitch, 90);
+//    marvin_move_servo(&marvin->servo_yaw, 90);
 }
 
 /*
@@ -29,8 +29,8 @@ void    marvin_init(m_marvin *marvin)
  */
 void    marvin_refresh(m_marvin *marvin)
 {
-    marvin->val_sonar1 = marvin_capture(&marvin->sonar1);
-    marvin->val_sonar2 = marvin_capture(&marvin->sonar2);
+    marvin->val_sonar_r = marvin_capture(&marvin->sonar_right);
+    marvin->val_sonar_l = marvin_capture(&marvin->sonar_left);
     marvin->val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
     //  marvin_receive_message(...) => marvin->receive  ?
     //  Clear marvin->send ?
@@ -40,12 +40,9 @@ void    marvin_refresh(m_marvin *marvin)
  * Fonction de test de presence sur le sonar de gauche, return 1 ou 0
  * Il faut definir des minimums et des maximums
  */
-
-
-
 u8    marvin_is_someone_left(m_marvin marvin)
 {
-    if (marvin.val_sonar2 < marvin.val_sonar1)
+    if (marvin.val_sonar_l < marvin.val_sonar_r)
         return (1);
     return (0);
 }
@@ -56,7 +53,7 @@ u8    marvin_is_someone_left(m_marvin marvin)
  */
 u8    marvin_is_someone_right(m_marvin marvin)
 {
-    if (marvin.val_sonar1 < marvin.val_sonar2)
+    if (marvin.val_sonar_r < marvin.val_sonar_l)
         return (1);
     return(0);
 }
@@ -89,26 +86,28 @@ void    marvin_turn_left(m_marvin *marvin);
  */
 void    marvin_stop_move(m_marvin *marvin)
 {
-    marvin->servo1.incr = 0;
-    marvin->servo2.incr = 0;
+    marvin->servo_pitch.incr = 0;
+    marvin->servo_yaw.incr = 0;
 }
 
 /*
  * Fonction de changement d'etat des LEDS,
  * Param1: Etat des leds ON ou OFF (resp. 1 ou 0)
  * Decommenter une fois sur NOTRE PIC
- *//*
+ */
 void    marvin_eye(u8 state)
 {
     if (state == ON)
     {
-        LATBbits.LATFB9 = 1;
-        LATBbits.LATB13 = 1;
+        marvin_set_lux(&marvin.led_left, 100);
+        marvin_set_lux(&marvin.led_right, 100);
     }
     else
-        LATBbits.LATFB9 = 0;
-        LATBbits.LATB13 = 0;
-}*/
+    {
+        marvin_set_lux(&marvin.led_left, 0);
+        marvin_set_lux(&marvin.led_right, 0);
+    }
+}
 
 
 void    __ISR(4, IPL1) timer1_interrupt()

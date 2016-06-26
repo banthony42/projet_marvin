@@ -4,4 +4,5 @@ setup.h  \
 types.h  \
 timer.h  \
 Servo.h  \
- sonar.h 
+ pwm.h  \
+sonar.h 

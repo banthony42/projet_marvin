@@ -17,6 +17,22 @@
 #define s16 signed short
 #define s32 signed long
 
+
+
+#define TIME_TMR1 3
+/* Structure de temps
+ *
+ */
+
+typedef struct s_timestamp m_timestamp;
+
+
+struct s_timestamp
+{
+    u32 time;
+    u32 last_operation; // temps de la derniere operation
+};
+
 /*
  *  Structure de gestion du temps
  *  tmr = TMR1,
@@ -54,6 +70,28 @@ typedef struct  s_servo
 }               m_servo;
 
 /*
+ * Objet Leds:
+ * pin: Registre complet de la pin a laquelle est attache la leds
+ * min: duty_cycle pour Luminosite min (0 = Led eteinte)
+ * max: duty_cycle pour Luminosite max (max = periode : Led allumer au max)
+ * lux: Echelle luminosite (1 a 100)
+ * ocrs: registre de control correspondant a la PIN du servo
+ * periode: periode du servo pour le signal PWM
+ * oc_timer: registre cde comparaison secondaire correspondant a la PIN du servo
+ */
+
+typedef struct  s_led
+{
+    u32     *pin;
+    u16      min;
+    u16      max;
+    u8      lux;
+    u32     *ocrs;
+    u16     periode;
+    u8      oc_timer;
+}               m_led;
+
+/*
  * Objet sonar:
  * echo_attachpin: Numero de pin a laquelle est attache l'echo
  * trig_attachpin: Numero de pin a laquelle est attache le trigger
@@ -76,22 +114,25 @@ typedef struct  s_sonar
 typedef struct      s_marvin
 {
     m_marvin_time   *time;               // structure de gestion du temps
-    m_servo         servo1;             // Objet servo1
-    m_servo         servo2;             // Objet servo2
-    m_servo         servo3;             // Objet servo3
-    m_sonar         sonar1;             // Objet sonar1
-    m_sonar         sonar2;             // Objet sonar2
-    u16             val_sonar1;         // Valeur de mesure du sonar1
-    u16             val_sonar2;         // Valeur de mesure du sonar2
-    u16             val_ir;             // Valeur de mesure de l'IR
-    u8              send[SIZE_MESS];    // Tableau pour l'envoi de message UART
-    u8              receive[SIZE_MESS]; // Tableau pour la reception de message UART
-    u16             counter1;           // Variable a tout faire ...
-    u16             counter2;           // Varuable a tout faire ...
+    m_servo         servo_yaw;           // Objet servo1
+    m_servo         servo_pitch;         // Objet servo2
+    m_servo         servo_scan;          // Objet servo3
+    m_led           led_right;           // Objet Led1
+    m_led           led_left;            // Objet Led2
+    m_sonar         sonar_right;         // Objet sonar1
+    m_sonar         sonar_left;          // Objet sonar2
+    u16             val_sonar_r;         // Valeur de mesure du sonar1
+    u16             val_sonar_l;         // Valeur de mesure du sonar2
+    u16             val_ir;              // Valeur de mesure de l'IR
+    u8              send[SIZE_MESS];     // Tableau pour l'envoi de message UART
+    u8              receive[SIZE_MESS] ; // Tableau pour la reception de message UART
+    u16             counter1;            // Variable a tout faire ...
+    u16             counter2;            // Variable a tout faire ...
 }                   m_marvin;
 
 m_marvin_time time;
 m_marvin marvin;
+m_timestamp marvin_timestamp;
 
 #endif	/* TYPES_H */
 

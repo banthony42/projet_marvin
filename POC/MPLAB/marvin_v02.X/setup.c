@@ -13,9 +13,10 @@ void    marvin_setup(m_marvin *marvin)
 {
     marvin_mapping_pin();
     marvin_setup_timer(marvin);
-    marvin_setup_sonar(&marvin->sonar1, &marvin->sonar2);
-    marvin_setup_servo(&marvin->servo1, &marvin->servo2, &marvin->servo3);
+    marvin_setup_sonar(&marvin->sonar_right, &marvin->sonar_left);
+    marvin_setup_servo(&marvin->servo_pitch, &marvin->servo_scan, &marvin->servo_yaw);
     marvin_setup_ir();
+    marvin_setup_interrupt();
 //  marvin_setup_uart(MARVIN_UART, MARVIN_UART_STATUS);
 //  marvin_setup_uart_interrupt(5);     // Setup de l'interrupt de l'uart
 //  marvin_setup_leds();                // Setup des leds
@@ -60,7 +61,7 @@ void    marvin_setup_timer(m_marvin *marvin)
     IFS0bits.T1IF = 0;                                                              //  Flag inter a 0
     IPC1bits.T1IP = 1;                                                              // Priority de 1
     IEC0bits.T1IE = 1;                                                              // Inter sur TMR1 enable
-    marvin_set_periode(MARVIN_PR1, 3, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);       //  PERIODE DEFINIT a 10 sec
+    marvin_set_periode(MARVIN_PR1, TIME_TMR1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);       //  PERIODE DEFINIT a 10 sec , TIME_TMR1 definis dans types.h , il doit etre secondes
     marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   //  SETUP TMR2
     marvin_set_periode(MARVIN_PR2, 20, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);      //  20msec POUR PWM SERVO
     marvin_set_timer(MARVIN_CONF_TIMER3, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER3);   //  SETUP TMR3
@@ -104,4 +105,18 @@ void    marvin_setup_leds()
  //   TRISBbits.TRISB9 = 0;
   //  LATBbits.LATB13 = 1;
    // TRISBbits.TRISB13 = 0;
+}
+
+void marvin_setup_interrupt()
+{
+    INTCONbits.MVEC = 1; // INterrupt Controller em mode multi-Vector
+    __builtin_enable_interrupts(); // on dit au CPU d'activer les interrupts
+    marvin_setup_interrupt_tmr1();
+}
+
+void    marvin_setup_interrupt_tmr1()
+{
+   IPC1bits.T1IP = 7 ; // Prorite max
+   IFS0bits.T1IF = 0; // Clear l'interrupt
+   IEC0bits.INT1IE = 1; // INterrupt TMR1 enable
 }

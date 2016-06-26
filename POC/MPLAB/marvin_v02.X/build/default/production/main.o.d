@@ -3,5 +3,9 @@ main.c  \
 types.h  \
 timer.h  \
 Servo.h  \
-setup.h  \
- sonar.h 
+pwm.h  \
+ setup.h  \
+sonar.h  \
+marvin.h  \
+uart.h  \
+Ir.h 

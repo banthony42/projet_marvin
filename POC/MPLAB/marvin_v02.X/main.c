@@ -10,6 +10,7 @@
 #include "timer.h"
 #include "Servo.h"
 #include "setup.h"
+#include "marvin.h"
 
 /*  PB AVEC LE RELAIS ALIM TOUT LE TEMPS A 5V SUR SERVO
  *      INTGRATION CODE
@@ -22,28 +23,39 @@
  *  FAIRE FONCTIONNER L'UART
  */
 
-m_servo led;
+/* En travaux
+
+void __ISR(4, IPL1) timer1_handler()
+{
+    marvin_timestamp.time += TIME_TMR1;
+    IFS0bits.T1IF = 0; // Clear l'interrupt
+}
+*/
 
 int main()
 {
     marvin_setup(&marvin);
-
+    marvin_init(&marvin); // mise a zero des inputs
+  
     LATBbits.LATB11 = 0;        // ALIM SENSOR, 1 = OFF , 0 = ON
     TRISBbits.TRISB11 = 0;
-    marvin_attach_servo(&led, MARVIN_OC5, MARVIN_OC5RS, 0, 20000, OC_TIMER2, 20000);    //  LED RIGHT
- // marvin_move_servo(&marvin.servo3, 180);
+    marvin_timestamp.time = 0;
+    marvin_attach_led(&marvin.led_right, MARVIN_OC5, MARVIN_OC5RS, 0,20000, OC_TIMER3, 20000);
+    marvin_attach_led(&marvin.led_left, MARVIN_OC3, MARVIN_OC3RS, 0,20000, OC_TIMER3, 20000);
+    u8 yolo = 0;
     while (1)
-    {
+    {   
         if (PR1 == TMR1)
         {
-            marvin_move_servo_speed(&led, 0, 5, 20);
-/*          marvin.val_sonar1 = marvin_capture(&marvin.sonar1);
-            marvin.val_sonar2 = marvin_capture(&marvin.sonar2);*/
-            marvin.val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
+            marvin_set_lux(&marvin.led_left, yolo);
+            marvin_set_lux(&marvin.led_right, yolo );
+            yolo++;
+            if (yolo > 100)
+                yolo = 0;
             _nop();
             TMR1 = 0;
-        }
-        marvin_move_servo_speed(&led, 180, 5, 20);
+      }
+        
     }
     return (0);
 }
