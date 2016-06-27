@@ -19,7 +19,7 @@
 
 
 
-#define TIME_TMR1 3
+#define TIME_TMR1 5
 /* Structure de temps
  *
  */
@@ -62,11 +62,13 @@ typedef struct  s_servo
     u32     *pin;
     u16      min;
     u16      max;
-    u8      pos;
+    s16      pos;
+    s16      new_pos;
     u32     *ocrs;
     u16     periode;
     u8      oc_timer;
     s8      incr;
+    u8      vitesse;
 }               m_servo;
 
 /*
@@ -126,7 +128,7 @@ typedef struct      s_marvin
     u16             val_ir;              // Valeur de mesure de l'IR
     u8              send[SIZE_MESS];     // Tableau pour l'envoi de message UART
     u8              receive[SIZE_MESS] ; // Tableau pour la reception de message UART
-    u16             counter1;            // Variable a tout faire ...
+    u32             counter1;            // Counter timer 3 /!\ Remettre a zero quand Marvin fais rien
     u16             counter2;            // Variable a tout faire ...
 }                   m_marvin;
 

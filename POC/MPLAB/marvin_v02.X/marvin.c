@@ -110,11 +110,12 @@ void    marvin_eye(u8 state)
 }
 
 
-void    __ISR(4, IPL1) timer1_interrupt()
+/*void    __ISR(4, IPL1) timer1_interrupt()
 {
     marvin.time->nbr_periode += 1;
+    _nop();
     IFS0bits.T1IF = 0;
-}
+}*/
 
 u32     get_time_sec(u32 timestamp, u32 nbr_periode)
 {
