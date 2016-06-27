@@ -38,9 +38,9 @@ int main()
   
     LATBbits.LATB11 = 0;        // ALIM SENSOR, 1 = OFF , 0 = ON
     TRISBbits.TRISB11 = 0;
-    u8 non[2] = {45, 135};
-    u8 oui[3] = {170, 90, 0};
-    u8 mid[4] = {170, 90, 45, 0};
+    u8 non[2] = {80, 100};
+    u8 oui[8] = {0, 180, 20, 30, 40, 50, 60, 70};
+    u8 mid[2] = {50, 0};
     u8 i3 = 0;
     u8 i2 = 0;
     u8 i1 = 0;
@@ -48,12 +48,10 @@ int main()
     {   
         if (PR1 == TMR1)
         {
-    //        marvin_move_servo_speed(&marvin.servo_scan, non[i2], 1, 10);
-
-
-            
             marvin_move_servo_speed(&marvin.servo_pitch, oui[i1], 1, 10);
             marvin_move_servo_speed(&marvin.servo_yaw, non[i2], 1, 10);
+            marvin_set_lux_speed(&marvin.led_left, mid[i3], 1, 40);
+            marvin_set_lux_speed(&marvin.led_right, mid[i3], 1, 40);
             marvin.val_sonar_r = marvin_capture(&marvin.sonar_right);
             marvin.val_sonar_l = marvin_capture(&marvin.sonar_left);
             marvin.val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
@@ -64,19 +62,10 @@ int main()
             i1++;
             if (i2 == 2)
                 i2 = 0;
-            if (i1 == 3)
+            if (i1 == 8)
                 i1 = 0;
-            if (i3 == 4)
+            if (i3 == 2)
                 i3 = 0;
-
-            /*
-               if (i3 > 180)
-                i3 = 0;
-            marvin_move_servo(&marvin.servo_pitch, i3 );
-            i3 += 90;
-             */
-         
-
         }  
     }
     return (0);

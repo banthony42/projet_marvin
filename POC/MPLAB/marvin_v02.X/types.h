@@ -19,7 +19,7 @@
 
 
 
-#define TIME_TMR1 5
+#define TIME_TMR1 2
 /* Structure de temps
  *
  */
@@ -85,9 +85,12 @@ typedef struct  s_servo
 typedef struct  s_led
 {
     u32     *pin;
-    u16      min;
-    u16      max;
-    u8      lux;
+    u16     min;
+    u16     max;
+    s16     lux;
+    s16     new_lux;
+    u8      vitesse;
+    s8      incr;
     u32     *ocrs;
     u16     periode;
     u8      oc_timer;

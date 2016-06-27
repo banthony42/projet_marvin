@@ -29,8 +29,7 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
     *pin = OC_OFF;              //Registre disable le temps de la config
     *pin = 0 | OCM | oc_timer;  // configuration du registre: OC1 disabled, OC1 mode: PWM, OC1 use TIMER2
     *pin |=  OC_ON;             // OC1 enabled
-    marvin_move_servo_speed(servo, 90, 1 ,10);// init position a 0 degres
-   // marvin_move_servo(servo, 90);
+    marvin_move_servo_speed(servo, 90, 1 ,5);// init position a 90 degres
 }
 
 /*

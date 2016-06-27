@@ -34,7 +34,7 @@ void    marvin_attach_led(m_led *led, u32 *pin, u32 *ocrs, u16 min, u16 max, u8 
  * Param1 : Objet m_led a allumer
  * Param2 : Luminosite voulue (0 a 100)
  */
-void    marvin_set_lux(m_led *led, u8 lux)
+void    marvin_set_lux(m_led *led, s16 lux)
 {
     if (led->lux == lux || lux > 100 || lux < 0)                                                    // Gestion d'erreur
         return ;
@@ -43,4 +43,16 @@ void    marvin_set_lux(m_led *led, u8 lux)
           *(led->ocrs) = (PR2 * (led->min + (lux * ((led->max - led->min) / 100)))) / led->periode;
     else
          *(led->ocrs) = (PR3 * (led->min + (lux * ((led->max - led->min) / 100)))) / led->periode;   // Ecriture du nouveau duty_cycle dans le registre OCxRS, cas du TIMER3
+}
+
+void    marvin_set_lux_speed(m_led *led, s16 lux, u16 deg_per_periode, u16 periode_msec)
+{
+    if (led->lux == lux || lux > 100 || lux < 0)                                    // Gestion d'erreur, angle impossible, ou servo deja en position
+        return ;
+    led->new_lux = lux;
+    led->vitesse = periode_msec;
+    if (lux > led->lux)                                                                // Determination de l'operation a effectuer pour l'increment, (addition ou soustraction)
+        led->incr = 1 * deg_per_periode;
+    else
+        led->incr = -1 * deg_per_periode;
 }
