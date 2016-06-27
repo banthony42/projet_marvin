@@ -50,11 +50,13 @@ u16      marvin_pulseIn(m_sonar *sonar)
     u16 ret = 0;
 
     marvin_set_periode(MARVIN_PR4, 1000, TYPE_B, MARVIN_CONF_TIMER4, TIME_MSEC);
-    while (!(*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin)))                   //On attend un front montant
+    TMR4 = 0;
+    while (!(*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin)) && TMR4 < PR4)                   //On attend un front montant
         TMR4 = 0;                                                                       //TMR4 a zero jusqu'au front montant
-    while (((*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin))) && TMR1 != PR1)   //Duree lageur impulsion
+    while (((*(sonar->read_echo_pin) & (1 << sonar->echo_attachpin))) && TMR4 < PR4)   //Duree lageur impulsion
         ret = TMR4;                                                                     //Enregistrement du temps de l'impulsion
-    return (((ret * 1000000) / PR1 )/ 58);                                              //Calul qui donne la distance en cm, fonction du temps d'impulsion
+  //   return (((ret * 1000000) / PR4 )/ 58);                                             //Calul qui donne la distance en cm, fonction du temps d'impulsion
+     return (ret * 10 / 58);
 }
 
 /*

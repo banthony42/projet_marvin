@@ -42,7 +42,7 @@ void    marvin_refresh(m_marvin *marvin)
  */
 u8    marvin_is_someone_left(m_marvin marvin)
 {
-    if (marvin.val_sonar_l < marvin.val_sonar_r)
+    if (marvin.val_sonar_l < 80 && marvin.val_sonar_l > 10 && marvin.val_sonar_l < marvin.val_sonar_r)
         return (1);
     return (0);
 }
@@ -53,7 +53,8 @@ u8    marvin_is_someone_left(m_marvin marvin)
  */
 u8    marvin_is_someone_right(m_marvin marvin)
 {
-    if (marvin.val_sonar_r < marvin.val_sonar_l)
+    if (marvin.val_sonar_r < 80 && marvin.val_sonar_r > 10
+            && marvin.val_sonar_r < marvin.val_sonar_l)
         return (1);
     return(0);
 }
@@ -63,27 +64,16 @@ u8    marvin_is_someone_right(m_marvin marvin)
  */
 u8   marvin_is_someone_found(m_marvin marvin)
 {
-    if (marvin.val_ir < IR_SCOPE)
+    if (marvin.val_ir < 120 && marvin.val_ir > 8)
         return (1);
+/*    if ((marvin.val_ir < marvin.val_sonar_l + 15) && (marvin.val_ir > marvin.val_sonar_l - 15))
+        return (1);
+    if ((marvin.val_ir < marvin.val_sonar_r + 15) && (marvin.val_ir > marvin.val_sonar_r - 15))
+        return (1);*/
     return (0);
 }
 
-/*
- * Fonction qui
- * Determine une valeur d'incrementation (+ ou -) pour tourner la tete vers la droite
- */
-void    marvin_turn_right(m_marvin *marvin);
 
-/*
- * Fonction qui
- * Determine une valeur d'incrementation (+ ou -) pour tourner la tete vers la gauche
- */
-void    marvin_turn_left(m_marvin *marvin);
-
-/*
- * Fonction d'arret d'incrementation
- * La fonction met la valeur d'increment a zero
- */
 void    marvin_stop_move(m_marvin *marvin)
 {
     marvin->servo_pitch.incr = 0;
@@ -99,13 +89,13 @@ void    marvin_eye(u8 state)
 {
     if (state == ON)
     {
-        marvin_set_lux(&marvin.led_left, 100);
-        marvin_set_lux(&marvin.led_right, 100);
+       marvin_set_lux_speed(&marvin.led_left, 40, 1, 40);
+       marvin_set_lux_speed(&marvin.led_right, 40, 1, 40);
     }
     else
     {
-        marvin_set_lux(&marvin.led_left, 0);
-        marvin_set_lux(&marvin.led_right, 0);
+       marvin_set_lux_speed(&marvin.led_left, 0, 1, 40);
+       marvin_set_lux_speed(&marvin.led_right, 0, 1, 40);
     }
 }
 

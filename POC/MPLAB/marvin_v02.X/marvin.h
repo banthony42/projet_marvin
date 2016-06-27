@@ -17,6 +17,7 @@
 #include "uart.h"
 #include "setup.h"
 #include "Ir.h"
+#include "leds.h"
 
 #define ON 1
 #define OFF 0

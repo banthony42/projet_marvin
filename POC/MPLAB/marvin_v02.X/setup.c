@@ -56,7 +56,7 @@ void    marvin_setup_timer(m_marvin *marvin)
     marvin->time->nbr_periode = 0;
     marvin->time->tmr = MARVIN_TIMER1;
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER1);   //  SETUP TMR1
-    marvin_set_periode(MARVIN_PR1, TIME_TMR1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);//  PERIODE DEFINIT a 10 sec , TIME_TMR1 definis dans types.h , il doit etre secondes
+    marvin_set_periode(MARVIN_PR1, TIME_TMR1, TYPE_A, MARVIN_CONF_TIMER1, TIME_MSEC);//  PERIODE DEFINIT a 10 sec , TIME_TMR1 definis dans types.h , il doit etre secondes
     marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   //  SETUP TMR2
     marvin_set_periode(MARVIN_PR2, 20, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);      //  20msec POUR PWM SERVO
     marvin_set_timer(MARVIN_CONF_TIMER3, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER3);   //  SETUP TMR3
