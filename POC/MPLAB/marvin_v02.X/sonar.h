@@ -20,7 +20,7 @@
 #define S2_TRIG_NPIN 2  // Numeros de PIN du TRIGGER S2
 #define S2_ECHO_NPIN 7  // Numeros de PIN de l'ECHO S2
 
-#define NBR_CAPTURE 11
+#define NBR_CAPTURE 5
 
 
 

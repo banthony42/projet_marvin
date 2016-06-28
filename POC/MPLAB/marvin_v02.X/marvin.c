@@ -42,7 +42,8 @@ void    marvin_refresh(m_marvin *marvin)
  */
 u8    marvin_is_someone_left(m_marvin marvin)
 {
-    if (marvin.val_sonar_l < 80 && marvin.val_sonar_l > 10 && marvin.val_sonar_l < marvin.val_sonar_r)
+    if (marvin.val_sonar_l < marvin.val_sonar_r - 5
+            && marvin.val_sonar_l < marvin.val_ir -5 )
         return (1);
     return (0);
 }
@@ -53,8 +54,8 @@ u8    marvin_is_someone_left(m_marvin marvin)
  */
 u8    marvin_is_someone_right(m_marvin marvin)
 {
-    if (marvin.val_sonar_r < 80 && marvin.val_sonar_r > 10
-            && marvin.val_sonar_r < marvin.val_sonar_l)
+    if (marvin.val_sonar_r < marvin.val_sonar_l - 5
+            && marvin.val_sonar_r < marvin.val_ir - 5)
         return (1);
     return(0);
 }
@@ -64,7 +65,7 @@ u8    marvin_is_someone_right(m_marvin marvin)
  */
 u8   marvin_is_someone_found(m_marvin marvin)
 {
-    if (marvin.val_ir < 120 && marvin.val_ir > 8)
+    if (marvin.val_ir < IR_SCOPE)
         return (1);
 /*    if ((marvin.val_ir < marvin.val_sonar_l + 15) && (marvin.val_ir > marvin.val_sonar_l - 15))
         return (1);

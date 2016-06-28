@@ -43,23 +43,23 @@ int main()
         _nop();
             marvin_refresh(&marvin);
            _nop();
+           
         if (marvin_is_someone_found(marvin))
         {
             marvin_stop_move(&marvin);
             marvin_set_lux_speed(&marvin.led_left, 0, 1, 40);
             marvin_set_lux_speed(&marvin.led_right, 0, 1, 40);
          }
-        else if (marvin_is_someone_left(marvin))
+        if (marvin_is_someone_left(marvin))
         {
-             marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos +10, 1, 40);
+             marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos +10, 1, 25);
              marvin_set_lux_speed(&marvin.led_left, 20, 1, 40);
         }
-        else if (marvin_is_someone_right(marvin))
+        if (marvin_is_someone_right(marvin))
         {
-             marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos - 10, 1, 40);
+             marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos - 10, 1, 25);
              marvin_set_lux_speed(&marvin.led_right, 20, 1, 40);
-        }
-      
+        } 
          _nop();
     }
     return (0);

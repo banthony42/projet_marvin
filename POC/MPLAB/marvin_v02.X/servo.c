@@ -39,7 +39,7 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
  */
 void    marvin_move_servo(m_servo *servo, s16 angle)
 {
-    if (servo->pos == angle || angle > 180 || angle < 0) // Gestion d'erreur, angle impossible ou servo deja en place
+    if (servo->pos == angle || angle > 170 || angle < 0) // Gestion d'erreur, angle impossible ou servo deja en place
     {
         _nop();
         return ;
