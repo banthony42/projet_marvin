@@ -30,6 +30,7 @@ void    marvin_setup(m_marvin *marvin)
 void    marvin_mapping_pin()
 {
         TRISBbits.TRISB2 = 1;
+        ANSELBbits.ANSB2 = 0;
            
     SYSKEY = 0x0;               //  Ensure OSCCON is locked
     SYSKEY = 0xAA996655;        //  Write key1 to SYSKEY

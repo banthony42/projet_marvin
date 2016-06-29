@@ -43,16 +43,16 @@ int main()
     int i_uart = 0;
     while (1)
     {
-        
-       while (U1STAbits.URXDA )
-    {
-        tab[i_uart] == U1RXREG;
-        ++i_uart;
-    }
+        while (U1STAbits.URXDA)
+        {
+            tab[i_uart++] = U1RXREG;
+            _nop();
+        }
+
          
-        // marvin_receive_message(tab, &i_uart);
-         //if (*tab)
-           // _nop();
+        //marvin_receive_message(tab, &i_uart);
+         if (*tab)
+            _nop();
          
         if (TMR1 == PR1)
        {
