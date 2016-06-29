@@ -19,7 +19,7 @@
 
 
 
-#define TIME_TMR1 100
+#define TIME_TMR1 1
 /* Structure de temps
  *
  */

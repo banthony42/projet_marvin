@@ -38,8 +38,31 @@ int main()
     marvin_init(&marvin);
     LATBbits.LATB11 = 0;        // ALIM SENSOR, 1 = OFF , 0 = ON
     TRISBbits.TRISB11 = 0;
+
+    u8 tab[25] = {0};
+    int i_uart = 0;
     while (1)
     {
+        
+       while (U1STAbits.URXDA )
+    {
+        tab[i_uart] == U1RXREG;
+        ++i_uart;
+    }
+         
+        // marvin_receive_message(tab, &i_uart);
+         //if (*tab)
+           // _nop();
+         
+        if (TMR1 == PR1)
+       {
+
+            marvin_send_message("yolo", 5);
+           // marvin_send_message("Je suis Marvin et j'ai la tete comme une planete", 50);
+            TMR1 = 0;
+       }
+        
+        /*
         _nop();
             marvin_refresh(&marvin);
            _nop();
@@ -59,8 +82,10 @@ int main()
         {
              marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos - 10, 1, 25);
              marvin_set_lux_speed(&marvin.led_right, 20, 1, 40);
-        } 
+        }
+
          _nop();
+         * */
     }
     return (0);
 }

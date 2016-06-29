@@ -266,7 +266,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="uart.c" ex="true" overriding="false">
+      <item path="uart.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -280,7 +280,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="uart.h" ex="true" overriding="false">
+      <item path="uart.h" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>

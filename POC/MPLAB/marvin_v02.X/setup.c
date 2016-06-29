@@ -18,6 +18,7 @@ void    marvin_setup(m_marvin *marvin)
     marvin_setup_ir();
     marvin_setup_interrupt();
     marvin->counter1 = 0;
+    marvin_setup_uart();
 //  marvin_setup_uart(MARVIN_UART, MARVIN_UART_STATUS);
     marvin_setup_leds();                // Setup des leds
 }
@@ -28,6 +29,8 @@ void    marvin_setup(m_marvin *marvin)
  */
 void    marvin_mapping_pin()
 {
+        TRISBbits.TRISB2 = 1;
+           
     SYSKEY = 0x0;               //  Ensure OSCCON is locked
     SYSKEY = 0xAA996655;        //  Write key1 to SYSKEY
     SYSKEY = 0x556699AA;        //  Write key2 to SYSKEY - Cette sequence debloque la securite de IOLOCK, (ouvre droit en ecriture)
@@ -38,7 +41,8 @@ void    marvin_mapping_pin()
     RPA4Rbits.RPA4R = 0b0101;   //  Mapping de la PIN RPA4 en OC4   (PITCH SERVO)
     RPB13Rbits.RPB13R = 0b0110; //  Mapping de la PIN RPB13 en OC5  (EYE RIGHT)
     RPB3Rbits.RPB3R = 0b0001;   //  Mapping de la PIN RPB3 en U1TX  (UART TRANSMIT)
-    U1RXRbits.U1RXR = 0b0100;   //  Mapping de la PIN RPB2 en U1RX  (UART RECEIVE)
+U1RXRbits.U1RXR = 0b0100;   //  Mapping de la PIN RPB2 en U1RX  (UART RECEIVE)
+ 
     CFGCONbits.IOLOCK = 1;      //  PPS is relock, Mapping pin is not allowed
     SYSKEY = 0x0;               // Relock the SYSKEY
 }
@@ -56,7 +60,7 @@ void    marvin_setup_timer(m_marvin *marvin)
     marvin->time->nbr_periode = 0;
     marvin->time->tmr = MARVIN_TIMER1;
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER1);   //  SETUP TMR1
-    marvin_set_periode(MARVIN_PR1, TIME_TMR1, TYPE_A, MARVIN_CONF_TIMER1, TIME_MSEC);//  PERIODE DEFINIT a 10 sec , TIME_TMR1 definis dans types.h , il doit etre secondes
+    marvin_set_periode(MARVIN_PR1, TIME_TMR1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);//  PERIODE DEFINIT a 10 sec , TIME_TMR1 definis dans types.h , il doit etre secondes
     marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   //  SETUP TMR2
     marvin_set_periode(MARVIN_PR2, 20, TYPE_B, MARVIN_CONF_TIMER2, TIME_MSEC);      //  20msec POUR PWM SERVO
     marvin_set_timer(MARVIN_CONF_TIMER3, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER3);   //  SETUP TMR3
@@ -124,7 +128,14 @@ void    marvin_setup_interrupt_tmr3()
 }
 
 void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
-{   
+{
+    /*
+     * Au bout de 5 minutes passer en mode bloquant pendant 30~60 secondes
+     * Mettre marvin a 90 degrees
+     * LED des yeux quasi eteint
+     * Envoyer un message UART_SEND_SLEEP en UART
+     */
+    
     if ((marvin.servo_pitch.vitesse && !(marvin.counter1 % marvin.servo_pitch.vitesse))
             && (marvin.servo_pitch.incr > 0 &&( marvin.servo_pitch.pos <=  marvin.servo_pitch.new_pos)
               || (marvin.servo_pitch.incr < 0 && (marvin.servo_pitch.pos >= marvin.servo_pitch.new_pos))))
@@ -143,6 +154,9 @@ void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
             || (marvin.servo_scan.incr < 0 && (marvin.servo_scan.pos >= marvin.servo_scan.new_pos))))
         marvin_move_servo(&marvin.servo_scan, marvin.servo_scan.pos + marvin.servo_scan.incr);
 
+    /*
+     * Revoir les fonctions pour allumer les Yeux on peut simplifier les conditions
+     */
     if ((marvin.led_left.vitesse && !(marvin.counter1 % marvin.led_left.vitesse)) &&
             (marvin.led_left.incr > 0 && (marvin.led_left.lux <= marvin.led_left.new_lux)
             || (marvin.led_left.incr < 0 && (marvin.led_left.lux >= marvin.led_left.new_lux))))
