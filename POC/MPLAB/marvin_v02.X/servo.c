@@ -40,10 +40,7 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
 void    marvin_move_servo(m_servo *servo, s16 angle)
 {
     if (servo->pos == angle || angle > 170 || angle < 0) // Gestion d'erreur, angle impossible ou servo deja en place
-    {
-        _nop();
         return ;
-    }
     servo->pos = angle;                                                                                         // Enregistrement de la nouvelle position
     if (servo->oc_timer == OC_TIMER2)
         *(servo->ocrs) = (PR2 * (servo->min + (angle * ((servo->max  - servo->min ) / 180)))) / servo->periode; // Ecriture du nouveau duty_cycle dans le registre OCxRS, cas du TIMER2
@@ -53,8 +50,6 @@ void    marvin_move_servo(m_servo *servo, s16 angle)
 
 void    marvin_move_servo_speed(m_servo *servo, s16 angle, u16 deg_per_periode, u16 periode_msec)
 {
-    _nop();
-//   marvin_set_periode(MARVIN_PR3, periode_msec, TYPE_B, MARVIN_CONF_TIMER3, TIME_MSEC);    // Set de la periode du TIMER4 a la periode voulue
     if (servo->pos == angle || angle > 180 || angle < 0)                                    // Gestion d'erreur, angle impossible, ou servo deja en position
         return ;
     servo->new_pos = angle;

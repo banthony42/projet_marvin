@@ -25,6 +25,7 @@ void    marvin_setup_servo();
 void    marvin_setup_interrupt();
 void    marvin_setup_interrupt_tmr1();
 void    marvin_setup_interrupt_tmr3();
+void    marvin_enable_sensor_servo();
 
 #endif	/* SETUP_H */
 

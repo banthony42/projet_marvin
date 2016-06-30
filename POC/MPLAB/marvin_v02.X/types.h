@@ -133,7 +133,6 @@ typedef struct      s_marvin
     u8              receive[SIZE_MESS] ; // Tableau pour la reception de message UART
     u32             counter1;            // Counter timer 3 /!\ Remettre a zero quand Marvin fais rien
     u16             counter2;            // Variable a tout faire ...
-    u8              sleep;              // quand marvin dors
 }                   m_marvin;
 
 m_marvin_time time;

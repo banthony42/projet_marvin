@@ -30,8 +30,7 @@ void    marvin_setup(m_marvin *marvin)
     marvin_setup_interrupt();
     marvin->counter1 = 0;
     marvin_setup_uart();
-//  marvin_setup_uart(MARVIN_UART, MARVIN_UART_STATUS);
-    marvin_setup_leds();                // Setup des leds
+    marvin_setup_leds();
     marvin_tempo(10000);
     marvin_enable_sensor_servo();
 }
@@ -122,7 +121,7 @@ void marvin_setup_interrupt()
     __builtin_enable_interrupts(); // on dit au CPU d'activer les interrupts
   //  marvin_setup_interrupt_tmr1();
     marvin_setup_interrupt_tmr3();
- //   marvin_setup_uart_interrupt(5);     // Setup de l'interrupt de l'uart
+    marvin_setup_uart_interrupt(5);     // Setup de l'interrupt de l'uart
 }
 
 void    marvin_setup_interrupt_tmr1()
@@ -148,7 +147,6 @@ void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
      * LED des yeux quasi eteint
      * Envoyer un message UART_SEND_SLEEP en UART
      */
-        // a foutre dans une foction
         if ((marvin.servo_pitch.vitesse && !(marvin.counter1 % marvin.servo_pitch.vitesse))
                 && (marvin.servo_pitch.incr > 0 &&( marvin.servo_pitch.pos <=  marvin.servo_pitch.new_pos)
                   || (marvin.servo_pitch.incr < 0 && (marvin.servo_pitch.pos >= marvin.servo_pitch.new_pos))))

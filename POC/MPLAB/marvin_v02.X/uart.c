@@ -18,17 +18,12 @@ void    marvin_setup_baud_rate()
  *  Param1: Adresse du mode register de l'UART (UxMODE)
  *  Param2: Adresse du Status / Control register (UxSTA)
  */
-//void    marvin_setup_uart(u32 *uart_reg, u32 *uart_status)
 void    marvin_setup_uart()
 {
-
+    marvin_setup_baud_rate(); // baud rate calcul en auto
     U1MODE = 0 | BRGH_x4 ;
- marvin_setup_baud_rate(); // baud rate calcul en auto
- U1MODE |= PDSEL_00 |  STSEL_0;         // config de l'UART avec define choisit
-
-  //U1STAbits.URXISEL = 2;
-   // U1STA = 0 | UTXEN_1 | URXEN_1 | URXISEL_10;  // Receive / Transmit enabled and config interrupt
-     U1STA = 0 | UTXEN_1 | URXEN_1;
+    U1MODE |= PDSEL_00 |  STSEL_0;         // config de l'UART avec define choisit
+    U1STA = 0 | UTXEN_1 | URXEN_1;
     U1MODE |= UART_ON;                               // Uart enable
 }
 
@@ -42,12 +37,10 @@ void    marvin_setup_uart()
  *  Param6: Adresse du seuil du TIMER a utiliser (PRx)
  *  Param7: Adresse du compteur du TIMER a utiliser (TMRx)
  */
-//void    marvin_send_message(u8 *tab, u8 size, u32 *uart_send, u32 *uart_status, u32 *conf_timer, u32 *pr, u32 *timer)
 void    marvin_send_message(u8 *tab, u8 size)
 {
     u8 i = 0;
 
-   /// marvin_set_periode(MARVIN_PR4, 20, TYPE_B, MARVIN_CONF_TIMER4, TIME_MSEC);
     while (i < size)
     {
         if (U1STAbits.UTXBF == 0) // check si le buffer est vide pour envoyer le byte
@@ -59,32 +52,28 @@ void    marvin_send_message(u8 *tab, u8 size)
  * Fonction de setup de l'interrupt, sur reception d'une trame
  * Param1: piority level a donner a l'interrupt
  */
-/*
 void    marvin_setup_uart_interrupt(u8 priority_lvl)
 {
-    IFS0bits.U1RXIF = 0;
-    IPC6bits.U1IP = priority_lvl;
-    IEC0bits.U1RXIE = 1;
+    IFS1bits.U1RXIF = 0;
+    IPC8bits.U1IP = priority_lvl;
+    IEC1bits.U1RXIE = 1;
 }
-*/
+
+
 /*
  * Interrupt de reception de l'UART
  *
  * Verifier qu'on a l'acces sur le tableau et sa taille
- *
-void    __ISR(24, IPL5) uart_interrupt()
+ */
+void    __ISR(32, IPL5) uart_interrupt()
 {
-        while (U1STAbits.URXDA && nbr < 500)
-            test[nbr++] = U1RXREG;
-        if (nbr == 500)
-            nbr = 0;
-      IFS0bits.U1RXIF = 0;
+        while (U1STAbits.URXDA && marvin.counter2 < SIZE_MESS)
+            marvin.receive[marvin.counter2++] = U1RXREG;
+        if (marvin.counter2 == SIZE_MESS)
+            marvin.counter2 = 0;
+        _nop();
+      IFS1bits.U1RXIF = 0;
 }
-
-*/
-
-
-
 
 /*
  *  Fonction qui remplit les donnees recus dans un tableau
@@ -96,9 +85,6 @@ void    __ISR(24, IPL5) uart_interrupt()
  *
  *  Voir pendant codage de l'algo si utile ou si on utilise que l'interrupt
  */
-
-
-//char    *marvin_receive_message(u8 *receive, u16 *uart_nbr, u32 *uart_receive, u32 *is_receive)
 char    *marvin_receive_message(u8 *receive, u16 *uart_nbr)
 {
 
@@ -107,7 +93,7 @@ char    *marvin_receive_message(u8 *receive, u16 *uart_nbr)
         receive[*uart_nbr] == U1RXREG;
         ++*uart_nbr;
     }
-    if (500 == *uart_nbr)
+    if (SIZE_MESS == *uart_nbr)
         *uart_nbr = 0;
     _nop();
     return (receive);

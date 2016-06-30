@@ -7,38 +7,19 @@
 
 u16   ir_convert_tension_cm(u16 tension)
 {
-    u16 test;
     if (tension > 2990)
-    {
-        test =  (tension * -63 + 256880) / 10000;
         return (tension * -63 + 256880) / 10000;
-    }
-        
     if (tension > 2300)
-    {
-        test =  (tension * -44 + 202220) / 10000;
         return (tension * -44 + 202220) / 10000;
-    }
     if (tension > 1300)
-    {
-        test =  (tension * -143 + 385710) / 10000;
         return (tension * -143 + 385710) / 10000;
-    }
     if (tension > 750)
-    {
-        test =  (tension * -441 + 730880) / 10000;
         return (tension * -441 + 730880) / 10000;
-     }
-     
      if (tension > 510)
-     {
-         test = (tension * -1111 + 1166700) / 10000 ;
         return (tension * -1111 + 1166700) / 10000;
-     }
      return (tension * -2000 + 1600000) / 10000;
-
-
 }
+
 /*
  * Param1 : Registre de configuration TIMER a utiliser pour la capture (En principe le TMR4)
  * Param2 : Registre pour la Periode du TIMER
