@@ -12,6 +12,7 @@
 u32 map(u32 x, u32 in_min, u32 in_max, u32 out_min, u32 out_max);
 u16 marvin_tri_insertion(u16 *tab, u8 size, u16 valeur);
 u16 marvin_calcul_median(u16 *tab, u8 size);
+void    marvin_tempo(u32 tempo);
 
 #endif	/* TOOLS_H */
 

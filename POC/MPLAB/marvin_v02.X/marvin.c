@@ -20,6 +20,7 @@ void    marvin_init(m_marvin *marvin)
     marvin->val_sonar_r = 0;
     marvin->counter1 = 0;
     marvin->counter2 = 0;
+    marvin->sleep = 0;
 //    marvin_move_servo(&marvin->servo_pitch, 90);
 //    marvin_move_servo(&marvin->servo_yaw, 90);
 }
@@ -74,6 +75,38 @@ u8   marvin_is_someone_found(m_marvin marvin)
     return (0);
 }
 
+void    marvin_veille(u32 temps)
+{
+    
+  //  marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 25);
+   // marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
+    //marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
+
+    if (marvin.servo_yaw.pos > 85 && marvin.servo_yaw.pos < 95)
+    {
+        marvin_stop_move(&marvin);
+        if (marvin.led_left.lux < 7)
+        {
+            marvin_set_lux(&marvin.led_left, 1);
+            marvin_set_lux(&marvin.led_right, 1);
+        }
+        else
+        {
+            marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
+            marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
+        }
+         //smarvin_move_servo_speed(&marvin.servo_yaw, 90, 0, 25);
+
+    }else
+    {
+       marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
+       marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
+       marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 25);
+    }
+        // envoyer un message en uart 
+        if (temps + 30000 < marvin.counter1)
+            marvin.counter1 = 0;    
+}
 
 void    marvin_stop_move(m_marvin *marvin)
 {

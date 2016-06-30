@@ -2,6 +2,18 @@
 #include "tools.h"
 
 /*
+ * Delay en ms
+ * Param1: le nbr de ms a attendre
+ */
+
+void    marvin_tempo(u32 time)
+{
+    marvin.counter1 = 0;
+    while (marvin.counter1 < time);
+    marvin.counter1 = 0;
+}
+
+/*
  * Fonction map (c.f arduino, Return un y compris dans [out_min ; out_max] proportionelle a x compris entre [in_min ; in_max]
  * Param1: Valeur x recus comprise entre in_min et in_max
  * Param2: Valeur minimal de x

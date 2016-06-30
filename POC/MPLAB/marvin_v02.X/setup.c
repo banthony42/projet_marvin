@@ -5,12 +5,23 @@
 #include "setup.h"
 
 
+
+void    marvin_enable_sensor_servo()
+{
+
+    LATBbits.LATB11 = 0;        // ALIM SENSOR, 1 = OFF , 0 = ON
+    TRISBbits.TRISB11 = 0;
+    LATBbits.LATB10 = 1;        // ALIM SERVO 1 = ON, 0 = OFF
+    TRISBbits.TRISB10 = 0;
+}
+
 /*
  *  Fonction de Setup General du MARVIN
  *  Param1: Adresse de la structure de variables d'environement du Marvin
  */
 void    marvin_setup(m_marvin *marvin)
 {
+
     marvin_mapping_pin();
     marvin_setup_timer(marvin);
     marvin_setup_sonar(&marvin->sonar_right, &marvin->sonar_left);
@@ -21,6 +32,8 @@ void    marvin_setup(m_marvin *marvin)
     marvin_setup_uart();
 //  marvin_setup_uart(MARVIN_UART, MARVIN_UART_STATUS);
     marvin_setup_leds();                // Setup des leds
+    marvin_tempo(10000);
+    marvin_enable_sensor_servo();
 }
 
 /*
@@ -29,9 +42,8 @@ void    marvin_setup(m_marvin *marvin)
  */
 void    marvin_mapping_pin()
 {
-        TRISBbits.TRISB2 = 1;
-        ANSELBbits.ANSB2 = 0;
-           
+    TRISBbits.TRISB2 = 1;       //  Config de la PIN en input pour UARTRX
+    ANSELBbits.ANSB2 = 0;       //  Pin en digital pour la reception de l'uart
     SYSKEY = 0x0;               //  Ensure OSCCON is locked
     SYSKEY = 0xAA996655;        //  Write key1 to SYSKEY
     SYSKEY = 0x556699AA;        //  Write key2 to SYSKEY - Cette sequence debloque la securite de IOLOCK, (ouvre droit en ecriture)
@@ -42,8 +54,7 @@ void    marvin_mapping_pin()
     RPA4Rbits.RPA4R = 0b0101;   //  Mapping de la PIN RPA4 en OC4   (PITCH SERVO)
     RPB13Rbits.RPB13R = 0b0110; //  Mapping de la PIN RPB13 en OC5  (EYE RIGHT)
     RPB3Rbits.RPB3R = 0b0001;   //  Mapping de la PIN RPB3 en U1TX  (UART TRANSMIT)
-U1RXRbits.U1RXR = 0b0100;   //  Mapping de la PIN RPB2 en U1RX  (UART RECEIVE)
- 
+    U1RXRbits.U1RXR = 0b0100;   //  Mapping de la PIN RPB2 en U1RX  (UART RECEIVE)
     CFGCONbits.IOLOCK = 1;      //  PPS is relock, Mapping pin is not allowed
     SYSKEY = 0x0;               // Relock the SYSKEY
 }
@@ -128,6 +139,7 @@ void    marvin_setup_interrupt_tmr3()
    IEC0bits.T3IE = 1; // INterrupt TMR1 enable
 }
 
+
 void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
 {
     /*
@@ -136,42 +148,41 @@ void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
      * LED des yeux quasi eteint
      * Envoyer un message UART_SEND_SLEEP en UART
      */
-    
-    if ((marvin.servo_pitch.vitesse && !(marvin.counter1 % marvin.servo_pitch.vitesse))
-            && (marvin.servo_pitch.incr > 0 &&( marvin.servo_pitch.pos <=  marvin.servo_pitch.new_pos)
-              || (marvin.servo_pitch.incr < 0 && (marvin.servo_pitch.pos >= marvin.servo_pitch.new_pos))))
-          marvin_move_servo(&marvin.servo_pitch, marvin.servo_pitch.pos + marvin.servo_pitch.incr);
+        // a foutre dans une foction
+        if ((marvin.servo_pitch.vitesse && !(marvin.counter1 % marvin.servo_pitch.vitesse))
+                && (marvin.servo_pitch.incr > 0 &&( marvin.servo_pitch.pos <=  marvin.servo_pitch.new_pos)
+                  || (marvin.servo_pitch.incr < 0 && (marvin.servo_pitch.pos >= marvin.servo_pitch.new_pos))))
+              marvin_move_servo(&marvin.servo_pitch, marvin.servo_pitch.pos + marvin.servo_pitch.incr);
 
 
-    if ((marvin.servo_yaw.vitesse && !(marvin.counter1 % marvin.servo_yaw.vitesse)) &&
-            (marvin.servo_yaw.incr > 0 && (marvin.servo_yaw.pos <= marvin.servo_yaw.new_pos)
-            || (marvin.servo_yaw.incr < 0 && (marvin.servo_yaw.pos >= marvin.servo_yaw.new_pos))))
-        marvin_move_servo(&marvin.servo_yaw, marvin.servo_yaw.pos + marvin.servo_yaw.incr);
+        if ((marvin.servo_yaw.vitesse && !(marvin.counter1 % marvin.servo_yaw.vitesse)) &&
+                (marvin.servo_yaw.incr > 0 && (marvin.servo_yaw.pos <= marvin.servo_yaw.new_pos)
+                || (marvin.servo_yaw.incr < 0 && (marvin.servo_yaw.pos >= marvin.servo_yaw.new_pos))))
+            marvin_move_servo(&marvin.servo_yaw, marvin.servo_yaw.pos + marvin.servo_yaw.incr);
 
 
-    
-    if ((marvin.servo_scan.vitesse && !(marvin.counter1 % marvin.servo_scan.vitesse)) &&
-            (marvin.servo_scan.incr > 0 && (marvin.servo_scan.pos <= marvin.servo_scan.new_pos)
-            || (marvin.servo_scan.incr < 0 && (marvin.servo_scan.pos >= marvin.servo_scan.new_pos))))
-        marvin_move_servo(&marvin.servo_scan, marvin.servo_scan.pos + marvin.servo_scan.incr);
 
-    /*
-     * Revoir les fonctions pour allumer les Yeux on peut simplifier les conditions
-     */
-    if ((marvin.led_left.vitesse && !(marvin.counter1 % marvin.led_left.vitesse)) &&
-            (marvin.led_left.incr > 0 && (marvin.led_left.lux <= marvin.led_left.new_lux)
-            || (marvin.led_left.incr < 0 && (marvin.led_left.lux >= marvin.led_left.new_lux))))
-        marvin_set_lux(&marvin.led_left, marvin.led_left.lux + marvin.led_left.incr);
-    else if (marvin.led_left.vitesse == 0)
-        marvin_set_lux(&marvin.led_left, 0);
+        if ((marvin.servo_scan.vitesse && !(marvin.counter1 % marvin.servo_scan.vitesse)) &&
+                (marvin.servo_scan.incr > 0 && (marvin.servo_scan.pos <= marvin.servo_scan.new_pos)
+                || (marvin.servo_scan.incr < 0 && (marvin.servo_scan.pos >= marvin.servo_scan.new_pos))))
+            marvin_move_servo(&marvin.servo_scan, marvin.servo_scan.pos + marvin.servo_scan.incr);
 
-     if ((marvin.led_right.vitesse && !(marvin.counter1 % marvin.led_right.vitesse)) &&
-            (marvin.led_right.incr > 0 && (marvin.led_right.lux <= marvin.led_right.new_lux)
-            || (marvin.led_right.incr < 0 && (marvin.led_right.lux >= marvin.led_right.new_lux))))
-        marvin_set_lux(&marvin.led_right, marvin.led_right.lux + marvin.led_right.incr);
-    else if (marvin.led_right.vitesse == 0)
-        marvin_set_lux(&marvin.led_right, 0);
-     
+        /*
+         * Revoir les fonctions pour allumer les Yeux on peut simplifier les conditions
+         */
+        if ((marvin.led_left.vitesse && !(marvin.counter1 % marvin.led_left.vitesse)) &&
+                (marvin.led_left.incr > 0 && (marvin.led_left.lux <= marvin.led_left.new_lux)
+                || (marvin.led_left.incr < 0 && (marvin.led_left.lux >= marvin.led_left.new_lux))))
+            marvin_set_lux(&marvin.led_left, marvin.led_left.lux + marvin.led_left.incr);
+        else if (marvin.led_left.vitesse == 0)
+            marvin_set_lux(&marvin.led_left, 0);
+
+         if ((marvin.led_right.vitesse && !(marvin.counter1 % marvin.led_right.vitesse)) &&
+                (marvin.led_right.incr > 0 && (marvin.led_right.lux <= marvin.led_right.new_lux)
+                || (marvin.led_right.incr < 0 && (marvin.led_right.lux >= marvin.led_right.new_lux))))
+            marvin_set_lux(&marvin.led_right, marvin.led_right.lux + marvin.led_right.incr);
+        else if (marvin.led_right.vitesse == 0)
+            marvin_set_lux(&marvin.led_right, 0);
     marvin.counter1 += 1;
     IFS0bits.T3IF = 0;
     _nop();
