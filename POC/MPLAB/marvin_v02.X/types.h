@@ -12,7 +12,6 @@
 #define u8 unsigned char
 #define u16 unsigned short
 #define u32 unsigned long
-// Un define sur vloatile unsigned int pour les warning???
 #define s8 signed char
 #define s16 signed short
 #define s32 signed long
@@ -20,18 +19,9 @@
 
 
 #define TIME_TMR1 1
-/* Structure de temps
- *
- */
+#define NBR_ORDRES 4
+#define SIZE_MESS 100           // Taille maximum d'un message UART
 
-typedef struct s_timestamp m_timestamp;
-
-
-struct s_timestamp
-{
-    u32 time;
-    u32 last_operation; // temps de la derniere operation
-};
 
 /*
  *  Structure de gestion du temps
@@ -77,6 +67,7 @@ typedef struct  s_servo
  * min: duty_cycle pour Luminosite min (0 = Led eteinte)
  * max: duty_cycle pour Luminosite max (max = periode : Led allumer au max)
  * lux: Echelle luminosite (1 a 100)
+ * new_lux: nouvelle luminosite a atteindre
  * ocrs: registre de control correspondant a la PIN du servo
  * periode: periode du servo pour le signal PWM
  * oc_timer: registre cde comparaison secondaire correspondant a la PIN du servo
@@ -111,7 +102,13 @@ typedef struct  s_sonar
     u32     *read_echo_pin;     // registre read
 }               m_sonar;
 
-#define SIZE_MESS 100           // Taille maximum d'un message UART
+/*
+ * struct des fonctions de l'ordre UART
+ */
+typedef struct  s_ordre
+{
+    void (*f)(void);
+}               t_ordre;
 
 /*
  *  Structure de variables global
@@ -131,13 +128,13 @@ typedef struct      s_marvin
     u16             val_ir;              // Valeur de mesure de l'IR
     u8              send[SIZE_MESS];     // Tableau pour l'envoi de message UART
     u8              receive[SIZE_MESS] ; // Tableau pour la reception de message UART
-    u32             counter1;            // Counter timer 3 /!\ Remettre a zero quand Marvin fais rien
-    u16             counter2;            // Variable a tout faire ...
+    u32             counter1;            // Counter nbr periode du TMR3 /!\ Remettre a zero quand Marvin fais rien
+    u16             counter2;            // 
+    t_ordre         ordre[NBR_ORDRES];
 }                   m_marvin;
 
 m_marvin_time time;
 m_marvin marvin;
-m_timestamp marvin_timestamp;
 
 #endif	/* TYPES_H */
 

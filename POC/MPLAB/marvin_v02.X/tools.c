@@ -1,6 +1,34 @@
 #include "types.h"
 #include "tools.h"
 
+u32		ft_atoi(u8 *str)
+{
+    u32 nb;
+    u32 dizaine;
+    u32 signe;
+
+    nb = 0;
+    dizaine = 10;
+    signe = -1;
+    while (*str == '\t' || *str == '\n' || *str == '\v'
+                    || *str == '\f' || *str == '\r' || *str == ' ')
+            str++;
+    if (*str == 45 || *str == 43)
+    {
+            if (*str == 45)
+                    signe *= -1;
+            str++;
+    }
+    while (*str >= 48 && *str <= 57)
+    {
+            nb *= dizaine;
+            nb -= (*str - 48);
+            str++;
+    }
+    return (nb * signe);
+}
+
+
 /*
  * Delay en ms
  * Param1: le nbr de ms a attendre

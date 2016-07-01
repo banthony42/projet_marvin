@@ -60,16 +60,21 @@
 /*
  * Defines sur les ordres a envoyer en UART
  */
-#define UART_SEND_RIGHT "r" // Quand marvin tourne a droite
-#define UART_SEND_LEFT "l" // Quand Marvin tourne a gauche
-#define UART_SEND_SLEEP "s" // quand marvin tourne a droite
-#define UART_SEND_FIND "f" // Quand marvin  trouver une personne
+#define UART_SEND_RIGHT "0" // Quand marvin tourne a droite
+#define UART_SEND_LEFT "1" // Quand Marvin tourne a gauche
+#define UART_SEND_SLEEP "2" // quand marvin tourne a droite
+#define UART_SEND_FIND "3" // Quand marvin  trouver une personne
 
 
 void    marvin_setup_baud_rate();
-void     marvin_setup_uart();
-void marvin_send_message(u8 *tab, u8 size);
-char *marvin_receive_message(u8 *receive, u16 *uart_nbr);
+void    marvin_setup_uart();
+void    marvin_send_message(u8 *tab);
+void    marvin_ordre_right();
+void    marvin_ordre_left();
+void    marvin_ordre_find();
+void    marvin_ordre_sleep();
+u8      marvin_check_trans();
+char    *marvin_receive_message(u8 *receive, u16 *uart_nbr);
 #endif	/* UART_H */
 
 

@@ -4,8 +4,6 @@
 
 #include "setup.h"
 
-
-
 void    marvin_enable_sensor_servo()
 {
 

@@ -23,14 +23,6 @@
  *  FAIRE FONCTIONNER L'UART
  */
 
-/*
-void __ISR(_TIMER_1_VECTOR, IPL7) timer1_handler()
-{
-  marvin_timestamp.time += TIME_TMR1;
-  IFS0bits.T1IF = 0; // Clear l'interrupt
-}
-*/
-
 int main()
 {
     marvin_setup(&marvin);
@@ -38,36 +30,47 @@ int main()
 
     while (1)
     {
+        /*
+         * Useless
         if (TMR1 == PR1)
        {
             marvin_send_message("Je suis Marvin et j'ai la tete comme une planete", 50);
             TMR1 = 0;
        }
-       /*     if (marvin.counter1 > 60000)
-       //         marvin_veille(60000);
-       //     else
-       //     {
-/*                marvin_refresh(&marvin);
-                if (marvin_is_someone_found(marvin))
+         */
+        if (marvin.counter1 > 60000)
+                marvin_veille(60000);
+            else
+            {
+                
+                if (marvin_check_trans(marvin.receive))
                 {
-                    marvin_stop_move(&marvin);
-                    marvin_set_lux_speed(&marvin.led_left, 0, 1, 40);
-                    marvin_set_lux_speed(&marvin.led_right, 0, 1, 40);
-                    marvin_send_message("found", 6);
-                 }
-                if (marvin_is_someone_left(marvin))
-                {
-                     marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos +10, 1, 25);
-                     marvin_set_lux_speed(&marvin.led_left, 20, 1, 40);
-                     marvin_send_message("yolo", 5);
                 }
-                if (marvin_is_someone_right(marvin))
+                else
                 {
-                     marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos - 10, 1, 25);
-                     marvin_set_lux_speed(&marvin.led_right, 20, 1, 40);
-                  //   marvin_send_message("Je suis Marvin et j'ai la tete comme une planete", 50);
+                    marvin_refresh(&marvin);
+                    if (marvin_is_someone_found(marvin))
+                    {
+                        marvin_stop_move(&marvin);
+                        marvin_set_lux_speed(&marvin.led_left, 0, 1, 40);
+                        marvin_set_lux_speed(&marvin.led_right, 0, 1, 40);
+                        marvin_send_message(UART_SEND_FIND);
+                     }
+                    if (marvin_is_someone_left(marvin))
+                    {
+                         marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos +10, 1, 25);
+                         marvin_set_lux_speed(&marvin.led_left, 20, 1, 40);
+                          marvin_send_message(UART_SEND_LEFT);
+                    }
+                    if (marvin_is_someone_right(marvin))
+                    {
+                         marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos - 10, 1, 25);
+                         marvin_set_lux_speed(&marvin.led_right, 20, 1, 40);
+                         marvin_send_message(UART_SEND_RIGHT);
+
+                    }
                 }
-//            }*/
+           }
     }
     return (0);
 }

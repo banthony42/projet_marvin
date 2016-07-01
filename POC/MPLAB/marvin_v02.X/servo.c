@@ -39,8 +39,8 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
  */
 void    marvin_move_servo(m_servo *servo, s16 angle)
 {
-    if (servo->pos == angle || angle > 170 || angle < 0) // Gestion d'erreur, angle impossible ou servo deja en place
-        return ;
+    if (servo->pos == angle || angle > 180 || angle < 0) // Gestion d'erreur, Garder les extreme, 0deg et 180 deg ici
+        return ;                                         //plutot modifier les duty cycle propre a chaque servo pour limiter les angles extreme
     servo->pos = angle;                                                                                         // Enregistrement de la nouvelle position
     if (servo->oc_timer == OC_TIMER2)
         *(servo->ocrs) = (PR2 * (servo->min + (angle * ((servo->max  - servo->min ) / 180)))) / servo->periode; // Ecriture du nouveau duty_cycle dans le registre OCxRS, cas du TIMER2

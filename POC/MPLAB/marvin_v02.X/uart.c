@@ -30,22 +30,24 @@ void    marvin_setup_uart()
 /*
  *  Fonction qui envoi un tableau de donnees en UART
  *  Param1: Tableau a envoyer
- *  Param2: Size du Tableau
- *  Param3: Adresse du Transmit Register (UxTCXREG)
- *  Param4: Adresse du Status/Control Register (UxSTA)
- *  Param5: Adresse config Register du TIMER a utiliser (TxCON)
- *  Param6: Adresse du seuil du TIMER a utiliser (PRx)
- *  Param7: Adresse du compteur du TIMER a utiliser (TMRx)
  */
-void    marvin_send_message(u8 *tab, u8 size)
+void    marvin_send_message(u8 *tab)
 {
-    u8 i = 0;
+    //u8 i = 0;
 
+    /*
     while (i < size)
     {
         if (U1STAbits.UTXBF == 0) // check si le buffer est vide pour envoyer le byte
         U1TXREG = tab[i++];
+    }*/
+    while (*tab)
+    {
+        U1TXREG = *tab++;
     }
+    // On ajoute /n /r a le fin de l'envoie du message;
+    U1TXREG = '\n';
+    U1TXREG = '\r';
 }
 
 /*
@@ -62,7 +64,6 @@ void    marvin_setup_uart_interrupt(u8 priority_lvl)
 
 /*
  * Interrupt de reception de l'UART
- *
  * Verifier qu'on a l'acces sur le tableau et sa taille
  */
 void    __ISR(32, IPL5) uart_interrupt()
@@ -76,6 +77,35 @@ void    __ISR(32, IPL5) uart_interrupt()
 }
 
 /*
+ * Check si on as recu un transmition entiere
+ */
+u8  marvin_check_trans()
+{
+   while (*(marvin.receive))
+   {
+       if (*(marvin.receive) == '\n' && *(marvin.receive + 1) && *(marvin.receive + 1) == '\r')
+           return (1);
+   }
+   return (0);
+}
+
+/*
+ * Empty le premier ordre
+ */
+void    marvin_empty_receive(u8 *receive)
+{
+    u8 *d;
+
+    d = receive;
+    while (*receive != '\n' && *(receive + 1) && *(receive + 1) != '\r')
+        *receive++ = 0;
+    *receive++ == 0; // kill le \n
+    *receive++ = 0; //kill le \r
+    while (*receive)
+       *d++ = *receive++;
+}
+
+/*
  *  Fonction qui remplit les donnees recus dans un tableau
  *  Param1: Tableau a remplir
  *  Param2: Size du Tableau a remplir
@@ -85,9 +115,9 @@ void    __ISR(32, IPL5) uart_interrupt()
  *
  *  Voir pendant codage de l'algo si utile ou si on utilise que l'interrupt
  */
+//u8 pas char
 char    *marvin_receive_message(u8 *receive, u16 *uart_nbr)
 {
-
     while (U1STAbits.URXDA )
     {
         receive[*uart_nbr] == U1RXREG;
@@ -95,7 +125,6 @@ char    *marvin_receive_message(u8 *receive, u16 *uart_nbr)
     }
     if (SIZE_MESS == *uart_nbr)
         *uart_nbr = 0;
-    _nop();
+
     return (receive);
 }
-
