@@ -128,7 +128,9 @@ typedef struct      s_marvin
     u8              send[SIZE_MESS];     // Tableau pour l'envoi de message UART
     u8              receive[SIZE_MESS] ; // Tableau pour la reception de message UART
     u32             counter1;            // Counter nbr periode du TMR3 /!\ Remettre a zero quand Marvin fais rien
-    u16             counter2;            // 
+    u16             counter2;            //
+    u16             tmp_sl;
+    u16             tmp_sr;
     t_ordre         ordre[NBR_ORDRES];
 }                   m_marvin;
 

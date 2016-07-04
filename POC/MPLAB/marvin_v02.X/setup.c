@@ -148,6 +148,9 @@ void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
      * LED des yeux quasi eteint
      * Envoyer un message UART_SEND_SLEEP en UART
      */
+/*    if (marvin.servo_pitch.pos == marvin.servo_pitch.new_pos || marvin.servo_yaw.pos == marvin.servo_yaw.new_pos
+            || marvin.servo_scan.pos == marvin.servo_scan.new_pos)
+        marvin_stop_move(&marvin);*/
         if ((marvin.servo_pitch.vitesse && !(marvin.counter1 % marvin.servo_pitch.vitesse))
                 && (marvin.servo_pitch.incr > 0 &&( marvin.servo_pitch.pos <=  marvin.servo_pitch.new_pos)
                   || (marvin.servo_pitch.incr < 0 && (marvin.servo_pitch.pos >= marvin.servo_pitch.new_pos))))

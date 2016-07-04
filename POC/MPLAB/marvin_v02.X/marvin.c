@@ -10,15 +10,15 @@ void    marvin_behavior1()
     marvin_set_lux_speed(&marvin.led_right, 25, 1, 40);
 
 
-    marvin_tempo(4000);
+/*    marvin_tempo(4000);
 
     marvin_set_position(100, 110);
 
     marvin_tempo(4000);
 
-    marvin_set_position(60, 90);
+    marvin_set_position(60, 90);*/
 
-/*    //
+    //
     marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 10);
     marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);
     marvin_tempo(2000);
@@ -33,7 +33,7 @@ void    marvin_behavior1()
     marvin_move_servo_speed(&marvin.servo_yaw, 0, 1, 10);
     marvin_tempo(2000);
     marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 10);
-    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);*/
+    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);
 }
 
 /*
@@ -139,6 +139,9 @@ void    marvin_stop_move(m_marvin *marvin)
 {
     marvin->servo_pitch.incr = 0;
     marvin->servo_yaw.incr = 0;
+    marvin->servo_scan.incr = 0;
+    marvin->led_left.incr = 0;
+    marvin->led_right.incr = 0;
 }
 
 /*

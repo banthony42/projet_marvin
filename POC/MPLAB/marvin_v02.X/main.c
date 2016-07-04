@@ -39,14 +39,13 @@ int main()
 {
     marvin_setup(&marvin);
     marvin_init(&marvin);
-    marvin_stop_move(&marvin);
     while (1)
     {
-        //if (marvin.counter1 > 30000)
-            marvin_behavior1();
+//        if (marvin.counter1 > 30000)
+ //           marvin_behavior1();
 //                marvin_veille(60000);
-    /*    else
-        {
+  //      else
+   //     {
                     marvin_refresh(&marvin);
                     if (marvin_is_someone_found(marvin))
                     {
@@ -58,21 +57,22 @@ int main()
                      }
                     if (marvin_is_someone_left(marvin))
                     {
-                         marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos +10, 1, 25);
-                         marvin_set_lux_speed(&marvin.led_left, 25, 1, 20);
+                        LATBbits.LATB10 = 1;
                          marvin_set_lux_speed(&marvin.led_right, 2, 1, 20);
+                         marvin_set_lux_speed(&marvin.led_left, 25, 1, 20);
+                         marvin_move_servo_speed(&marvin.servo_yaw, 180, 1, 25);
                          marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 25);
                     //      marvin_send_message(UART_SEND_LEFT);
                     }
                     if (marvin_is_someone_right(marvin))
                     {
-                         marvin_move_servo_speed(&marvin.servo_yaw, marvin.servo_yaw.pos - 10, 1, 25);
                          marvin_set_lux_speed(&marvin.led_right, 25, 1, 20);
                          marvin_set_lux_speed(&marvin.led_left, 2, 1, 20);
+                         marvin_move_servo_speed(&marvin.servo_yaw, 0, 1, 25);
                          marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 25);
 //                         marvin_send_message(UART_SEND_RIGHT);
                     }
-        }*/
+//        }
     }
     return (0);
 }
