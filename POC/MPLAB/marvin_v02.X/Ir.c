@@ -35,7 +35,7 @@ u16    capture_ir(u32 *conf_timer, u32 *pr, u32 *timer)
     {
         AD1CON1bits.SAMP = 1;                                   // On lance le sampling
         *timer = 0;
-        while (*timer != *pr);
+        while (*timer < *pr);
         AD1CON1bits.SAMP = 0;                                   // On lance la conversion
         while (!(AD1CON1 && 0x0001));                           // On attend la fin de la conversion
         marvin_tri_insertion(tab, i, ADC1BUF0);                 // Lecture du signal recu encoye dans la Fonction de tri (c.f arduino)

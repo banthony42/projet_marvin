@@ -29,7 +29,6 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
     *pin = OC_OFF;              //Registre disable le temps de la config
     *pin = 0 | OCM | oc_timer;  // configuration du registre: OC1 disabled, OC1 mode: PWM, OC1 use TIMER2
     *pin |=  OC_ON;             // OC1 enabled
-    marvin_move_servo_speed(servo, 90, 1 ,5);// init position a 90 degres
 }
 
 /*
@@ -58,4 +57,58 @@ void    marvin_move_servo_speed(m_servo *servo, s16 angle, u16 deg_per_periode, 
         servo->incr = 1 * deg_per_periode;
     else
         servo->incr = -1 * deg_per_periode;
+}
+
+void    marvin_set_position(u8 pitch_angle, u8 yaw_angle)
+{
+
+    marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, 10);
+    marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, 20);
+}
+
+void    marvin_move_to_position(u8 pitch_angle, u8 yaw_angle, u8 max_periode_msec)
+{
+    s16  delta_pitch;
+    s16  delta_yaw;
+    u16  coeff;
+//    m_servo *yaw = &marvin.servo_yaw;
+//    m_servo *pitch = &marvin.servo_pitch;
+
+    if (yaw_angle < YAW_MIN || yaw_angle > YAW_MAX || pitch_angle < PITCH_MIN || pitch_angle > PITCH_MAX || max_periode_msec < 10)
+        return ;
+
+    delta_pitch = (marvin.servo_pitch.pos - pitch_angle);
+    delta_yaw = (marvin.servo_yaw.pos - yaw_angle);
+    if (delta_pitch < 0)
+        delta_pitch *= -1;
+    if (delta_yaw < 0)
+        delta_yaw *= -1;
+
+    if (!delta_yaw)
+        marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, max_periode_msec);
+    if (!delta_pitch)
+        marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, max_periode_msec);
+
+    if (delta_yaw > delta_pitch)
+    {
+        coeff = delta_yaw / delta_pitch;
+        u16 ok = max_periode_msec / coeff;
+        if (!ok)
+            ok = 10;
+        _nop();
+        marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, ok);
+        marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, max_periode_msec);
+        _nop();
+    }
+    else
+    {
+        coeff = delta_pitch / delta_yaw;
+        u16 ok2 = max_periode_msec / coeff;
+        if (!ok2)
+            ok2 = 10;
+        _nop();
+        marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, max_periode_msec);
+        marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, ok2);
+        _nop();
+    }
 }

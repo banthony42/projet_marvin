@@ -17,7 +17,6 @@
 #define s32 signed long
 
 
-
 #define TIME_TMR1 1
 #define NBR_ORDRES 4
 #define SIZE_MESS 100           // Taille maximum d'un message UART

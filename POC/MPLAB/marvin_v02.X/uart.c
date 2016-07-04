@@ -65,7 +65,7 @@ void    marvin_setup_uart_interrupt(u8 priority_lvl)
 /*
  * Interrupt de reception de l'UART
  * Verifier qu'on a l'acces sur le tableau et sa taille
- */
+ *//*
 void    __ISR(32, IPL5) uart_interrupt()
 {
         while (U1STAbits.URXDA && marvin.counter2 < SIZE_MESS)
@@ -74,7 +74,7 @@ void    __ISR(32, IPL5) uart_interrupt()
             marvin.counter2 = 0;
         _nop();
       IFS1bits.U1RXIF = 0;
-}
+}*/
 
 /*
  * Check si on as recu un transmition entiere

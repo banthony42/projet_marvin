@@ -29,7 +29,7 @@ void    marvin_setup(m_marvin *marvin)
     marvin->counter1 = 0;
     marvin_setup_uart();
     marvin_setup_leds();
-    marvin_tempo(10000);
+    marvin_tempo(2000);
     marvin_enable_sensor_servo();
 }
 
@@ -102,6 +102,9 @@ void    marvin_setup_servo(m_servo *servo1, m_servo *servo2, m_servo *servo3)
     marvin_attach_servo(servo1, MARVIN_OC2, MARVIN_OC2RS, 550, 2400, OC_TIMER2, 20000);    //  YAW
     marvin_attach_servo(servo2, MARVIN_OC4, MARVIN_OC4RS, 500, 2500, OC_TIMER2, 20000);    //  PITCH
     marvin_attach_servo(servo3, MARVIN_OC1, MARVIN_OC1RS, 550, 2400, OC_TIMER2, 20000);    //  SCAN
+    marvin_move_servo_speed(servo1, 90, 1 ,5);// init position a 90 degres
+    marvin_move_servo_speed(servo2, 60, 1 ,5);// init position a 90 degres
+    marvin_move_servo_speed(servo3, 90, 1 ,5);// init position a 90 degres
 }
 
 /*
@@ -119,7 +122,7 @@ void marvin_setup_interrupt()
     __builtin_enable_interrupts(); // on dit au CPU d'activer les interrupts
   //  marvin_setup_interrupt_tmr1();
     marvin_setup_interrupt_tmr3();
-    marvin_setup_uart_interrupt(5);     // Setup de l'interrupt de l'uart
+ //   marvin_setup_uart_interrupt(5);     // Setup de l'interrupt de l'uart
 }
 
 void    marvin_setup_interrupt_tmr1()

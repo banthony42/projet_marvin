@@ -4,6 +4,38 @@
 
 #include "marvin.h"
 
+void    marvin_behavior1()
+{
+    marvin_set_lux_speed(&marvin.led_left, 25, 1, 40);
+    marvin_set_lux_speed(&marvin.led_right, 25, 1, 40);
+
+
+    marvin_tempo(4000);
+
+    marvin_set_position(100, 110);
+
+    marvin_tempo(4000);
+
+    marvin_set_position(60, 90);
+
+/*    //
+    marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 10);
+    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);
+    marvin_tempo(2000);
+    // BEHAVIOR
+    marvin_move_servo_speed(&marvin.servo_pitch, 100, 1, 10);
+    marvin_move_servo_speed(&marvin.servo_yaw, 180, 1, 10);
+    marvin_tempo(2000);
+    marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 10);
+    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);
+    marvin_tempo(1000);
+    marvin_move_servo_speed(&marvin.servo_pitch, 100, 1, 10);
+    marvin_move_servo_speed(&marvin.servo_yaw, 0, 1, 10);
+    marvin_tempo(2000);
+    marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 10);
+    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);*/
+}
+
 /*
  * Fonction d'Initialisation du MARVIN,
  * Mettre les servo et les Leds dans un etat initial & initialiser quelque variables
@@ -18,16 +50,16 @@ void    marvin_init(m_marvin *marvin)
     marvin->val_sonar_r = 0;
     marvin->counter1 = 0;
     marvin->counter2 = 0;
-    marvin_init_ordre();
+ //   marvin_init_ordre();
 }
-
+/*
 void    marvin_init_ordre()
 {
     marvin.ordre[0] = marvin_ordre_right();
     marvin.ordre[1] = marvin_ordre_left();
  //   marvin.ordre[2] = marvin_ordre_find(); Completement CON
     marvin.ordre[3] = marvin_ordre_sleep();
-}
+}*/
 
 /*
  * Fonction de refresh de tout les capteurs et variable de mesures associees
