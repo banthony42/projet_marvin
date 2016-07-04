@@ -77,8 +77,8 @@ void    marvin_refresh(m_marvin *marvin)
  */
 u8    marvin_is_someone_left(m_marvin marvin)
 {
-    if (marvin.val_sonar_l < marvin.val_sonar_r - 5
-            && marvin.val_sonar_l < marvin.val_ir -5 )
+    if (marvin.val_sonar_l < marvin.val_sonar_r - 10
+            && marvin.val_sonar_l < marvin.val_ir -10 )
         return (1);
     return (0);
 }
@@ -89,8 +89,8 @@ u8    marvin_is_someone_left(m_marvin marvin)
  */
 u8    marvin_is_someone_right(m_marvin marvin)
 {
-    if (marvin.val_sonar_r < marvin.val_sonar_l - 5
-            && marvin.val_sonar_r < marvin.val_ir - 5)
+    if (marvin.val_sonar_r < marvin.val_sonar_l - 10
+            && marvin.val_sonar_r < marvin.val_ir - 10)
         return (1);
     return(0);
 }

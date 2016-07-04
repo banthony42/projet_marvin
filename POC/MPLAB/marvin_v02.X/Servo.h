@@ -12,8 +12,8 @@
 
 #define PITCH_MIN 50
 #define PITCH_MAX 100
-#define YAW_MIN 0
-#define YAW_MAX 180
+#define YAW_MIN 10
+#define YAW_MAX 170
 
 void    marvin_attach_servo(m_servo *servo, u32 *pin ,u32 *ocrs, u16 min, u16 max, u8 oc_timer, u16 periode);
 void    marvin_move_servo(m_servo *servo, s16 angle);
