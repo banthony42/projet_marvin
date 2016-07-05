@@ -33,7 +33,7 @@
  *
  *  SERVO PITCH DEBATTEMENT MAX: 50 a 100, repos a 60
  */
-u8 speed = 10;
+u8 speed = 20;
 
 int main()
 {
@@ -41,19 +41,19 @@ int main()
     marvin_init(&marvin);
     while (1)
     {
-//        if (marvin.counter1 > 30000)
- //           marvin_behavior1();
-//                marvin_veille(60000);
-  //      else
-   //     {
+        if (marvin.counter1 > 30000)
+            marvin_behavior1();
+              //  marvin_veille(60000);
+        else
+        {
                     marvin_refresh(&marvin);
                     if (marvin_is_someone_found(marvin))
                     {
                         marvin_stop_move(&marvin);
                         marvin_set_lux_speed(&marvin.led_left, 40, 1, 40);
                         marvin_set_lux_speed(&marvin.led_right, 40, 1, 40);
-                        marvin_move_servo_speed(&marvin.servo_pitch, 100, 1, 25);
-                    //    marvin_send_message(UART_SEND_FIND);
+                        marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MAX, 1, 25);
+              //          marvin_send_message(UART_SEND_FIND);
                      }
                     if (marvin_is_someone_left(marvin))
                     {
@@ -62,7 +62,7 @@ int main()
                          marvin_set_lux_speed(&marvin.led_left, 2, 1, 20);
                          marvin_move_servo_speed(&marvin.servo_yaw, YAW_MAX, 1, 35);
                          marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 25);
-                    //      marvin_send_message(UART_SEND_LEFT);
+                         marvin_send_message("2\n");
                     }
                     if (marvin_is_someone_right(marvin))
                     {
@@ -70,9 +70,9 @@ int main()
                          marvin_set_lux_speed(&marvin.led_left, 40, 1, 20);
                          marvin_move_servo_speed(&marvin.servo_yaw, YAW_MIN, 1, 35);
                          marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 25);
-//                         marvin_send_message(UART_SEND_RIGHT);
+                         marvin_send_message("1\n");
                     }
-//        }
+          }
     }
     return (0);
 }

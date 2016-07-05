@@ -36,9 +36,10 @@ u32		ft_atoi(u8 *str)
 
 void    marvin_tempo(u32 time)
 {
-    marvin.counter1 = 0;
-    while (marvin.counter1 < time);
-    marvin.counter1 = 0;
+    u32 tmp;
+
+    tmp = marvin.counter1;
+    while (marvin.counter1 < tmp + time);
 }
 
 /*

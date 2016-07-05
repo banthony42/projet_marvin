@@ -46,8 +46,8 @@ void    marvin_send_message(u8 *tab)
         U1TXREG = *tab++;
     }
     // On ajoute /n /r a le fin de l'envoie du message;
-    U1TXREG = '\n';
-    U1TXREG = '\r';
+  //  U1TXREG = '\n';
+   // U1TXREG = '\r';
 }
 
 /*

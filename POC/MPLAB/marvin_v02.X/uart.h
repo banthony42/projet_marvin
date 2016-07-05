@@ -60,10 +60,10 @@
 /*
  * Defines sur les ordres a envoyer en UART
  */
-#define UART_SEND_RIGHT "0" // Quand marvin tourne a droite
-#define UART_SEND_LEFT "1" // Quand Marvin tourne a gauche
-#define UART_SEND_SLEEP "2" // quand marvin tourne a droite
-#define UART_SEND_FIND "3" // Quand marvin  trouver une personne
+#define UART_SEND_RIGHT "1" // Quand marvin tourne a droite
+#define UART_SEND_LEFT "2" // Quand Marvin tourne a gauche
+#define UART_SEND_SLEEP "3" // quand marvin tourne a droite
+#define UART_SEND_WAIT "4" // Quand marvin  trouver une personne
 
 
 void    marvin_setup_baud_rate();

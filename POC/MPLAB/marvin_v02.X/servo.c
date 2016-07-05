@@ -66,15 +66,17 @@ void    marvin_set_position(u8 pitch_angle, u8 yaw_angle)
     marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, 20);
 }
 
-void    marvin_move_to_position(u8 pitch_angle, u8 yaw_angle, u8 max_periode_msec)
+void    marvin_move_to_position(u8 pitch_angle, u8 yaw_angle, u16 min_periode_msec)
 {
     s16  delta_pitch;
     s16  delta_yaw;
     u16  coeff;
+    u16  yaw_period;
+    u16  pitch_period;
 //    m_servo *yaw = &marvin.servo_yaw;
 //    m_servo *pitch = &marvin.servo_pitch;
 
-    if (yaw_angle < YAW_MIN || yaw_angle > YAW_MAX || pitch_angle < PITCH_MIN || pitch_angle > PITCH_MAX || max_periode_msec < 10)
+    if (yaw_angle < YAW_MIN || yaw_angle > YAW_MAX || pitch_angle < PITCH_MIN || pitch_angle > PITCH_MAX || min_periode_msec < 10)
         return ;
 
     delta_pitch = (marvin.servo_pitch.pos - pitch_angle);
@@ -85,30 +87,24 @@ void    marvin_move_to_position(u8 pitch_angle, u8 yaw_angle, u8 max_periode_mse
         delta_yaw *= -1;
 
     if (!delta_yaw)
-        marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, max_periode_msec);
+        marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, min_periode_msec);
     if (!delta_pitch)
-        marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, max_periode_msec);
+        marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, min_periode_msec);
 
     if (delta_yaw > delta_pitch)
     {
         coeff = delta_yaw / delta_pitch;
-        u16 ok = max_periode_msec / coeff;
-        if (!ok)
-            ok = 10;
-        _nop();
-        marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, ok);
-        marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, max_periode_msec);
+        pitch_period = min_periode_msec * delta_yaw / delta_pitch;
+        yaw_period = min_periode_msec;
         _nop();
     }
     else
     {
         coeff = delta_pitch / delta_yaw;
-        u16 ok2 = max_periode_msec / coeff;
-        if (!ok2)
-            ok2 = 10;
-        _nop();
-        marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, max_periode_msec);
-        marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, ok2);
+        pitch_period = min_periode_msec;
+        yaw_period = min_periode_msec * delta_pitch / delta_yaw;
         _nop();
     }
+    marvin_move_servo_speed(&marvin.servo_pitch, pitch_angle, 1, pitch_period);
+    marvin_move_servo_speed(&marvin.servo_yaw, yaw_angle, 1, yaw_period);
 }

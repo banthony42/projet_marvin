@@ -9,31 +9,16 @@ void    marvin_behavior1()
     marvin_set_lux_speed(&marvin.led_left, 25, 1, 40);
     marvin_set_lux_speed(&marvin.led_right, 25, 1, 40);
 
-
-/*    marvin_tempo(4000);
-
-    marvin_set_position(100, 110);
-
-    marvin_tempo(4000);
-
-    marvin_set_position(60, 90);*/
-
-    //
-    marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 10);
-    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);
-    marvin_tempo(2000);
-    // BEHAVIOR
-    marvin_move_servo_speed(&marvin.servo_pitch, 100, 1, 10);
-    marvin_move_servo_speed(&marvin.servo_yaw, 180, 1, 10);
-    marvin_tempo(2000);
-    marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 10);
-    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);
-    marvin_tempo(1000);
-    marvin_move_servo_speed(&marvin.servo_pitch, 100, 1, 10);
-    marvin_move_servo_speed(&marvin.servo_yaw, 0, 1, 10);
-    marvin_tempo(2000);
-    marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 10);
-    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 10);
+    marvin_tempo(1500);
+    marvin_move_to_position(60, 90, 10);
+    marvin_tempo(1500);
+    marvin_move_to_position(100, 170, 10);
+    marvin_tempo(1500);
+    marvin_move_to_position(60, 90, 10);
+    marvin_tempo(800);
+    marvin_move_to_position(100, 10, 10);
+    marvin_tempo(1500);
+    marvin_move_to_position(60, 90, 10);
 }
 
 /*
@@ -77,8 +62,8 @@ void    marvin_refresh(m_marvin *marvin)
  */
 u8    marvin_is_someone_left(m_marvin marvin)
 {
-    if (marvin.val_sonar_l < marvin.val_sonar_r - 10
-            && marvin.val_sonar_l < marvin.val_ir -10 )
+    if (marvin.val_sonar_l < marvin.val_sonar_r - 5
+            && marvin.val_sonar_l < marvin.val_ir -5 )
         return (1);
     return (0);
 }
@@ -89,8 +74,8 @@ u8    marvin_is_someone_left(m_marvin marvin)
  */
 u8    marvin_is_someone_right(m_marvin marvin)
 {
-    if (marvin.val_sonar_r < marvin.val_sonar_l - 10
-            && marvin.val_sonar_r < marvin.val_ir - 10)
+    if (marvin.val_sonar_r < marvin.val_sonar_l - 5
+            && marvin.val_sonar_r < marvin.val_ir - 5)
         return (1);
     return(0);
 }
