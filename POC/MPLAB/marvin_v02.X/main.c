@@ -41,11 +41,12 @@ int main()
     marvin_init(&marvin);
     while (1)
     {
-        if (marvin.counter1 > 30000)
-            marvin_behavior1();
+        // a voir pour lesco;portements
+        //if (marvin.counter1 > 30000)
+         //   marvin_behavior1();
               //  marvin_veille(60000);
-        else
-        {
+       // else
+       // {
                     marvin_refresh(&marvin);
                     if (marvin_is_someone_found(marvin))
                     {
@@ -62,7 +63,6 @@ int main()
                          marvin_set_lux_speed(&marvin.led_left, 2, 1, 20);
                          marvin_move_servo_speed(&marvin.servo_yaw, YAW_MAX, 1, 35);
                          marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 25);
-                         marvin_send_message("2\n");
                     }
                     if (marvin_is_someone_right(marvin))
                     {
@@ -70,9 +70,8 @@ int main()
                          marvin_set_lux_speed(&marvin.led_left, 40, 1, 20);
                          marvin_move_servo_speed(&marvin.servo_yaw, YAW_MIN, 1, 35);
                          marvin_move_servo_speed(&marvin.servo_pitch, 60, 1, 25);
-                         marvin_send_message("1\n");
                     }
-          }
+         // }
     }
     return (0);
 }

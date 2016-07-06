@@ -33,21 +33,8 @@ void    marvin_setup_uart()
  */
 void    marvin_send_message(u8 *tab)
 {
-    //u8 i = 0;
-
-    /*
-    while (i < size)
-    {
-        if (U1STAbits.UTXBF == 0) // check si le buffer est vide pour envoyer le byte
-        U1TXREG = tab[i++];
-    }*/
     while (*tab)
-    {
         U1TXREG = *tab++;
-    }
-    // On ajoute /n /r a le fin de l'envoie du message;
-  //  U1TXREG = '\n';
-   // U1TXREG = '\r';
 }
 
 /*
@@ -79,6 +66,10 @@ void    __ISR(32, IPL5) uart_interrupt()
 /*
  * Check si on as recu un transmition entiere
  */
+
+
+// a revoir
+/*
 u8  marvin_check_trans()
 {
    while (*(marvin.receive))
@@ -88,10 +79,11 @@ u8  marvin_check_trans()
    }
    return (0);
 }
-
+*/
 /*
  * Empty le premier ordre
  */
+/*
 void    marvin_empty_receive(u8 *receive)
 {
     u8 *d;
@@ -104,7 +96,8 @@ void    marvin_empty_receive(u8 *receive)
     while (*receive)
        *d++ = *receive++;
 }
-
+ * 
+*/
 /*
  *  Fonction qui remplit les donnees recus dans un tableau
  *  Param1: Tableau a remplir
@@ -115,7 +108,7 @@ void    marvin_empty_receive(u8 *receive)
  *
  *  Voir pendant codage de l'algo si utile ou si on utilise que l'interrupt
  */
-//u8 pas char
+//u8 pas char , a revoir, revoir la taille du buffer
 char    *marvin_receive_message(u8 *receive, u16 *uart_nbr)
 {
     while (U1STAbits.URXDA )

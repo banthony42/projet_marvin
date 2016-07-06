@@ -3,4 +3,5 @@ servo.c  \
 timer.h  \
 types.h  \
 Servo.h  \
-pwm.h 
+pwm.h  \
+ uart.h 

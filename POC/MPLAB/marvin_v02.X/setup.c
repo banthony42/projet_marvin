@@ -154,20 +154,18 @@ void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
         if ((marvin.servo_pitch.vitesse && !(marvin.counter1 % marvin.servo_pitch.vitesse))
                 && (marvin.servo_pitch.incr > 0 &&( marvin.servo_pitch.pos <=  marvin.servo_pitch.new_pos)
                   || (marvin.servo_pitch.incr < 0 && (marvin.servo_pitch.pos >= marvin.servo_pitch.new_pos))))
-              marvin_move_servo(&marvin.servo_pitch, marvin.servo_pitch.pos + marvin.servo_pitch.incr);
+              marvin_move_servo(&marvin.servo_pitch, marvin.servo_pitch.pos + marvin.servo_pitch.incr, 0);
 
 
         if ((marvin.servo_yaw.vitesse && !(marvin.counter1 % marvin.servo_yaw.vitesse)) &&
                 (marvin.servo_yaw.incr > 0 && (marvin.servo_yaw.pos <= marvin.servo_yaw.new_pos)
                 || (marvin.servo_yaw.incr < 0 && (marvin.servo_yaw.pos >= marvin.servo_yaw.new_pos))))
-            marvin_move_servo(&marvin.servo_yaw, marvin.servo_yaw.pos + marvin.servo_yaw.incr);
-
-
+            marvin_move_servo(&marvin.servo_yaw, marvin.servo_yaw.pos + marvin.servo_yaw.incr, 1);
 
         if ((marvin.servo_scan.vitesse && !(marvin.counter1 % marvin.servo_scan.vitesse)) &&
                 (marvin.servo_scan.incr > 0 && (marvin.servo_scan.pos <= marvin.servo_scan.new_pos)
                 || (marvin.servo_scan.incr < 0 && (marvin.servo_scan.pos >= marvin.servo_scan.new_pos))))
-            marvin_move_servo(&marvin.servo_scan, marvin.servo_scan.pos + marvin.servo_scan.incr);
+            marvin_move_servo(&marvin.servo_scan, marvin.servo_scan.pos + marvin.servo_scan.incr, 0);
 
         /*
          * Revoir les fonctions pour allumer les Yeux on peut simplifier les conditions

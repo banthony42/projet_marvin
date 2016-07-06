@@ -2,6 +2,7 @@
 #include "timer.h"
 #include "types.h"
 #include "Servo.h"
+#include "uart.h"
 #include <p32xxxx.h>
 
 
@@ -35,16 +36,25 @@ void    marvin_attach_servo(m_servo *servo, u32 *pin, u32 *ocrs, u16 min, u16 ma
  * Fonction qui deplace un servo sur l'angle passe en param
  * Param1 : Objet m_servo a move
  * Param2 : Angle du servo voulu (0 a 180 deg)
+ * Param3 : 1 si servo Yaw
  */
-void    marvin_move_servo(m_servo *servo, s16 angle)
+void    marvin_move_servo(m_servo *servo, s16 angle, u8 which_servo)
 {
     if (servo->pos == angle || angle > 180 || angle < 0) // Gestion d'erreur, Garder les extreme, 0deg et 180 deg ici
         return ;                                         //plutot modifier les duty cycle propre a chaque servo pour limiter les angles extreme
-    servo->pos = angle;                                                                                         // Enregistrement de la nouvelle position
+    servo->pos = angle;
     if (servo->oc_timer == OC_TIMER2)
+    {
         *(servo->ocrs) = (PR2 * (servo->min + (angle * ((servo->max  - servo->min ) / 180)))) / servo->periode; // Ecriture du nouveau duty_cycle dans le registre OCxRS, cas du TIMER2
+        if (which_servo && marvin.servo_yaw.incr < 0)
+            marvin_send_message("1\n");
+        else if (which_servo && marvin.servo_yaw.incr > 0)
+            marvin_send_message("2\n");
+    }
     else
+    {
         *(servo->ocrs) = (PR3 * (servo->min + (angle * ((servo->max - servo->min) / 180)))) / servo->periode;   // Ecriture du nouveau duty_cycle dans le registre OCxRS, cas du TIMER3
+    }
 }
 
 void    marvin_move_servo_speed(m_servo *servo, s16 angle, u16 deg_per_periode, u16 periode_msec)
