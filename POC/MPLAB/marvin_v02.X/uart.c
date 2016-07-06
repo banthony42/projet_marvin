@@ -68,18 +68,6 @@ void    __ISR(32, IPL5) uart_interrupt()
  */
 
 
-// a revoir
-/*
-u8  marvin_check_trans()
-{
-   while (*(marvin.receive))
-   {
-       if (*(marvin.receive) == '\n' && *(marvin.receive + 1) && *(marvin.receive + 1) == '\r')
-           return (1);
-   }
-   return (0);
-}
-*/
 /*
  * Empty le premier ordre
  */
@@ -96,7 +84,7 @@ void    marvin_empty_receive(u8 *receive)
     while (*receive)
        *d++ = *receive++;
 }
- * 
+
 */
 /*
  *  Fonction qui remplit les donnees recus dans un tableau
@@ -108,7 +96,6 @@ void    marvin_empty_receive(u8 *receive)
  *
  *  Voir pendant codage de l'algo si utile ou si on utilise que l'interrupt
  */
-//u8 pas char , a revoir, revoir la taille du buffer
 char    *marvin_receive_message(u8 *receive, u16 *uart_nbr)
 {
     while (U1STAbits.URXDA )

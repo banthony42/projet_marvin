@@ -44,6 +44,7 @@ typedef struct  s_marvin_time
  * periode: periode du servo pour le signal PWM
  * oc_timer: registre cde comparaison secondaire correspondant a la PIN du servo
  * incr: Valeur d'increment de position (pas encore utilise)
+ * move_count: 
  */
 
 typedef struct  s_servo
@@ -58,6 +59,7 @@ typedef struct  s_servo
     u8      oc_timer;
     s8      incr;
     u8      vitesse;
+    u8      move_count;
 }               m_servo;
 
 /*

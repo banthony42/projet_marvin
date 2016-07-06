@@ -4,21 +4,48 @@
 
 #include "marvin.h"
 
+/*
+ *  Mouvement de recherche,
+ *  Marvin regarde autour de lui
+ */
 void    marvin_behavior1()
 {
     marvin_set_lux_speed(&marvin.led_left, 25, 1, 40);
     marvin_set_lux_speed(&marvin.led_right, 25, 1, 40);
 
     marvin_tempo(1500);
-    marvin_move_to_position(60, 90, 10);
+    marvin_move_to_position(PITCH_MIN, 90, 10);
     marvin_tempo(1500);
-    marvin_move_to_position(100, 170, 10);
+    marvin_move_to_position(PITCH_MAX, YAW_MAX, 10);
     marvin_tempo(1500);
-    marvin_move_to_position(60, 90, 10);
+    marvin_move_to_position(PITCH_MIN, 90, 10);
     marvin_tempo(800);
-    marvin_move_to_position(100, 10, 10);
+    marvin_move_to_position(PITCH_MAX, YAW_MIN, 10);
     marvin_tempo(1500);
-    marvin_move_to_position(60, 90, 10);
+    marvin_move_to_position(PITCH_MIN, 90, 10);
+    marvin_tempo(1500);
+    marvin.counter1 = 0;
+}
+
+/*
+ *  Mouvement de tete "depit"
+ */
+void    marvin_behavior2()
+{
+    marvin_set_lux_speed(&marvin.led_left, 2, 1, 40);
+    marvin_set_lux_speed(&marvin.led_right, 2, 1, 40);
+    marvin_tempo(740);
+    marvin_move_to_position(PITCH_MAX, 90, 12);
+    marvin_tempo(740);
+    marvin_move_to_position(PITCH_MAX - 15, 90 + 30, 12);
+    marvin_tempo(740);
+    marvin_move_to_position(PITCH_MAX - 30, 90 - 30, 12);
+    marvin_tempo(740);
+    marvin_move_to_position(PITCH_MAX - 45, 90 + 30, 12);
+    marvin_tempo(740);
+    marvin_move_to_position(PITCH_MIN, 90, 12);
+    marvin_tempo(740);
+    marvin.counter1 = 0;
 }
 
 /*
@@ -35,16 +62,7 @@ void    marvin_init(m_marvin *marvin)
     marvin->val_sonar_r = 0;
     marvin->counter1 = 0;
     marvin->counter2 = 0;
- //   marvin_init_ordre();
 }
-/*
-void    marvin_init_ordre()
-{
-    marvin.ordre[0] = marvin_ordre_right();
-    marvin.ordre[1] = marvin_ordre_left();
- //   marvin.ordre[2] = marvin_ordre_find(); Completement CON
-    marvin.ordre[3] = marvin_ordre_sleep();
-}*/
 
 /*
  * Fonction de refresh de tout les capteurs et variable de mesures associees
