@@ -19,7 +19,7 @@ void    marvin_enable_sensor_servo()
  */
 void    marvin_setup(m_marvin *marvin)
 {
-
+    _nop();
     marvin_mapping_pin();
     marvin_setup_timer(marvin);
     marvin_setup_sonar(&marvin->sonar_right, &marvin->sonar_left);
@@ -31,6 +31,7 @@ void    marvin_setup(m_marvin *marvin)
     marvin_setup_leds();
     marvin_tempo(2000);
     marvin_enable_sensor_servo();
+    marvin_tempo(2000);
 }
 
 /*
@@ -65,9 +66,6 @@ void    marvin_mapping_pin()
  */
 void    marvin_setup_timer(m_marvin *marvin)
 {
-    marvin->time = &time;
-    marvin->time->nbr_periode = 0;
-    marvin->time->tmr = MARVIN_TIMER1;
     marvin_set_timer(MARVIN_CONF_TIMER1, TCKPS11, TIMER_GATE_OFF, MARVIN_TIMER1);   //  SETUP TMR1
     marvin_set_periode(MARVIN_PR1, TIME_TMR1, TYPE_A, MARVIN_CONF_TIMER1, TIME_SEC);//  PERIODE DEFINIT a 10 sec , TIME_TMR1 definis dans types.h , il doit etre secondes
     marvin_set_timer(MARVIN_CONF_TIMER2, TCKPS00, TIMER_GATE_OFF, MARVIN_TIMER2);   //  SETUP TMR2
@@ -102,9 +100,9 @@ void    marvin_setup_servo(m_servo *servo1, m_servo *servo2, m_servo *servo3)
     marvin_attach_servo(servo1, MARVIN_OC2, MARVIN_OC2RS, 550, 2400, OC_TIMER2, 20000);    //  YAW
     marvin_attach_servo(servo2, MARVIN_OC4, MARVIN_OC4RS, 500, 2500, OC_TIMER2, 20000);    //  PITCH
     marvin_attach_servo(servo3, MARVIN_OC1, MARVIN_OC1RS, 550, 2400, OC_TIMER2, 20000);    //  SCAN
-    marvin_move_servo_speed(servo1, 90, 1 ,5);// init position a 90 degres
-    marvin_move_servo_speed(servo2, 60, 1 ,5);// init position a 90 degres
-    marvin_move_servo_speed(servo3, 90, 1 ,5);// init position a 90 degres
+    marvin_move_servo_speed(servo1, 90, 1 ,15);// init position a 90 degres
+    marvin_move_servo_speed(servo2, 60, 1 ,15);// init position a 90 degres
+    marvin_move_servo_speed(servo3, 90, 1 ,15);// init position a 90 degres
 }
 
 /*
@@ -120,14 +118,14 @@ void marvin_setup_interrupt()
 {
     INTCONbits.MVEC = 1; // INterrupt Controller em mode multi-Vector
     __builtin_enable_interrupts(); // on dit au CPU d'activer les interrupts
-  //  marvin_setup_interrupt_tmr1();
+//    marvin_setup_interrupt_tmr1();
     marvin_setup_interrupt_tmr3();
  //   marvin_setup_uart_interrupt(5);     // Setup de l'interrupt de l'uart
 }
 
 void    marvin_setup_interrupt_tmr1()
 {
-   IPC1bits.T1IP = 7 ; // Prorite max
+   IPC1bits.T1IP = 7; // Prorite max
    IFS0bits.T1IF = 0; // Clear l'interrupt
    IEC0bits.T1IE = 1; // INterrupt TMR1 enable
 }
@@ -151,15 +149,16 @@ void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
 /*    if (marvin.servo_pitch.pos == marvin.servo_pitch.new_pos || marvin.servo_yaw.pos == marvin.servo_yaw.new_pos
             || marvin.servo_scan.pos == marvin.servo_scan.new_pos)
         marvin_stop_move(&marvin);*/
+
         if ((marvin.servo_pitch.vitesse && !(marvin.counter1 % marvin.servo_pitch.vitesse))
-                && (marvin.servo_pitch.incr > 0 &&( marvin.servo_pitch.pos <=  marvin.servo_pitch.new_pos)
-                  || (marvin.servo_pitch.incr < 0 && (marvin.servo_pitch.pos >= marvin.servo_pitch.new_pos))))
+                && (marvin.servo_pitch.incr > 0 &&( marvin.servo_pitch.pos <  marvin.servo_pitch.new_pos)
+                  || (marvin.servo_pitch.incr < 0 && (marvin.servo_pitch.pos > marvin.servo_pitch.new_pos))))
               marvin_move_servo(&marvin.servo_pitch, marvin.servo_pitch.pos + marvin.servo_pitch.incr, 0);
 
 
         if ((marvin.servo_yaw.vitesse && !(marvin.counter1 % marvin.servo_yaw.vitesse)) &&
-                (marvin.servo_yaw.incr > 0 && (marvin.servo_yaw.pos <= marvin.servo_yaw.new_pos)
-                || (marvin.servo_yaw.incr < 0 && (marvin.servo_yaw.pos >= marvin.servo_yaw.new_pos))))
+                (marvin.servo_yaw.incr > 0 && (marvin.servo_yaw.pos < marvin.servo_yaw.new_pos)
+                || (marvin.servo_yaw.incr < 0 && (marvin.servo_yaw.pos > marvin.servo_yaw.new_pos))))
             marvin_move_servo(&marvin.servo_yaw, marvin.servo_yaw.pos + marvin.servo_yaw.incr, 1);
 
         if ((marvin.servo_scan.vitesse && !(marvin.counter1 % marvin.servo_scan.vitesse)) &&
@@ -171,18 +170,20 @@ void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
          * Revoir les fonctions pour allumer les Yeux on peut simplifier les conditions
          */
         if ((marvin.led_left.vitesse && !(marvin.counter1 % marvin.led_left.vitesse)) &&
-                (marvin.led_left.incr > 0 && (marvin.led_left.lux <= marvin.led_left.new_lux)
-                || (marvin.led_left.incr < 0 && (marvin.led_left.lux >= marvin.led_left.new_lux))))
+                (marvin.led_left.incr > 0 && (marvin.led_left.lux < marvin.led_left.new_lux)
+                || (marvin.led_left.incr < 0 && (marvin.led_left.lux > marvin.led_left.new_lux))))
             marvin_set_lux(&marvin.led_left, marvin.led_left.lux + marvin.led_left.incr);
         else if (marvin.led_left.vitesse == 0)
             marvin_set_lux(&marvin.led_left, 0);
 
          if ((marvin.led_right.vitesse && !(marvin.counter1 % marvin.led_right.vitesse)) &&
-                (marvin.led_right.incr > 0 && (marvin.led_right.lux <= marvin.led_right.new_lux)
-                || (marvin.led_right.incr < 0 && (marvin.led_right.lux >= marvin.led_right.new_lux))))
+                (marvin.led_right.incr > 0 && (marvin.led_right.lux < marvin.led_right.new_lux)
+                || (marvin.led_right.incr < 0 && (marvin.led_right.lux > marvin.led_right.new_lux))))
             marvin_set_lux(&marvin.led_right, marvin.led_right.lux + marvin.led_right.incr);
         else if (marvin.led_right.vitesse == 0)
             marvin_set_lux(&marvin.led_right, 0);
+         if (!(marvin.counter1 % 1000))
+             marvin.counter3 += 1;
     marvin.counter1 += 1;
     IFS0bits.T3IF = 0;
     _nop();

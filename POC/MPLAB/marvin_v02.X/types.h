@@ -16,7 +16,6 @@
 #define s16 signed short
 #define s32 signed long
 
-
 #define TIME_TMR1 1
 #define NBR_ORDRES 4
 #define SIZE_MESS 100           // Taille maximum d'un message UART
@@ -30,8 +29,9 @@
  */
 typedef struct  s_marvin_time
 {
-    u32     *tmr;
+    u32     tmr;
     u32     nbr_periode;
+    u32     stamp1;             // variable pour timestamp
 }               m_marvin_time;
 
 /*
@@ -116,7 +116,6 @@ typedef struct  s_ordre
  */
 typedef struct      s_marvin
 {
-    m_marvin_time   *time;               // structure de gestion du temps
     m_servo         servo_yaw;           // Objet servo1
     m_servo         servo_pitch;         // Objet servo2
     m_servo         servo_scan;          // Objet servo3
@@ -129,15 +128,25 @@ typedef struct      s_marvin
     u16             val_ir;              // Valeur de mesure de l'IR
     u8              send[SIZE_MESS];     // Tableau pour l'envoi de message UART
     u8              receive[SIZE_MESS] ; // Tableau pour la reception de message UART
-    u32             counter1;            // Counter nbr periode du TMR3 /!\ Remettre a zero quand Marvin fais rien
-    u16             counter2;            //
+    u32             counter1;            // Reserver Counter nbr periode du TMR3 /!\ Remettre a zero quand Marvin fais rien
+    u16             counter2;            // Reserver UART
+    u32             counter3;            // Reserver counter seconde baser sur Interrupt TMR3
+    u32             found;
     u16             tmp_sl;
     u16             tmp_sr;
     t_ordre         ordre[NBR_ORDRES];
 }                   m_marvin;
 
-m_marvin_time time;
-m_marvin marvin;
+typedef struct      s_behavior
+{
+    u8              feel_alone;
+    u8              feel_spite;
+    u8              feel_sleepy;
+}                   m_behavior;
+
+m_marvin_time   time;
+m_marvin        marvin;
+m_behavior      behavior;
 
 #endif	/* TYPES_H */
 

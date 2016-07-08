@@ -33,7 +33,6 @@
  *
  *  SERVO PITCH DEBATTEMENT MAX: 50 a 100, repos a 60
  */
-u8 speed = 20;
 
 int main()
 {
@@ -41,34 +40,37 @@ int main()
     marvin_init(&marvin);
     while (1)
     {
-        if (marvin.counter1 > 10000)
-            marvin_behavior2();
-        else
+        marvin_refresh(&marvin);
+        if (behavior.feel_alone && behavior.feel_spite != 2 && behavior.feel_sleepy != 2)
+            marvin_look_around();     // Look around, toute les 20sec sans detection
+        if (behavior.feel_spite == 2 && behavior.feel_sleepy != 2)
+            marvin_spite();     // Spite, au bout de 2 Look around
+        if (behavior.feel_sleepy == 2)
+            marvin_veille(30000);   //Mode veille de 30sec, au bout de 2 Spite*/
+        if (marvin_is_someone_found(marvin))
         {
-                    marvin_refresh(&marvin);
-                    if (marvin_is_someone_found(marvin))
-                    {
-                        marvin_stop_move(&marvin);
-                        marvin_set_lux_speed(&marvin.led_left, 40, 1, 40);
-                        marvin_set_lux_speed(&marvin.led_right, 40, 1, 40);
-                        marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MAX, 1, 25);
-                     }
-                    if (marvin_is_someone_left(marvin))
-                    {
-                        LATBbits.LATB10 = 1;
-                         marvin_set_lux_speed(&marvin.led_right, 40, 1, 20);
-                         marvin_set_lux_speed(&marvin.led_left, 2, 1, 20);
-                         marvin_move_servo_speed(&marvin.servo_yaw, YAW_MAX, 1, 35);
-                         marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MIN, 1, 25);
-                    }
-                    if (marvin_is_someone_right(marvin))
-                    {
-                         marvin_set_lux_speed(&marvin.led_right, 2, 1, 20);
-                         marvin_set_lux_speed(&marvin.led_left, 40, 1, 20);
-                         marvin_move_servo_speed(&marvin.servo_yaw, YAW_MIN, 1, 35);
-                         marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MIN, 1, 25);
-                    }
+            marvin_stop_move(&marvin);
+            marvin_set_lux_speed(&marvin.led_left, 40, 1, 40);
+            marvin_set_lux_speed(&marvin.led_right, 40, 1, 40);
+            marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MAX, 1, 25);
+            marvin.found = marvin.counter3;
          }
+        else
+            marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MIN, 1, 25);
+        if (marvin_is_someone_left(marvin))
+        {
+           marvin_set_lux_speed(&marvin.led_right, 40, 1, 20);
+           marvin_set_lux_speed(&marvin.led_left, 2, 1, 20);
+           marvin_move_servo_speed(&marvin.servo_yaw, YAW_MAX, 1, 37);
+           marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MIN, 1, 25);
+        }
+        if (marvin_is_someone_right(marvin))
+        {
+           marvin_set_lux_speed(&marvin.led_right, 2, 1, 20);
+           marvin_set_lux_speed(&marvin.led_left, 40, 1, 20);
+           marvin_move_servo_speed(&marvin.servo_yaw, YAW_MIN, 1, 37);
+           marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MIN, 1, 25);
+        }
     }
     return (0);
 }

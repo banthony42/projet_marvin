@@ -34,12 +34,12 @@ u32		ft_atoi(u8 *str)
  * Param1: le nbr de ms a attendre
  */
 
-void    marvin_tempo(u32 time)
+void    marvin_tempo(u32 tempo)
 {
     u32 tmp;
 
     tmp = marvin.counter1;
-    while (marvin.counter1 < tmp + time);
+    while (marvin.counter1 < tmp + tempo);
 }
 
 /*

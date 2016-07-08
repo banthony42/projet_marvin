@@ -8,11 +8,11 @@
  *  Mouvement de recherche,
  *  Marvin regarde autour de lui
  */
-void    marvin_behavior1()
+void    marvin_look_around()
 {
+    marvin_stop_move(&marvin);
     marvin_set_lux_speed(&marvin.led_left, 25, 1, 40);
     marvin_set_lux_speed(&marvin.led_right, 25, 1, 40);
-
     marvin_tempo(1500);
     marvin_move_to_position(PITCH_MIN, 90, 10);
     marvin_tempo(1500);
@@ -24,14 +24,17 @@ void    marvin_behavior1()
     marvin_tempo(1500);
     marvin_move_to_position(PITCH_MIN, 90, 10);
     marvin_tempo(1500);
-    marvin.counter1 = 0;
+    behavior.feel_alone = 0;
+    behavior.feel_spite++;          // feel more spity every time, he is feeling alone
+    marvin.found = marvin.counter3;
 }
 
 /*
  *  Mouvement de tete "depit"
  */
-void    marvin_behavior2()
+void    marvin_spite()
 {
+    marvin_stop_move(&marvin);
     marvin_set_lux_speed(&marvin.led_left, 2, 1, 40);
     marvin_set_lux_speed(&marvin.led_right, 2, 1, 40);
     marvin_tempo(740);
@@ -45,7 +48,65 @@ void    marvin_behavior2()
     marvin_tempo(740);
     marvin_move_to_position(PITCH_MIN, 90, 12);
     marvin_tempo(740);
-    marvin.counter1 = 0;
+    behavior.feel_spite = 0;
+    behavior.feel_sleepy++;     // he is feeling more sleepy every time he is feeling spite
+    marvin.found = marvin.counter3;
+}
+
+/*
+ * Fonction de refresh de tout les capteurs et variable de mesures associees
+ */
+void    marvin_refresh(m_marvin *marvin)
+{
+    u8 alone = 0;
+
+    marvin->val_sonar_r = marvin_capture(&marvin->sonar_right);
+    marvin->val_sonar_l = marvin_capture(&marvin->sonar_left);
+    marvin->val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);  
+    alone = marvin->counter3 - marvin->found;
+    if (!(alone % 20))          // Apres 20 secondes sans detection, feel alone
+        behavior.feel_alone++;
+}
+
+void    marvin_veille(u32 wait)
+{
+    // send un message mais utiliser un boolean pour ne l'envoyer qu'une fois
+    if (time.stamp1 == 0)
+        time.stamp1 = marvin.counter1;
+    if (marvin.servo_yaw.pos > 85 && marvin.servo_yaw.pos < 95)
+    {
+        marvin_stop_move(&marvin);
+        if (marvin.led_left.lux < 7)
+        {
+            marvin_set_lux(&marvin.led_left, 1);
+            marvin_set_lux(&marvin.led_right, 1);
+        }
+        else
+        {
+            marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
+            marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
+        }
+    }
+    else
+    {
+       marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
+       marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
+       marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 25);
+    }
+    marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MIN, 1, 25);
+    if (marvin.counter1 < time.stamp1 + wait)
+    {
+        // envoyer un message pour dire qu'il se reveillle,
+//        behavior.feel_sleepy = 0;       // sortit de la veille suite a message UART
+    }
+    else
+    {
+        behavior.feel_sleepy = 0;       // Ou sortit de la veille, car temps d'attente termine
+        behavior.feel_alone = 0;
+        behavior.feel_spite = 0;
+        marvin.found = marvin.counter3;
+        marvin.counter1 = 0;
+    }
 }
 
 /*
@@ -62,17 +123,28 @@ void    marvin_init(m_marvin *marvin)
     marvin->val_sonar_r = 0;
     marvin->counter1 = 0;
     marvin->counter2 = 0;
+    marvin->counter3 = 0;
+    marvin->found = 0;
+    time.nbr_periode= 0;
+    marvin_pos_initial();
+    behavior.feel_alone = 0;
+    behavior.feel_spite = 0;
+    behavior.feel_sleepy = 0;
 }
 
 /*
- * Fonction de refresh de tout les capteurs et variable de mesures associees
+ *  Met les actionneurs de Marvin
+ *  en etat initial 
  */
-void    marvin_refresh(m_marvin *marvin)
+void    marvin_pos_initial()
 {
-    marvin->val_sonar_r = marvin_capture(&marvin->sonar_right);
-    marvin->val_sonar_l = marvin_capture(&marvin->sonar_left);
-    marvin->val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
+    marvin_set_lux_speed(&marvin.led_right, 40, 1, 20);
+    marvin_set_lux_speed(&marvin.led_left, 40, 1, 20);
+    marvin_move_servo_speed(&marvin.servo_yaw, 90, 1 ,15);
+    marvin_move_servo_speed(&marvin.servo_pitch, 60, 1 ,15);
+    marvin_move_servo_speed(&marvin.servo_scan, 90, 1 ,15);
 }
+
 
 /*
  * Fonction de test de presence sur le sonar de gauche, return 1 ou 0
@@ -106,36 +178,6 @@ u8   marvin_is_someone_found(m_marvin marvin)
     if (marvin.val_ir < IR_SCOPE)
         return (1);
     return (0);
-}
-
-void    marvin_veille(u32 temps)
-{
-    // send un message mais utiliser un boolean pour ne l'envoyer qu'une fois
-    if (marvin.servo_yaw.pos > 85 && marvin.servo_yaw.pos < 95)
-    {
-        marvin_stop_move(&marvin);
-        if (marvin.led_left.lux < 7)
-        {
-            marvin_set_lux(&marvin.led_left, 1);
-            marvin_set_lux(&marvin.led_right, 1);
-        }
-        else
-        {
-            marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
-            marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
-        }
-    }
-    else
-    {
-       marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
-       marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
-       marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 25);
-    }
-    if (temps + 30000 < marvin.counter1)
-    {
-        // envoyer un message pour dire qu'il se reveillle
-        marvin.counter1 = 0;
-    }
 }
 
 void    marvin_stop_move(m_marvin *marvin)
@@ -173,15 +215,14 @@ void    marvin_eye(u8 state)
  * La fonction get_time_sec/msec renvoie le temps ecouler depuis le timestamp envoyer en parametre
  * Le timestamp est compose, de timestamp: valeur de TMR1,
  * et de nbr_periode,: combien de periode ecoulee
- */
-/*
+ *//*
 void    __ISR(4, IPL7) timer1_interrupt()
 {
-    marvin.time->nbr_periode += 1;
+    time.nbr_periode += 1;
     _nop();
     IFS0bits.T1IF = 0;
-}
-
+}*/
+/*
 u32     get_time_sec(u32 timestamp, u32 nbr_periode)
 {
     u32 actual_time;
@@ -190,8 +231,8 @@ u32     get_time_sec(u32 timestamp, u32 nbr_periode)
 
     result = 0;
     actual_time = TMR1;
-    actual_nbr_periode = marvin.time->nbr_periode;
-    if (actual_nbr_periode != nbr_periode)
+    actual_nbr_periode = time.nbr_periode;
+    if (timestamp > actual_time)
         result = map((timestamp - actual_time), 0, PR1, 0, 10) + ((actual_nbr_periode - nbr_periode) * 10);
     return(map((actual_time - timestamp), 0, PR1, 0, 10));
 }
@@ -204,9 +245,8 @@ u32     get_time_msec(u32 timestamp, u32 nbr_periode)
 
     result = 0;
     actual_time = TMR1;
-    actual_nbr_periode = marvin.time->nbr_periode;
+    actual_nbr_periode = time.nbr_periode;
     if (actual_nbr_periode != nbr_periode)
         result = map((timestamp - actual_time), 0, PR1, 0, 1000) + ((actual_nbr_periode - nbr_periode) * 10);
     return(map((actual_time - timestamp), 0, PR1, 0, 1000));
-}
-*/
+}*/

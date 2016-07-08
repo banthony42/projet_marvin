@@ -31,8 +31,10 @@ void    marvin_stop_move(m_marvin *marvin);
 void    marvin_eye(u8 state);
 u32     get_time_sec(u32 timestamp, u32 nbr_periode);
 u32     get_time_msec(u32 timestamp, u32 nbr_periode);
-void    marvin_behavior1();
-void    marvin_behavior2();
+void    marvin_look_around();
+void    marvin_spite();
+void    marvin_pos_initial();
+void    marvin_veille(u32 wait);
 
 #endif	/* MARVIN_H */
 
