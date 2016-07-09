@@ -37,6 +37,19 @@ void    marvin_send_message(u8 *tab)
         U1TXREG = *tab++;
 }
 
+void marvin_send_trame(u8 *tab)
+{
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+    marvin_send_message(tab);
+}
 /*
  * Fonction de setup de l'interrupt, sur reception d'une trame
  * Param1: piority level a donner a l'interrupt
@@ -52,7 +65,9 @@ void    marvin_setup_uart_interrupt(u8 priority_lvl)
 /*
  * Interrupt de reception de l'UART
  * Verifier qu'on a l'acces sur le tableau et sa taille
- *//*
+ *
+ * Message: 0 ou 1, si personne ou non devant la cam
+ */
 void    __ISR(32, IPL5) uart_interrupt()
 {
         while (U1STAbits.URXDA && marvin.counter2 < SIZE_MESS)
@@ -61,12 +76,7 @@ void    __ISR(32, IPL5) uart_interrupt()
             marvin.counter2 = 0;
         _nop();
       IFS1bits.U1RXIF = 0;
-}*/
-
-/*
- * Check si on as recu un transmition entiere
- */
-
+}
 
 /*
  * Empty le premier ordre

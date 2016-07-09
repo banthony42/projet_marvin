@@ -15,6 +15,7 @@
 #include "Servo.h"
 #include "sonar.h"
 #include "uart.h"
+#include "tools.h"
 #include "setup.h"
 #include "Ir.h"
 #include "leds.h"
@@ -24,6 +25,7 @@
 
 void    marvin_init(m_marvin *marvin);
 void    marvin_refresh(m_marvin *marvin);
+void    marvin_refresh_sensor(m_marvin *marvin);
 u8      marvin_is_someone_left(m_marvin marvin);
 u8      marvin_is_someone_right(m_marvin marvin);
 u8      marvin_is_someone_found(m_marvin marvin);
@@ -35,6 +37,8 @@ void    marvin_look_around();
 void    marvin_spite();
 void    marvin_pos_initial();
 void    marvin_veille(u32 wait);
+void    marvin_force_awaken();
+void    marvin_eye_glow();
 
 #endif	/* MARVIN_H */
 

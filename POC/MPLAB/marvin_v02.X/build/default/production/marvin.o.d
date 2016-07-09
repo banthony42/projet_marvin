@@ -7,6 +7,7 @@ timer.h  \
 pwm.h  \
 sonar.h  \
 uart.h  \
+tools.h  \
 setup.h  \
 Ir.h  \
 leds.h 

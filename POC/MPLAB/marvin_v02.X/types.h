@@ -59,7 +59,6 @@ typedef struct  s_servo
     u8      oc_timer;
     s8      incr;
     u8      vitesse;
-    u8      move_count;
 }               m_servo;
 
 /*
@@ -103,13 +102,6 @@ typedef struct  s_sonar
     u32     *read_echo_pin;     // registre read
 }               m_sonar;
 
-/*
- * struct des fonctions de l'ordre UART
- */
-typedef struct  s_ordre
-{
-    void (*f)(void);
-}               t_ordre;
 
 /*
  *  Structure de variables global
@@ -132,9 +124,9 @@ typedef struct      s_marvin
     u16             counter2;            // Reserver UART
     u32             counter3;            // Reserver counter seconde baser sur Interrupt TMR3
     u32             found;
+    u8              booleen;                // booleen pour message de veille UART
     u16             tmp_sl;
     u16             tmp_sr;
-    t_ordre         ordre[NBR_ORDRES];
 }                   m_marvin;
 
 typedef struct      s_behavior

@@ -8,5 +8,6 @@ pwm.h  \
 sonar.h  \
 marvin.h  \
 uart.h  \
+tools.h  \
 Ir.h  \
 leds.h 

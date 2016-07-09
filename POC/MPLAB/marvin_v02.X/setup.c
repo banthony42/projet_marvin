@@ -112,6 +112,10 @@ void    marvin_setup_leds()
 {
     marvin_attach_led(&marvin.led_right, MARVIN_OC5, MARVIN_OC5RS, 0,1000, OC_TIMER3, 1000);
     marvin_attach_led(&marvin.led_left, MARVIN_OC3, MARVIN_OC3RS, 0,1000, OC_TIMER3, 1000);
+    marvin_eye_glow();
+    marvin_eye_glow();
+    marvin_set_lux_speed(&marvin.led_left, 100, 1, 50);
+    marvin_set_lux_speed(&marvin.led_right, 100, 1, 50);
 }
 
 void marvin_setup_interrupt()
@@ -120,7 +124,7 @@ void marvin_setup_interrupt()
     __builtin_enable_interrupts(); // on dit au CPU d'activer les interrupts
 //    marvin_setup_interrupt_tmr1();
     marvin_setup_interrupt_tmr3();
- //   marvin_setup_uart_interrupt(5);     // Setup de l'interrupt de l'uart
+    marvin_setup_uart_interrupt(5);     // Setup de l'interrupt de l'uart
 }
 
 void    marvin_setup_interrupt_tmr1()
@@ -162,8 +166,8 @@ void    __ISR(_TIMER_3_VECTOR , IPL6) timer3_interrupt()
             marvin_move_servo(&marvin.servo_yaw, marvin.servo_yaw.pos + marvin.servo_yaw.incr, 1);
 
         if ((marvin.servo_scan.vitesse && !(marvin.counter1 % marvin.servo_scan.vitesse)) &&
-                (marvin.servo_scan.incr > 0 && (marvin.servo_scan.pos <= marvin.servo_scan.new_pos)
-                || (marvin.servo_scan.incr < 0 && (marvin.servo_scan.pos >= marvin.servo_scan.new_pos))))
+                (marvin.servo_scan.incr > 0 && (marvin.servo_scan.pos < marvin.servo_scan.new_pos)
+                || (marvin.servo_scan.incr < 0 && (marvin.servo_scan.pos > marvin.servo_scan.new_pos))))
             marvin_move_servo(&marvin.servo_scan, marvin.servo_scan.pos + marvin.servo_scan.incr, 0);
 
         /*

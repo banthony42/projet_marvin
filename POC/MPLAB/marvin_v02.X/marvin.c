@@ -14,42 +14,70 @@ void    marvin_look_around()
     marvin_set_lux_speed(&marvin.led_left, 25, 1, 40);
     marvin_set_lux_speed(&marvin.led_right, 25, 1, 40);
     marvin_tempo(1500);
-    marvin_move_to_position(PITCH_MIN, 90, 10);
+    marvin_move_to_position(PITCH_REST, 90, 10);
     marvin_tempo(1500);
     marvin_move_to_position(PITCH_MAX, YAW_MAX, 10);
     marvin_tempo(1500);
-    marvin_move_to_position(PITCH_MIN, 90, 10);
+    marvin_move_to_position(PITCH_REST, 90, 10);
     marvin_tempo(800);
     marvin_move_to_position(PITCH_MAX, YAW_MIN, 10);
     marvin_tempo(1500);
-    marvin_move_to_position(PITCH_MIN, 90, 10);
+    marvin_move_to_position(PITCH_REST, 90, 10);
     marvin_tempo(1500);
     behavior.feel_alone = 0;
     behavior.feel_spite++;          // feel more spity every time, he is feeling alone
     marvin.found = marvin.counter3;
 }
 
+void    marvin_look_round()
+{
+    marvin_stop_move(&marvin);
+    marvin_set_lux_speed(&marvin.led_left, 25, 1, 40);
+    marvin_set_lux_speed(&marvin.led_right, 25, 1, 40);
+    marvin_tempo(1500);
+    marvin_move_to_position(PITCH_REST, 90, 10);
+    marvin_tempo(1500);
+    marvin_move_to_position(PITCH_MAX, YAW_MAX, 10);
+    marvin_tempo(800);
+    marvin_move_to_position(PITCH_MAX, 90, 10);
+    marvin_tempo(800);
+    marvin_move_to_position(PITCH_MAX, YAW_MIN, 10);
+    marvin_tempo(800);
+    marvin_move_to_position(PITCH_REST, YAW_MIN, 10);
+    marvin_tempo(800);
+    marvin_move_to_position(PITCH_MIN, YAW_MIN, 10);
+    marvin_tempo(400);
+    marvin_move_to_position(PITCH_MIN, 90, 10);
+    marvin_tempo(300);
+    marvin_move_to_position(PITCH_MIN, YAW_MAX, 10);
+    marvin_tempo(300);
+    marvin_move_to_position(PITCH_REST, 90, 10);
+    marvin_tempo(1500);
+    behavior.feel_alone = 0;
+    behavior.feel_spite++;          // feel more spity every time, he is feeling alone
+    marvin.found = marvin.counter3;
+}
 /*
  *  Mouvement de tete "depit"
  */
 void    marvin_spite()
 {
     marvin_stop_move(&marvin);
-    marvin_set_lux_speed(&marvin.led_left, 2, 1, 40);
-    marvin_set_lux_speed(&marvin.led_right, 2, 1, 40);
-    marvin_tempo(740);
-    marvin_move_to_position(PITCH_MAX, 90, 12);
-    marvin_tempo(740);
-    marvin_move_to_position(PITCH_MAX - 15, 90 + 30, 12);
-    marvin_tempo(740);
-    marvin_move_to_position(PITCH_MAX - 30, 90 - 30, 12);
-    marvin_tempo(740);
-    marvin_move_to_position(PITCH_MAX - 45, 90 + 30, 12);
-    marvin_tempo(740);
-    marvin_move_to_position(PITCH_MIN, 90, 12);
-    marvin_tempo(740);
+    marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
+    marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
+    marvin_move_to_position(PITCH_MAX, 90, 15); //1
+    marvin_tempo(1500);
+    marvin_move_to_position(PITCH_MAX - 15, 130, 15); // 2
+    marvin_tempo(700);
+    marvin_move_to_position(PITCH_MAX - 30, 50, 15); // 3
+    marvin_tempo(800);
+    marvin_move_to_position(PITCH_MAX - 45, 130, 15); // 4
+    marvin_tempo(800);
+    marvin_move_to_position(PITCH_MIN, 90, 15); // 5
+    marvin_tempo(800);
     behavior.feel_spite = 0;
     behavior.feel_sleepy++;     // he is feeling more sleepy every time he is feeling spite
+    marvin.booleen++;
     marvin.found = marvin.counter3;
 }
 
@@ -60,55 +88,82 @@ void    marvin_refresh(m_marvin *marvin)
 {
     u8 alone = 0;
 
+    marvin_refresh_sensor(marvin);
+    alone = marvin->counter3 - marvin->found;
+    if (!(alone % 20) && alone != 0)          // Apres 20 secondes sans detection, feel alone
+        behavior.feel_alone++;
+}
+
+void    marvin_refresh_sensor(m_marvin *marvin)
+{
     marvin->val_sonar_r = marvin_capture(&marvin->sonar_right);
     marvin->val_sonar_l = marvin_capture(&marvin->sonar_left);
-    marvin->val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);  
-    alone = marvin->counter3 - marvin->found;
-    if (!(alone % 20))          // Apres 20 secondes sans detection, feel alone
-        behavior.feel_alone++;
+    marvin->val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
 }
 
 void    marvin_veille(u32 wait)
 {
-    // send un message mais utiliser un boolean pour ne l'envoyer qu'une fois
+    marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
+    marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
+    LATBbits.LATB10 = 0;        // ALIM SERVO 1 = ON, 0 = OFF
+    if (behavior.feel_sleepy == 2)
+        marvin_send_trame("3\n");   // Tell to the Pi marvin is sleeping
+    marvin_tempo(5000);
+    marvin.booleen = 0;
     if (time.stamp1 == 0)
         time.stamp1 = marvin.counter1;
     if (marvin.servo_yaw.pos > 85 && marvin.servo_yaw.pos < 95)
     {
         marvin_stop_move(&marvin);
-        if (marvin.led_left.lux < 7)
-        {
-            marvin_set_lux(&marvin.led_left, 1);
-            marvin_set_lux(&marvin.led_right, 1);
-        }
-        else
-        {
-            marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
-            marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
-        }
+        marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
+        marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
     }
     else
-    {
-       marvin_set_lux_speed(&marvin.led_left, 1, 1, 40);
-       marvin_set_lux_speed(&marvin.led_right, 1, 1, 40);
        marvin_move_servo_speed(&marvin.servo_yaw, 90, 1, 25);
-    }
-    marvin_move_servo_speed(&marvin.servo_pitch, PITCH_MIN, 1, 25);
+    marvin_move_servo_speed(&marvin.servo_pitch, PITCH_REST, 1, 25);
     if (marvin.counter1 < time.stamp1 + wait)
     {
-        // envoyer un message pour dire qu'il se reveillle,
-//        behavior.feel_sleepy = 0;       // sortit de la veille suite a message UART
+        // Attente, veille pendant wait secondes
+        marvin.val_ir = capture_ir(MARVIN_CONF_TIMER4, MARVIN_PR4, MARVIN_TIMER4);
+        // Test sur IR, si presence sortit du mode veille
+        if (marvin_is_someone_found(marvin))
+            marvin_force_awaken();
     }
     else
-    {
-        behavior.feel_sleepy = 0;       // Ou sortit de la veille, car temps d'attente termine
+        marvin_force_awaken();
+}
+
+void    marvin_force_awaken()
+{
+            behavior.feel_sleepy = 0;       // Ou sortit de la veille, car temps d'attente termine
         behavior.feel_alone = 0;
         behavior.feel_spite = 0;
         marvin.found = marvin.counter3;
         marvin.counter1 = 0;
-    }
+        marvin_eye_glow();
+        marvin_send_trame("4\n");       // Tell to the Pi marvin is awaking
+        marvin_tempo(5000);
+        LATBbits.LATB11 = 0;        // ALIM SENSOR, 1 = OFF , 0 = ON
+        LATBbits.LATB10 = 1;        // ALIM SERVO 1 = ON, 0 = OFF
 }
 
+void    marvin_eye_glow()
+{
+          // Sequence Glow Leds
+        marvin_set_lux_speed(&marvin.led_left, 100, 1, 50);
+        marvin_set_lux_speed(&marvin.led_right, 100, 1, 50);
+        marvin_tempo(700);
+        marvin_set_lux_speed(&marvin.led_left, 1, 1, 50);
+        marvin_set_lux_speed(&marvin.led_right, 1, 1, 50);
+        marvin_tempo(700);
+        marvin_set_lux_speed(&marvin.led_left, 40, 1, 50);
+        marvin_set_lux_speed(&marvin.led_right, 40, 1, 50);
+        marvin_tempo(700);
+        marvin_set_lux_speed(&marvin.led_left, 1, 1, 50);
+        marvin_set_lux_speed(&marvin.led_right, 1, 1, 50);
+        marvin_tempo(700);
+        // Fin Sequence glow
+}
 /*
  * Fonction d'Initialisation du MARVIN,
  * Mettre les servo et les Leds dans un etat initial & initialiser quelque variables
@@ -130,6 +185,7 @@ void    marvin_init(m_marvin *marvin)
     behavior.feel_alone = 0;
     behavior.feel_spite = 0;
     behavior.feel_sleepy = 0;
+    marvin->booleen = 0;
 }
 
 /*

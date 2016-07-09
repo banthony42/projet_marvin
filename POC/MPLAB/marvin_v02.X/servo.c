@@ -46,15 +46,13 @@ void    marvin_move_servo(m_servo *servo, s16 angle, u8 which_servo)
     if (servo->oc_timer == OC_TIMER2)
     {
         *(servo->ocrs) = (PR2 * (servo->min + (angle * ((servo->max  - servo->min ) / 180)))) / servo->periode; // Ecriture du nouveau duty_cycle dans le registre OCxRS, cas du TIMER2
-        if (which_servo && marvin.servo_yaw.incr < 0)
+        if (which_servo && marvin.servo_yaw.incr < 0 && !behavior.feel_alone)
             marvin_send_message("1\n");
-        else if (which_servo && marvin.servo_yaw.incr > 0)
+        else if (which_servo && marvin.servo_yaw.incr > 0 && !behavior.feel_alone)
             marvin_send_message("2\n");
     }
     else
-    {
         *(servo->ocrs) = (PR3 * (servo->min + (angle * ((servo->max - servo->min) / 180)))) / servo->periode;   // Ecriture du nouveau duty_cycle dans le registre OCxRS, cas du TIMER3
-    }
 }
 
 void    marvin_move_servo_speed(m_servo *servo, s16 angle, u16 deg_per_periode, u16 periode_msec)
@@ -84,7 +82,7 @@ void    marvin_move_to_position(u8 pitch_angle, u8 yaw_angle, u16 min_periode_ms
     u16  yaw_period = 0;
     u16  pitch_period = 0;
 
-    if (yaw_angle < YAW_MIN || yaw_angle > YAW_MAX || pitch_angle < PITCH_MIN || pitch_angle > PITCH_MAX || min_periode_msec < 10 || min_periode_msec > 100)
+    if (yaw_angle < YAW_MIN || yaw_angle > YAW_MAX || pitch_angle < PITCH_MIN || pitch_angle > PITCH_MAX || min_periode_msec < 5 || min_periode_msec > 100)
         return ;
 
     delta_pitch = (marvin.servo_pitch.pos - pitch_angle);

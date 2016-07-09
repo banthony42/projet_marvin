@@ -10,8 +10,9 @@
 #include "types.h"
 #include "pwm.h"
 
-#define PITCH_MIN 50
-#define PITCH_MAX 100
+#define PITCH_MIN 70
+#define PITCH_REST 80
+#define PITCH_MAX 120
 #define YAW_MIN 10
 #define YAW_MAX 170
 
