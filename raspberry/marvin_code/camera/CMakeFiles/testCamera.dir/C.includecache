@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/marvin_code/camera/client.h
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+unistd.h
+-
+netdb.h
+-
+
+/home/pi/marvin_code/camera/socket_tools.c
+stdio.h
+-
+stdlib.h
+-
+errno.h
+-
+string.h
+-
+client.h
+/home/pi/marvin_code/camera/client.h
+
