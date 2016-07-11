@@ -1,6 +1,7 @@
 #include "timer.h"
 #include "uart.h"
 #include "types.h"
+#include "marvin.h"
 #include <p32xxxx.h>
 #include <sys/attribs.h>
 
@@ -70,12 +71,14 @@ void    marvin_setup_uart_interrupt(u8 priority_lvl)
  */
 void    __ISR(32, IPL5) uart_interrupt()
 {
-        while (U1STAbits.URXDA && marvin.counter2 < SIZE_MESS)
-            marvin.receive[marvin.counter2++] = U1RXREG;
-        if (marvin.counter2 == SIZE_MESS)
-            marvin.counter2 = 0;
-        _nop();
-      IFS1bits.U1RXIF = 0;
+    while (U1STAbits.URXDA && marvin.counter2 < SIZE_MESS)
+        marvin.receive[marvin.counter2++] = U1RXREG;
+    if (marvin.counter2 == SIZE_MESS)
+        marvin.counter2 = 0;
+    if (marvin_is_a_person())
+        marvin_eye_blink();
+    marvin_reset_buffer();
+    IFS1bits.U1RXIF = 0;
 }
 
 /*

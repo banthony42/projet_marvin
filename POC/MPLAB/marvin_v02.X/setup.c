@@ -97,7 +97,7 @@ void    marvin_setup_sonar(m_sonar *sonar1, m_sonar *sonar2)
  */
 void    marvin_setup_servo(m_servo *servo1, m_servo *servo2, m_servo *servo3)
 {
-    marvin_attach_servo(servo1, MARVIN_OC2, MARVIN_OC2RS, 550, 2400, OC_TIMER2, 20000);    //  YAW
+    marvin_attach_servo(servo1, MARVIN_OC2, MARVIN_OC2RS, 400, 2400, OC_TIMER2, 20000);    //  YAW
     marvin_attach_servo(servo2, MARVIN_OC4, MARVIN_OC4RS, 500, 2500, OC_TIMER2, 20000);    //  PITCH
     marvin_attach_servo(servo3, MARVIN_OC1, MARVIN_OC1RS, 550, 2400, OC_TIMER2, 20000);    //  SCAN
     marvin_move_servo_speed(servo1, 90, 1 ,15);// init position a 90 degres

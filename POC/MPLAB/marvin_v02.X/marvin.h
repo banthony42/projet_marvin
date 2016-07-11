@@ -39,6 +39,9 @@ void    marvin_pos_initial();
 void    marvin_veille(u32 wait);
 void    marvin_force_awaken();
 void    marvin_eye_glow();
+void    marvin_eye_blink();
+u8      marvin_is_a_person();
+void    marvin_reset_buffer();
 
 #endif	/* MARVIN_H */
 

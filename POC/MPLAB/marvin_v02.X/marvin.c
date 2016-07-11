@@ -201,6 +201,52 @@ void    marvin_pos_initial()
     marvin_move_servo_speed(&marvin.servo_scan, 90, 1 ,15);
 }
 
+u8  marvin_is_a_person()
+{
+    u16 i = 0;
+
+    while(i < SIZE_MESS)
+    {
+        if (marvin.receive[i] == '1')
+            return (1);
+        i++;
+    }
+    _nop();
+    return (0);
+}
+
+void    marvin_reset_buffer()
+{
+    u8 i = 0;
+
+    while (i < SIZE_MESS)
+    {
+        marvin.receive[i] =0;
+        i++;
+    }
+}
+
+void    marvin_eye_blink()
+{
+     marvin_set_lux_speed(&marvin.led_left, 100, 1, 2);
+     marvin_set_lux_speed(&marvin.led_right, 100, 1, 2);
+     marvin_tempo(200);
+     marvin_set_lux_speed(&marvin.led_left, 0, 1, 2);
+     marvin_set_lux_speed(&marvin.led_right, 0, 1, 2);
+     marvin_tempo(200);
+     marvin_set_lux_speed(&marvin.led_left, 100, 1, 2);
+     marvin_set_lux_speed(&marvin.led_right, 100, 1, 2);
+     marvin_tempo(200);
+     marvin_set_lux_speed(&marvin.led_left, 0, 1, 2);
+     marvin_set_lux_speed(&marvin.led_right, 0, 1, 2);
+     marvin_tempo(200);
+     marvin_set_lux_speed(&marvin.led_left, 100, 1, 2);
+     marvin_set_lux_speed(&marvin.led_right, 100, 1, 2);
+     marvin_tempo(200);
+     marvin_set_lux_speed(&marvin.led_left, 0, 1, 2);
+     marvin_set_lux_speed(&marvin.led_right, 0, 1, 2);
+     marvin_tempo(200);
+}
 
 /*
  * Fonction de test de presence sur le sonar de gauche, return 1 ou 0

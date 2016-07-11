@@ -48,7 +48,7 @@ int main()
         if (behavior.feel_spite == 2 && behavior.feel_sleepy != 2)
             marvin_spite();         // Spite, au bout de 2 Look around
         if (behavior.feel_sleepy == 2)
-            marvin_veille(30000);   //Mode veille de 30sec, au bout de 2 Spite*/
+            marvin_veille(30000);   //Mode veille de 30sec, au bout de 2 Spite
         if (marvin_is_someone_found(marvin) && behavior.feel_sleepy < 2)
         {
             marvin_stop_move(&marvin);
