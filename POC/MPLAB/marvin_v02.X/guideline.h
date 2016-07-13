@@ -6,15 +6,20 @@
  */
 
 #ifndef GUIDELINE_H
-#define	GUIDELINE_H
+# define	GUIDELINE_H
+
+# define PERIODE_GLOBAL_TIMER 1
+# define UNIT_PERIODE_G_TIMER TIME_SEC
+# define SERVO_PWM_PERIODE 20
+# define ACTUATORS_REFRESH_PERIODE 1
 
 /*
  * Objet servo
  * name: nom du servo (yaw ou pitch)
  * pin: Registre complet de la pin a laquelle est attache le servo
- * ocrs: registre de control correspondant a la PIN du servo
+ * ocrs: registre de controle correspondant a la PIN du servo
  * periode: periode du servo pour le signal PWM
- * 0c_timer: registre cde comparaison secondaire correspondant a la PIN du servo
+ * oc_timer: registre de comparaison secondaire correspondant a la PIN du servo
  * lastmove_stamp: timestamp correspondant a l'instant du dernier changement de duty cycle
  *
  * min: duty_cycle minimum du servo en ms (ex: 500  (angle de 0deg))
@@ -31,7 +36,7 @@
  */
 typedef struct  s_servo
 {
-    u8      name;
+    u8      id;
     u32     *pin;
     u32     *ocrs;
     u16     periode;
@@ -63,7 +68,7 @@ typedef struct  s_servo
  *
  * lux_incr: luminosite intermediaire
  * lux_dst: nouvelle luminosite a atteindre
- * lock: verouillage, interdiction de changement de destimnation
+ * lock: verouillage, interdiction de changement de destination
  */
 typedef struct  s_eye
 {
@@ -95,6 +100,17 @@ typedef struct s_goal
 typedef struct s_mindset
 {
 }              t_mindset;
+
+// Reference de date
+typedef struct	s_stamp
+{
+	u16		*tmr_ptr;
+	u16		*pr_ptr;
+	u16		tmr;
+	u16		pr;
+	u16		nbr_periodes;
+	u16		unit;
+}				t_stamp;
 
 #endif	/* GUIDELINE_H */
 
