@@ -17,3 +17,9 @@ Lefr0g,
 Aodren92,
 banthony42,
 Theo Beaumanoir**
+
+
+### Aperçu des réalisations
+[![uml](https://github.com/banthony42/projet_marvin/blob/master/images/marvin_in_dev_1.JPG)](https://github.com/banthony42/projet_marvin/blob/master/images/marvin_in_dev_1.JPG)
+
+[![uml](https://github.com/banthony42/projet_marvin/blob/master/images/carte_controle_recto.JPG)](https://github.com/banthony42/projet_marvin/blob/master/images/carte_controle_recto.JPG)
